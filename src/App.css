@@ -1,0 +1,40 @@
+/* Start Navbar */
+.navbar {
+  overflow: hidden;
+  background: #fff;
+  border-bottom: solid #c6c5c5 2px;
+}
+.navbar a {
+  float: left;
+  display: block;
+  color: rgb(42, 38, 38);
+  text-align: center;
+  padding: 14px 0 20px 0;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #ffffff;
+  color: rgb(188, 187, 187);
+  font-weight: rgb(62, 61, 61);
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: all 1.5s ease;
+  animation: smoothScroll 1s forwards;
+}
+
+@keyframes smoothScroll {
+  0% {
+    transform: translateY(-142px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* End Start Navbar */
