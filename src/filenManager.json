@@ -1,0 +1,18 @@
+{
+  "logo_data": [
+    {
+      "domain": "bdki",
+      "alt": "Jak One Pay",
+      "logo_url": "/assets/images/jakonepay/Jakcard-Icon.png",
+      "isBdki": true,
+      "isColor": "blue"
+    },
+    {
+      "domain": "mrt",
+      "alt": "Mass Rapid Transit",
+      "logo_url": "/assets/images/mrt/mrt.png",
+      "isMrt": true,
+      "isColor": "blue"
+    }
+  ]
+}
