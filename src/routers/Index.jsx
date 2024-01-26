@@ -1,22 +1,28 @@
-import RootLayout from "../layouts/RootLayout";
+import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
+import CreatePin from "../pages/createNewPin/CreatePin";
+import ConfirmationPin from "../pages/createNewPin/ConfirmationPin";
+import Register from "../pages/registrationPage/Register";
+import SuccessPin from "../pages/SuccessPin";
+import HomePage from "../pages/HomePage/InputNoHp";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
-import HomePage from "../pages/Index";
-import Register from "../pages/Register";
-import CreatePin from "../pages/CreatePin";
-import ConfirmationPin from "../pages/ConfirmationPin";
-import SuccessPin from "../pages/SuccessPin";
-import InputNoHp from "../pages/InputNoHp";
-import OTPForm from "../pages/OtpForm";
+import { Navigate } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
+    element: <Navigate to="/home/bdki" />,
+  },
+  {
+    errorElement: <ErrorPage />,  
     children: [
+
       {
-        path: "/",
+        path: "/home/bdki",
+        element: <HomePage />,
+      },
+      {
+        path: "/home/mrt",
         element: <HomePage />,
       },
       {
@@ -36,12 +42,8 @@ export const router = createBrowserRouter([
         element: <SuccessPin />,
       },
       {
-        path: "input-no-hp",
-        element: <InputNoHp />,
-      },
-      {
-        path: "otp-form",
-        element: <OTPForm />,
+        path: "login",
+        element: <InputPinLogin />,
       },
     ],
   },
