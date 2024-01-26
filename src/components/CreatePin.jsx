@@ -1,21 +1,27 @@
-import PinInput from "react-pin-input";
 import React, { useState } from "react";
+import PinInput from "react-pin-input";
+import { useParams } from "react-router-dom";
 
 function CreatePin() {
   const [pin, setPin] = useState("");
+  let { id } = useParams();
   const handlePinChange = (value) => {
     setPin(value);
-    handlePinComplete();
-  };
-
-  const handlePinComplete = () => {
-    // console.log("World");
-    // Cek apakah inputan sudah terisi semua (sesuai dengan panjang yang diinginkan, misalnya 4)
     if (pin.length === 3) {
-      // Lakukan navigasi ke halaman berikutnya
-      window.location.href = "/confirmation-pin";
+      id = value;
+      window.location.href = `/confirmation-pin/${id}`;
     }
   };
+
+  // const handlePinComplete = () => {
+  //   // console.log("World");
+  //   // Cek apakah inputan sudah terisi semua (sesuai dengan panjang yang diinginkan, misalnya 4)
+  //   if (pin.length === 3) {
+  //     // Lakukan navigasi ke halaman berikutnya
+  //     alert(pin + 'pin : '+ pin.length);
+  //     window.location.href = "/confirmation-pin";
+  //   }
+  // };
 
   return (
     <>
@@ -23,8 +29,8 @@ function CreatePin() {
         <PinInput
           length={4}
           initialValue=""
-          secret={false}
-          secretDelay={100000}
+          secret={true}
+          // secretDelay={100000}
           onChange={handlePinChange}
           type="numeric"
           inputMode="number"

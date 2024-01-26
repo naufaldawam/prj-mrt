@@ -1,13 +1,13 @@
-import RootLayout from "../layouts/RootLayout";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
-import HomePage from "../pages/Index";
-import Register from "../pages/Register";
-import CreatePin from "../pages/CreatePin";
+import RootLayout from "../layouts/RootLayout";
 import ConfirmationPin from "../pages/ConfirmationPin";
-import SuccessPin from "../pages/SuccessPin";
+import CreatePin from "../pages/CreatePin";
+import HomePage from "../pages/Index";
 import InputNoHp from "../pages/InputNoHp";
 import OTPForm from "../pages/OtpForm";
+import Register from "../pages/Register";
+import SuccessPin from "../pages/SuccessPin";
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
         element: <CreatePin />,
       },
       {
-        path: "confirmation-pin",
+        path: "confirmation-pin/:id",
         element: <ConfirmationPin />,
       },
       {
