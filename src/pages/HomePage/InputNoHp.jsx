@@ -1,6 +1,7 @@
 import "react-phone-input-2/lib/bootstrap.css";
 import React, { useState } from "react";
 import { PinInput, ModalTermsAndCondition, FontAwesomeIconCheckeCircle, TemplatePhoneInput, handleButtonGoToPageLoginInputPin } from "../../constantFile/I_Constant";
+import { getButtonStyle,getButtonStyleConfirmation } from "../../constantFile/I_Constant";
 
 const CreatePin = () => {
   const [value, setValue] = useState();
@@ -10,13 +11,13 @@ const CreatePin = () => {
     setShowOTPInput(true);
     setIsActive(true);
   };
-
-
+  
   return (
     <div className="max-w-lg mx-auto bg-white overflow-hidden">
       <div className="p-4">
         <h2 className="text-xl font-semibold my-2 text-center">Welcome</h2>
         <p className="my-4">Experience a new way of transaction with JakOnePay</p>
+
 
         <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row">
           <div className="flex-1 mb-4 sm:mb-4 md:mb-4 lg:mr-2 xl:mr-2">
@@ -37,8 +38,6 @@ const CreatePin = () => {
                       width: "230px",
                     }}
 
-                    containerStyle={{ color: "red", border: "red" }}
-                    containerClass={{ border: "green" }}
                     value={value}
                     onChange={setValue}
                   />
@@ -46,9 +45,9 @@ const CreatePin = () => {
                 <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-1">
                   <button
                     onClick={handleOTPButtonClick}
-                    className="bg-red-500 hover-bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    className={getButtonStyle()}
                   >
-                    <span className="">Send OTP</span>
+                    <span>Send OTP</span>
                   </button>
                 </div>
               </div>
@@ -57,7 +56,7 @@ const CreatePin = () => {
 
           {showOTPInput && (
             <div className="flex flex-wrap items-center">
-              <p className="mt-8 paddign">Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}</p>
+              <p className="mt-8 pb-4">Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}</p>
               <div className="flex flex-wrap items-center">
                 <PinInput
                   length={6}
@@ -100,7 +99,7 @@ const CreatePin = () => {
         <button
           onClick={handleButtonGoToPageLoginInputPin}
           disabled={!isActive}
-          className="mt-6 block w-full select-none rounded-lg bg-red-700 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className={getButtonStyleConfirmation()}
           type="button"
           data-ripple-light="true"
         >
@@ -112,3 +111,29 @@ const CreatePin = () => {
 };
 
 export default CreatePin;
+
+// import "react-phone-input-2/lib/bootstrap.css";
+// import React from "react";
+// import { getButtonStyle,getButtonStyleConfirmation } from "../../constantFile/I_Constant";
+
+// const CreatePin = () => {
+
+//   return (
+//     <div className="max-w-lg mx-auto bg-white overflow-hidden">
+//       <div className="p-4">
+//         <h2 className="text-xl font-semibold my-2 text-center">Welcome</h2>
+//         <p className="my-4">Experience a new way of transaction with JakOnePay</p>
+//         <button className={getButtonStyle()}>COK</button>
+//         <button type="button" className={getButtonStyle()}>
+//           Send kode otp
+//         </button>
+//         <button type="button" className={getButtonStyleConfirmation()}>
+//           Konfirmasi
+//         </button>
+
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CreatePin;

@@ -4,19 +4,25 @@ import ConfirmationPin from "../pages/createNewPin/ConfirmationPin";
 import Register from "../pages/registrationPage/Register";
 import SuccessPin from "../pages/SuccessPin";
 import HomePage from "../pages/HomePage/InputNoHp";
-
-import RootLayout from "../layouts/RootLayout";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
+import { Navigate } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    // element: <RootLayout />,
-    errorElement: <ErrorPage />,
+    element: <Navigate to="/home/bdki" />,
+  },
+  {
+    errorElement: <ErrorPage />,  
     children: [
+
       {
-        path: "/",
+        path: "/home/bdki",
+        element: <HomePage />,
+      },
+      {
+        path: "/home/mrt",
         element: <HomePage />,
       },
       {

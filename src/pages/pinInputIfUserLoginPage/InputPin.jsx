@@ -1,10 +1,15 @@
-import ImagePinImage from "../../assets/icons/account-home.png";
-import InputPin from "../../components/InputPin";
-import TodoList from "../../components/TodoListKetentuan";
+import React, { useState } from "react";
 
-import { ModalTermsAndCondition,handleButtonGoToPageHome } from "../../constantFile/I_Constant";
+import { ModalTermsAndCondition, handleButtonGoToPageHome, PinInput, TodoList, PROFILE_NAME, ImagePin } from "../../constantFile/I_Constant";
 
 function PinInputPage() {
+
+  const [value, setValue] = useState("");
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  console.log("new value", newValue);
+  };
 
   return (
     <>
@@ -14,7 +19,35 @@ function PinInputPage() {
             Masukan PIN JakOnePay kamu
           </h2>
           <form className="mx-8  md:mx-20 md:px-20">
-            <InputPin />
+            <div className="text-center p-4">
+              <PinInput
+                length={4}
+                initialValue=""
+                secret={false}
+                secretDelay={1000}
+                type="numeric"
+                inputMode="number"
+                style={{ paddingBottom: "2rem" }}
+                inputStyle={{
+                  borderColor: "orange",
+                  height: "3rem",
+                  width: "3rem",
+                  marginRight: "0.5em",
+                  border: "1px solid",
+                  borderBottom: "4px solid rgb(248 113 113)",
+                  borderRadius: "0.375rem",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.875rem",
+                  fontWeight: "100",
+                  textAlign: "center",
+                }}
+                inputFocusStyle={{}}
+                autoSelect={true}
+                regexCriteria={/^[0-9]*$/}
+                onChange={handleChange}
+              />
+            </div>
             <hr />
             <p>
               <strong>Bank DKI</strong> mau akses akun ini:
@@ -22,13 +55,13 @@ function PinInputPage() {
             <div className="my-2">
               <div className="flex items-center">
                 <img
-                  src={ImagePinImage} // Ganti dengan URL gambar Anda
+                  src={ImagePin}
                   alt="Profile"
                   className="w-10 h-10 rounded-full mr-2"
                 />
                 <div>
                   <p className="text-xl bold font-medium">
-                    Fadhilah Yuda Pratama
+                    {PROFILE_NAME}
                   </p>
                 </div>
               </div>
