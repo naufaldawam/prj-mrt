@@ -1,10 +1,10 @@
-import PinInput from "react-pin-input";
-import ModalSyaratKetentuan from "../components/ModalSyaratKetentuan";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
-import React, { useState } from "react";
+import PinInput from "react-pin-input";
+import ModalSyaratKetentuan from "../components/ModalSyaratKetentuan";
 
 const CreatePin = () => {
   const [value, setValue] = useState();
@@ -17,6 +17,7 @@ const CreatePin = () => {
 
   const handleButtonClick = () => {
     // Lakukan logika atau navigasi di sini
+    alert(value);
     window.location.href = "/register";
   };
 
@@ -77,7 +78,7 @@ const CreatePin = () => {
                 </div>
                 <div></div>
                 <PinInput
-                  length={6}
+                  length={4}
                   initialValue=""
                   secret={false}
                   secretDelay={1000}
