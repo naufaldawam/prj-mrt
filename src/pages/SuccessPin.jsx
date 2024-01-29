@@ -1,10 +1,12 @@
 // CreatePin.js
 import React from "react";
+import { Link } from "react-router-dom";
 import ImageSucces from "../assets/icons/icon-success.png";
 import ImageSuccesPeople from "../assets/icons/success-image.png";
-import { Link } from "react-router-dom";
 
 const SuccessPin = () => {
+  const apiUrl = process.env.API_JAVA_URL;
+  console.log(apiUrl)
   return (
     <div>
       <div className="max-w-md mx-auto my-2 bg-white rounded-md overflow-hidden shadow-sm">
