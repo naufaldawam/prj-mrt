@@ -3,7 +3,7 @@ import CreatePin from "../pages/createNewPin/CreatePin";
 import ConfirmationPin from "../pages/createNewPin/ConfirmationPin";
 import Register from "../pages/registrationPage/Register";
 import SuccessPin from "../pages/SuccessPin";
-import HomePage from "../pages/HomePage/InputNoHp";
+import HomePage from "../pages/pageHome/InputNoHp";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
 import { Navigate } from "react-router-dom";
@@ -26,24 +26,40 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "register",
-        element: <Register />,
+        path: "login/bdki",
+        element: <InputPinLogin />,
       },
       {
-        path: "create-pin",
+        path: "login/mrt",
+        element: <InputPinLogin />,
+      },
+      {
+        path: "register/bdki",
+        element: <Register />,
+      },
+      // {
+      //   path: "register/mrt",
+      //   element: <Register />,
+      // },
+      {
+        path: "create-pin/bdki",
         element: <CreatePin />,
       },
       {
-        path: "confirmation-pin",
+        path: "create-pin/mrt",
+        element: <CreatePin />,
+      },
+      {
+        path: "confirmation-pin/bdki",
+        element: <ConfirmationPin />,
+      },
+      {
+        path: "confirmation-pin/mrt",
         element: <ConfirmationPin />,
       },
       {
         path: "success-pin",
         element: <SuccessPin />,
-      },
-      {
-        path: "login",
-        element: <InputPinLogin />,
       },
     ],
   },

@@ -1,0 +1,37 @@
+{
+    "headerHome": {
+        "message": "Selamat Datang"
+    },
+    "bodyHome":{
+        "body":"Rasakan cara baru bertransaksi dengan JakOnePay"
+    },
+    "descriptionTermsAndCondition":{
+        "body": "Semua transaksi baik dan aman. Dengan melanjutkan proses ini, menu menyetujui"
+    },
+    "headerInputPinLoginAccount":{
+        "body": "Masukkan PIN JakOnePay kamu"
+    },
+    "accessRequest": {
+        "bank": ["Bank DKI", "mau mengakses akun ini:"],
+        "permissionDetails": [
+            "Profil",
+            "Hubungi JakOnePay melalui rekening Bank DKI",
+            "Akses saldo JakOnePay melalui Bank DKI",
+            "Tambahkan promo Bank DKI pada transaksi Anda"
+        ],
+        "message": "Bank DKI ingin mengakses rekening ini. Dengan melakukan konfirmasi, Anda memberikan izin kepada JakOnePay untuk hal-hal sebagai berikut:",
+        "details": [
+            "Hubungi JakOnePay melalui rekening Bank DKI",
+            "Akses saldo JakOnePay melalui Bank DKI",
+            "Tambahkan promo Bank DKI pada transaksi Anda"
+        ]
+    },
+    "headerCreatePin":{
+        "headerPage" : "Buat PIN",
+        "headerMessage": "Buat PIN Transaksi Anda"
+    },
+    "headerConfirmation":{
+        "headerPage" : "Konfirmasi Pin",
+        "headerMessage": "Konfirmasi 6 Digit Pin Anda"
+    }
+}
