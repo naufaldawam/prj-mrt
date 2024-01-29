@@ -1,8 +1,8 @@
 /* Start Navbar */
 .navbar {
   overflow: hidden;
-  background: #fff;
-  border-bottom: solid #c6c5c5 2px;
+  background: #c70000;
+  /* border-bottom: solid #c6c5c5 2px; */
 }
 .navbar a {
   float: left;
@@ -14,7 +14,7 @@
 }
 
 .navbar a:hover {
-  background-color: #ffffff;
+  background-color: #c70000;
   color: rgb(188, 187, 187);
   font-weight: rgb(62, 61, 61);
 }

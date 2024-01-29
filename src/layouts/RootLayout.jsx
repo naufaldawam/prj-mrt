@@ -1,5 +1,6 @@
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import React, { useState, useRef, useEffect } from "react";
+import myImage from '../assets/images/jakonepay/bank_dki_putih.png';
 
 function RootLayout() {
   const [sticky, setSticky] = useState({ isSticky: false, offset: 0 });
@@ -32,7 +33,8 @@ function RootLayout() {
         ref={headerRef}
       >
         <NavLink to="/">
-          <strong className="ml-8">Bank DKI</strong>
+          {/* <strong className="ml-8">Bank DKI</strong> */}
+          <img style={{ width: '8rem', padding: "5px" }} src={myImage} alt="example" />
         </NavLink>
       </div>
       <Outlet />
