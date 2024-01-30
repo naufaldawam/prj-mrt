@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 
 
 //=============== for folder homepage -> InputNoHp.jsx ===============//
 // start //
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PhoneInput from "react-phone-input-2";
 import PinInputTemplate from "react-pin-input";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import PhoneInput from "react-phone-input-2";
 
 
 export const PinInput = PinInputTemplate;
@@ -48,9 +48,9 @@ export const initializeAccount = () => {
 
 //============== lainnya ===================//
 // start
-import InputPinTemplateV2 from "../components/InputPin";
-import ToDoListTemplate from "../components/TodoListKetentuan"
 import ImagePinImageTemplate from "../assets/icons/account-home.png";
+import InputPinTemplateV2 from "../components/InputPin";
+import ToDoListTemplate from "../components/TodoListKetentuan";
 
 export const PROFILE_NAME = "NAMA USER";
 export const PinInputV2 = InputPinTemplateV2;
@@ -80,4 +80,13 @@ export const getButtonStyleConfirmation = () => {
     return pathName.includes("/home/bdki")
         ? themButton.bdki.buttonStyleConfirmation
         : themButton.mrt.buttonStyleConfirmation;
+};
+
+export const setButtonYellow = () => {
+    const location = useLocation();
+    const pathName = location.pathname;
+
+    return pathName.includes("/home/bdki")
+        ? themButton.bdki.btnYellow
+        : themButton.mrt.btnYellow;
 };
