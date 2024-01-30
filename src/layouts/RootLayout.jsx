@@ -6,7 +6,6 @@ function RootLayout() {
   const [sticky, setSticky] = useState({ isSticky: false, offset: 0 });
 
   const headerRef = useRef(null);
-  // handle scroll event
   const handleScroll = (elTopOffset, elHeight) => {
     if (window.pageYOffset > elTopOffset + elHeight) {
       setSticky({ isSticky: true, offset: elHeight });
@@ -14,7 +13,6 @@ function RootLayout() {
       setSticky({ isSticky: false, offset: 0 });
     }
   };
-  // add/remove scroll event listener
   useEffect(() => {
     var header = headerRef.current.getBoundingClientRect();
     const handleScrollEvent = () => {

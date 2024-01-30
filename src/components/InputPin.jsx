@@ -1,7 +1,12 @@
+import { useState } from "react";
 import PinInput from "react-pin-input";
 // import React, { useState } from "react";
 
 function InputPin() {
+  const [value , setValue] = useState;
+
+  console.log("valuenya adalah", value);
+
   return (
     <>
       <div className="flex justify-center mb-8">
@@ -31,6 +36,7 @@ function InputPin() {
           onComplete={() => {}}
           autoSelect={true}
           regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+          value={setValue}
         />
       </div>
     </>
