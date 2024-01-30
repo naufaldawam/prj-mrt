@@ -1,25 +1,11 @@
-<<<<<<< HEAD
-import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
-import CreatePin from "../pages/createNewPin/CreatePin";
-import ConfirmationPin from "../pages/createNewPin/ConfirmationPin";
-import Register from "../pages/registrationPage/Register";
-import SuccessPin from "../pages/SuccessPin";
+import { Navigate, createBrowserRouter } from "react-router-dom";
+import ErrorPage from "../components/ErrorPage";
 import HomePage from "../pages/HomePage/InputNoHp";
-import { createBrowserRouter } from "react-router-dom";
-import ErrorPage from "../components/ErrorPage";
-import { Navigate } from "react-router-dom";
-=======
-import { createBrowserRouter } from "react-router-dom";
-import ErrorPage from "../components/ErrorPage";
-import RootLayout from "../layouts/RootLayout";
-import ConfirmationPin from "../pages/ConfirmationPin";
-import CreatePin from "../pages/CreatePin";
-import HomePage from "../pages/Index";
-import InputNoHp from "../pages/InputNoHp";
-import OTPForm from "../pages/OtpForm";
-import Register from "../pages/Register";
 import SuccessPin from "../pages/SuccessPin";
->>>>>>> fachrur.rozi
+import ConfirmationPin from "../pages/createNewPin/ConfirmationPin";
+import CreatePin from "../pages/createNewPin/CreatePin";
+import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
+import Register from "../pages/registrationPage/Register";
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +13,7 @@ export const router = createBrowserRouter([
     element: <Navigate to="/home/bdki" />,
   },
   {
-    errorElement: <ErrorPage />,  
+    errorElement: <ErrorPage />,
     children: [
 
       {

@@ -1,7 +1,7 @@
-import "react-phone-input-2/lib/bootstrap.css";
 import React, { useState } from "react";
-import { PinInput, ModalTermsAndCondition, FontAwesomeIconCheckeCircle, TemplatePhoneInput, handleButtonGoToPageLoginInputPin } from "../../constantFile/I_Constant";
-import { getButtonStyle,getButtonStyleConfirmation } from "../../constantFile/I_Constant";
+import "react-phone-input-2/lib/bootstrap.css";
+import { FontAwesomeIconCheckeCircle, ModalTermsAndCondition, PinInput, TemplatePhoneInput, getButtonStyle, getButtonStyleConfirmation, handleButtonGoToPageLoginInputPin, handleButtonGoToPageRegister, setButtonYellow } from "../../constantFile/I_Constant";
+import DataEndPoint from '../../services/APIServices';
 
 const CreatePin = () => {
   const [value, setValue] = useState();
@@ -10,7 +10,17 @@ const CreatePin = () => {
   const handleOTPButtonClick = () => {
     setShowOTPInput(true);
     setIsActive(true);
+    const paramOtp = {
+        id: 'Rl39SPjDO'
+    };
+
+    // contoh menggunakan API services
+    DataEndPoint.getOtp(paramOtp).then((res) => {
+      console.log(res);
+    });
   };
+
+
   
   return (
     <div className="max-w-lg mx-auto bg-white overflow-hidden">
@@ -104,6 +114,14 @@ const CreatePin = () => {
           data-ripple-light="true"
         >
           Konfirmasi
+        </button>
+        <button
+          onClick={handleButtonGoToPageRegister}
+          className={setButtonYellow()}
+          type="button"
+          data-ripple-light="true"
+        >
+          Registrasi
         </button>
       </div>
     </div>
