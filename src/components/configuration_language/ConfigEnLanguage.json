@@ -29,13 +29,25 @@
             "Add Bank DKI promotions to your transactions"
         ]
     },
-    "headerCreatePin":{
-        "headerPage" : "Create PIN",
+    "headerCreatePin": {
+        "headerPage": "Create PIN",
         "headerMessage": "Create your PIN Transaction"
     },
-    "headerConfirmation":{
-        "headerPage" : "Confirmation PIN",
+    "headerConfirmation": {
+        "headerPage": "Confirmation PIN",
         "headerMessage": "Reconfirm 6 Digit Of Your Pin"
+    },
+    "descriptionTopUpWithCreditCard": {
+        "header" : "Topup With",
+        "details": [
+            "Debit/Credit Card",
+            "Practically and safely top up your balance with an International Debit or Credit Card",
+            "JakOneMobile",
+            "No fees! Top up balance from JakOne Mobile",
+            "DKI Bank ATM",
+            "nearest DKI Bank ATM",
+            "Other Banks",
+            "Anytime, anywhere via bank channels in Indonesia"
+        ]
     }
-
 }

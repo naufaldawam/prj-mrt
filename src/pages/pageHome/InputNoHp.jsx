@@ -21,7 +21,16 @@ const CreatePin = () => {
   const handleOTPButtonClick = () => {
     setShowOTPInput(true);
     setIsActive(true);
+    const paramOtp = {
+      id: 'Rl39SPjDO'
+    };
+
+    // contoh menggunakan API services
+    DataEndPoint.getOtp(paramOtp).then((res) => {
+      console.log(res);
+    });
   };
+
   const { i18n } = useTranslationHook();
 
 

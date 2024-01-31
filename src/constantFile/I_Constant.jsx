@@ -13,7 +13,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import PhoneInput from "react-phone-input-2";
 
 
-export const PinInputWithStyle = ({ secretDelay,  }) => { //nanti di bagian akses publik
+export const PinInputWithStyle = ({ secretDelay, }) => { //nanti di bagian akses publik
     const PinInput = PinInputTemplate;
     return <PinInput
         length={6}
@@ -80,6 +80,9 @@ export const handleButtonGoToPageLoginInputPin = () => {
 };
 export const handleButtonGoToPageHome = () => {
     window.location.href = "/"
+};
+export const handleGoToTopupPage = () => {
+    window.location.href = "/topup"
 };
 //=============== end ===============//
 
@@ -238,4 +241,5 @@ export const changeLanguageAndRenderButton = ({ country, i18n }) => {
         </button>
     );
 };
+
 //=============== end ===============//
