@@ -242,4 +242,13 @@ export const changeLanguageAndRenderButton = ({ country, i18n }) => {
     );
 };
 
+export const setButtonYellow = () => {
+    const location = useLocation();
+    const pathName = location.pathname;
+
+    return pathName.includes("/home/bdki")
+        ? themButton.bdki.btnYellow
+        : themButton.mrt.btnYellow;
+};
+
 //=============== end ===============//

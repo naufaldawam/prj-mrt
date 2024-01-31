@@ -43,5 +43,9 @@
             "textAlign": "center",
             "marginBottom": "1rem"
         }
+    },
+    "btnyellow": {
+        "buttonStyleConfirmation": "mt-6 block w-full select-none rounded-lg bg-yellow-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
+        "buttonStyle": "bg-yellow-500 hover-bg-yellow-700 text-white font-bold py-2 px-4 rounded"
     }
 }
