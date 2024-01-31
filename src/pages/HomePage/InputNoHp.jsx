@@ -11,13 +11,22 @@ const CreatePin = () => {
     setShowOTPInput(true);
     setIsActive(true);
     const paramOtp = {
-        id: 'Rl39SPjDO'
+      phoneNumber: "62222222222",
+      fullName: "Kal xKausar",
+      birthdate: "1998-08-09",
+      placeOrBirth: "Banda Aceh x",
+      email: "gue@gmail.com",
+      channelRequest: "MARTIPAYx",
+      stan: "1234569",
+      requestNumber: "12345678222"
     };
 
     // contoh menggunakan API services
-    DataEndPoint.getOtp(paramOtp).then((res) => {
+    DataEndPoint.getRegistration(paramOtp).then((res) => {
       console.log(res);
     });
+
+    
   };
 
 
