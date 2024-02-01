@@ -1,32 +1,61 @@
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
-import { FontAwesomeIconCheckeCircle, ModalTermsAndCondition, PinInput, TemplatePhoneInput, getButtonStyle, getButtonStyleConfirmation, handleButtonGoToPageLoginInputPin, handleButtonGoToPageRegister, setButtonYellow } from "../../constantFile/I_Constant";
+import { FontAwesomeIconCheckeCircle, ModalTermsAndCondition, PinInput, TemplatePhoneInput, getButtonStyle, getButtonStyleConfirmation } from "../../constantFile/I_Constant";
 import DataEndPoint from '../../services/APIServices';
 
 const CreatePin = () => {
   const [value, setValue] = useState();
+  const [otpvalue, setOtpValue] = useState();
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const handleOTPButtonClick = () => {
-    setShowOTPInput(true);
     setIsActive(true);
-    const paramOtp = {
-      phoneNumber: "62222222222",
-      fullName: "Kal xKausar",
-      birthdate: "1998-08-09",
-      placeOrBirth: "Banda Aceh x",
-      email: "gue@gmail.com",
-      channelRequest: "MARTIPAYx",
-      stan: "1234569",
-      requestNumber: "12345678222"
+    const CheckAccountParam = {
+      phoneNumber: value ? value : null,
+      pin: showOTPInput,
+      channelRequest: 'MARTIPAY',
+      stan: '123456',
+      requestNumber: '123456789012'
     };
 
     // contoh menggunakan API services
-    DataEndPoint.getRegistration(paramOtp).then((res) => {
+    DataEndPoint.getCheckAccount(CheckAccountParam).then((res) => {
       console.log(res);
+      console.log(res.data.resultMessages);
+      if(res.data.resultMessages == 'Success'){
+        setShowOTPInput(true);
+      }else if(res.data.resultMessages == 'Failed'){
+        setShowOTPInput(false);
+      }else if(res.data.resultMessages == 'Error'){
+        alert("Server error...!");
+      }
     });
+  };
 
-    
+  const btnConfirmOTP = () => {
+    alert(otpvalue);
+    const ConfirmOTPParam = {
+      phoneNumber: value ? value : null,
+      otp: otpvalue ? otpvalue : null,
+      channelRequest: 'MARTIPAY',
+      stan: '123456',
+      requestNumber: '123456789012'
+    };
+
+    // // contoh menggunakan API services
+    DataEndPoint.getValidationOtp(ConfirmOTPParam).then((res) => {
+      console.log(res);
+      console.log(res.data.resultMessages);
+      if(res.data.resultMessages == 'Success'){
+        
+      console.log('Masuk :' + res.data.resultMessages);
+        window.location.href = "/register";
+      }else if(res.data.resultMessages == 'Failed'){
+        alert("Failed respon...!");
+      }else if(res.data.resultMessages == 'Error'){
+        alert("Server error...!");
+      }
+    });
   };
 
 
@@ -82,7 +111,8 @@ const CreatePin = () => {
                   initialValue=""
                   secret={false}
                   secretDelay={1000}
-                  onChange={() => { }}
+                  value={otpvalue}
+                  onChange={setOtpValue}
                   type="numeric"
                   inputMode="number"
                   inputStyle={{
@@ -116,21 +146,13 @@ const CreatePin = () => {
         </div>
 
         <button
-          onClick={handleButtonGoToPageLoginInputPin}
+          onClick={btnConfirmOTP}
           disabled={!isActive}
           className={getButtonStyleConfirmation()}
           type="button"
           data-ripple-light="true"
         >
           Konfirmasi
-        </button>
-        <button
-          onClick={handleButtonGoToPageRegister}
-          className={setButtonYellow()}
-          type="button"
-          data-ripple-light="true"
-        >
-          Registrasi
         </button>
       </div>
     </div>
