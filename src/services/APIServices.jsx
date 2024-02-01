@@ -17,11 +17,29 @@ const config = {
 
 const APIServices = {
   // Mengambil data dengan memvalidasi OTP via SMS
-  getOtp: async (otpPrams) => {
+  getCheckAccount: async (phonePrams) => {
+    console.log(phonePrams);
+    try {
+        let response = await axios.post(
+            apiUrl + `/paymentIntegration/checkAccount`,
+            phonePrams,
+            {
+                method: 'POST',
+                config
+            ,}
+          );
+        return response.data;
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
+
+  },
+  getValidationOtp: async (otpPrams) => {
     console.log(otpPrams);
     try {
         let response = await axios.post(
-            apiUrl + `/`,
+            apiUrl + `/paymentIntegration/validationOtp`,
             otpPrams,
             {
                 method: 'POST',
