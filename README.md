@@ -91,3 +91,32 @@ Frontend_Diwa_Webview
 ├── tailwind.config.js
 ├── vite.config.js
 ```
+
+Buat new file dengan nama Dockerfile
+copy script ini : 
+
+## STAGE 1: Build ###
+FROM node:20.11.0-alpine AS build
+RUN apk update && apk add bash && apk add less && apk add nano
+
+WORKDIR /FRONTEND_DIWA_WEBVIEW
+COPY package.json /FRONTEND_DIWA_WEBVIEW
+RUN npm install
+COPY ./ /FRONTEND_DIWA_WEBVIEW/
+RUN npm run build
+
+### STAGE 2: Run ###
+FROM nginx:1.17.1-alpine
+RUN apk update && apk add bash && apk add less && apk add nano
+
+RUN rm /usr/share/nginx/html/*
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /fe/build /usr/share/nginx/html
+
+-------------===========================-------------------
+
+Kemudian jalankan commend ini pada terminal : 
+
+docker buildx build --platform linux/amd64 --push -t itdevbankdki/svc-diwa-webview-fe:tag_image .
+
+catatan tag_image : wajib diganti dengan angka bebas lepas tinggal semua itu

@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
-import { FontAwesomeIconCheckeCircle, ModalTermsAndCondition, PinInputWithStyle, TemplatePhoneInput, getButtonStyle, getButtonStyleConfirmation } from "../../constantFile/I_Constant";
-import DataEndPoint from '../../services/APIServices';
+import {
+  FontAwesomeIconCheckeCircle,
+  ModalTermsAndCondition,
+  PinInput,
+  TemplatePhoneInput,
+  getButtonStyle,
+  getButtonStyleConfirmation,
+} from "../../constantFile/I_Constant";
+import DataEndPoint from "../../services/APIServices";
 
 const CreatePin = () => {
   const [value, setValue] = useState();
@@ -9,27 +16,29 @@ const CreatePin = () => {
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const handleOTPButtonClick = () => {
-    setIsActive(true);
     const CheckAccountParam = {
       phoneNumber: value ? value : null,
       pin: showOTPInput,
-      channelRequest: 'MARTIPAY',
-      stan: '123456',
-      requestNumber: '123456789012'
+      channelRequest: "MARTIPAY",
+      stan: "123456",
+      requestNumber: "123456789012",
     };
 
     // contoh menggunakan API services
-    DataEndPoint.getCheckAccount(CheckAccountParam).then((res) => {
-      console.log(res);
-      console.log(res.data.resultMessages);
-      if(res.data.resultMessages == 'Success'){
-        setShowOTPInput(true);
-      }else if(res.data.resultMessages == 'Failed'){
-        setShowOTPInput(false);
-      }else if(res.data.resultMessages == 'Error'){
-        alert("Server error...!");
-      }
-    });
+    DataEndPoint.getCheckAccount(CheckAccountParam)
+      .then((res) => {
+        if (res.data.resultMessages == "Success") {
+          setIsActive(true);
+          setShowOTPInput(true);
+        } else if (res.data.resultMessages == "Failed") {
+          setShowOTPInput(false);
+        } else if (res.data.resultMessages == "Error") {
+          alert("Server error...!");
+        }
+      })
+      .catch(() => {
+        console.log("error");
+      });
   };
 
   const btnConfirmOTP = () => {
@@ -37,35 +46,35 @@ const CreatePin = () => {
     const ConfirmOTPParam = {
       phoneNumber: value ? value : null,
       otp: otpvalue ? otpvalue : null,
-      channelRequest: 'MARTIPAY',
-      stan: '123456',
-      requestNumber: '123456789012'
+      channelRequest: "MARTIPAY",
+      stan: "123456",
+      requestNumber: "123456789012",
     };
 
     // // contoh menggunakan API services
     DataEndPoint.getValidationOtp(ConfirmOTPParam).then((res) => {
       console.log(res);
       console.log(res.data.resultMessages);
-      if(res.data.resultMessages == 'Success'){
-        
-      console.log('Masuk :' + res.data.resultMessages);
-        window.location.href = "/register";
-      }else if(res.data.resultMessages == 'Failed'){
+      if (res.data.resultMessages == "Success") {
+        console.log("Masuk :" + res.data.resultMessages);
+        handleButtonGoToPageRegister();
+      } else if (res.data.resultMessages == "Failed") {
         alert("Failed respon...!");
-      }else if(res.data.resultMessages == 'Error'){
+      } else if (res.data.resultMessages == "Error") {
         alert("Server error...!");
       }
+    }).catch(() => {
+      console.log("error");
     });
   };
 
-
-  
   return (
     <div className="max-w-lg mx-auto bg-white overflow-hidden">
       <div className="p-4">
         <h2 className="text-xl font-semibold my-2 text-center">Welcome</h2>
-        <p className="my-4">Experience a new way of transaction with JakOnePay</p>
-
+        <p className="my-4">
+          Experience a new way of transaction with JakOnePay
+        </p>
 
         <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row">
           <div className="flex-1 mb-4 sm:mb-4 md:mb-4 lg:mr-2 xl:mr-2">
@@ -78,14 +87,13 @@ const CreatePin = () => {
                   <TemplatePhoneInput
                     country="id"
                     placeholder="input nomor anda"
-                    masks={{ id: '.... .... ....' }}
+                    masks={{ id: ".... .... ...." }}
                     inputStyle={{
                       border: "none",
                       boxShadow: "none",
                       outline: "none",
                       width: "230px",
                     }}
-
                     value={value}
                     onChange={setValue}
                   />
@@ -104,17 +112,56 @@ const CreatePin = () => {
 
           {showOTPInput && (
             <div className="flex flex-wrap items-center">
-              <p className="mt-8 pb-4">Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}</p>
+              <p className="mt-8 pb-4">
+                Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
+              </p>
               <div className="flex flex-wrap items-center">
-{PinInputWithStyle()}
+                <PinInput
+                  length={6}
+                  initialValue=""
+                  secret={false}
+                  secretDelay={1000}
+                  value={otpvalue}
+                  onChange={setOtpValue}
+                  type="numeric"
+                  inputMode="number"
+                  inputStyle={{
+                    borderColor: "orange",
+                    height: "3rem",
+                    width: "2.5rem",
+                    marginRight: "0.5em",
+                    border: "1px solid",
+                    borderBottom: "4px solid rgb(248 113 113)",
+                    borderRadius: "0.375rem",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.875rem",
+                    fontWeight: "100",
+                    textAlign: "center",
+                  }}
+                  inputFocusStyle={{}}
+                  onComplete={() => { }}
+                  autoSelect={true}
+                  regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                />
               </div>
-            </div>
 
+              <button
+                // onClick={btnConfirmOTP}
+                disabled={!isActive}
+                className={getButtonStyleConfirmation()}
+                type="button"
+                data-ripple-light="true"
+              >
+                Resend OTP
+              </button>
+            </div>
           )}
         </div>
 
         <div className="mt-20">
-          Seluruh transaksi baik dan aman. Dengan melanjutkan proses ini, menu menyetujui
+          Seluruh transaksi baik dan aman. Dengan melanjutkan proses ini, menu
+          menyetujui
           <ModalTermsAndCondition />
         </div>
 
