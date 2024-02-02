@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
-import { FontAwesomeIconCheckeCircle, ModalTermsAndCondition, PinInput, TemplatePhoneInput, getButtonStyle, getButtonStyleConfirmation } from "../../constantFile/I_Constant";
+import { FontAwesomeIconCheckeCircle, ModalTermsAndCondition, PinInputWithStyle, TemplatePhoneInput, getButtonStyle, getButtonStyleConfirmation } from "../../constantFile/I_Constant";
 import DataEndPoint from '../../services/APIServices';
 
 const CreatePin = () => {
@@ -106,34 +106,7 @@ const CreatePin = () => {
             <div className="flex flex-wrap items-center">
               <p className="mt-8 pb-4">Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}</p>
               <div className="flex flex-wrap items-center">
-                <PinInput
-                  length={6}
-                  initialValue=""
-                  secret={false}
-                  secretDelay={1000}
-                  value={otpvalue}
-                  onChange={setOtpValue}
-                  type="numeric"
-                  inputMode="number"
-                  inputStyle={{
-                    borderColor: "orange",
-                    height: "3rem",
-                    width: "2.5rem",
-                    marginRight: "0.5em",
-                    border: "1px solid",
-                    borderBottom: "4px solid rgb(248 113 113)",
-                    borderRadius: "0.375rem",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1.875rem",
-                    fontWeight: "100",
-                    textAlign: "center",
-                  }}
-                  inputFocusStyle={{}}
-                  onComplete={() => { }}
-                  autoSelect={true}
-                  regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-                />
+{PinInputWithStyle()}
               </div>
             </div>
 

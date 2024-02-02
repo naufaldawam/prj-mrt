@@ -117,5 +117,14 @@
       "Enter transaction amount",
       "After success, your JakOnePay balance will increase"
     ]
+  },
+  "registerPageDescription": {
+      "header": "Register page",
+      "body": "Enter your personal data",
+      "formBody":[
+          "Full Name",
+          "place Of Birth",
+          "Email"
+      ]
   }
 }

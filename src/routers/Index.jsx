@@ -4,14 +4,16 @@ import CreatePin from "../pages/createNewPinPage/CreatePin";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
 import Register from "../pages/registrationPage/Register";
 import SuccessPin from "../pages/SuccessPin";
-import HomePage from "../pages/pageHome/InputNoHp";
+import HomePage from "../pages/HomePage/InputNoHp";
 import ErrorPage from "../components/ErrorPage";
 import AccordionTopUp from "../pages/accordionTopupPage/AccordionTopUp";
+import StartPage from "../pages/pageStart/StartPageRegisttraion";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/home/bdki" />,
+    element: <StartPage/>
+    // element: <Navigate to="/home/bdki" />,
   },
   {
     errorElement: <ErrorPage />,
