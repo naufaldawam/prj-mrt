@@ -3,3 +3,4 @@ Dockerfile
 package-lock.json
 doctek/
 .vscode/
+yarn.lock
