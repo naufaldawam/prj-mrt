@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
+import PinInput from "react-pin-input";
 import {
   FontAwesomeIconCheckeCircle,
   ModalTermsAndCondition,
-  PinInput,
-  TemplatePhoneInput,
+  PhoneInputWithStyle,
   getButtonStyle,
-  getButtonStyleConfirmation,
+  getButtonStyleConfirmation
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -16,18 +16,18 @@ const CreatePin = () => {
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const handleOTPButtonClick = () => {
-    const CheckAccountParam = {
+    const RequestOtpParam = {
       phoneNumber: value ? value : null,
-      pin: showOTPInput,
-      channelRequest: "MARTIPAY",
-      stan: "123456",
-      requestNumber: "123456789012",
+      datetimerequest: '15-11-2021 10:00:21',
+      channelid: 'MARTIPAY',
+      flag: '1'
     };
 
     // contoh menggunakan API services
-    DataEndPoint.getCheckAccount(CheckAccountParam)
+    DataEndPoint.getRequestOtp(RequestOtpParam)
       .then((res) => {
-        if (res.data.resultMessages == "Success") {
+        console.log(res.data.response.data);
+        if (res.data.response.data == "success") {
           setIsActive(true);
           setShowOTPInput(true);
         } else if (res.data.resultMessages == "Failed") {
@@ -44,11 +44,10 @@ const CreatePin = () => {
   const btnConfirmOTP = () => {
     alert(otpvalue);
     const ConfirmOTPParam = {
-      phoneNumber: value ? value : null,
-      otp: otpvalue ? otpvalue : null,
-      channelRequest: "MARTIPAY",
-      stan: "123456",
-      requestNumber: "123456789012",
+      token: otpvalue ? otpvalue : null,
+      nohp: value ? value : null,
+      datetimerequest: "15-11-2021 10:00:21",
+      channelid: 'MARTIPAY'
     };
 
     // // contoh menggunakan API services
@@ -84,7 +83,7 @@ const CreatePin = () => {
             <div className="border-solid border border-gray-500 rounded py-1">
               <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
                 <div className="col-span-2">
-                  <TemplatePhoneInput
+                  <PhoneInputWithStyle
                     country="id"
                     placeholder="input nomor anda"
                     masks={{ id: ".... .... ...." }}
@@ -116,7 +115,7 @@ const CreatePin = () => {
                 Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
               </p>
               <div className="flex flex-wrap items-center">
-                <PinInput
+              <PinInput
                   length={6}
                   initialValue=""
                   secret={false}
@@ -140,21 +139,11 @@ const CreatePin = () => {
                     textAlign: "center",
                   }}
                   inputFocusStyle={{}}
-                  onComplete={() => {}}
+                  onComplete={() => { }}
                   autoSelect={true}
                   regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                 />
               </div>
-
-              <button
-                // onClick={btnConfirmOTP}
-                disabled={!isActive}
-                className={getButtonStyleConfirmation()}
-                type="button"
-                data-ripple-light="true"
-              >
-                Resend OTP
-              </button>
             </div>
           )}
         </div>

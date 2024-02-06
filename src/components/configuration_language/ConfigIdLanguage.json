@@ -1,0 +1,137 @@
+{
+  "headerHome": {
+    "message": "Selamat Datang"
+  },
+  "bodyHome": {
+    "body": "Rasakan cara baru bertransaksi dengan JakOnePay"
+  },
+  "descriptionTermsAndCondition": {
+    "body": "Semua transaksi baik dan aman. Dengan melanjutkan proses ini, menu menyetujui"
+  },
+  "headerInputPinLoginAccount": {
+    "body": "Masukkan PIN JakOnePay kamu"
+  },
+  "accessRequest": {
+    "bank": [
+      "Bank DKI",
+      "mau mengakses akun ini:"
+    ],
+    "permissionDetails": [
+      "Profil",
+      "Hubungi JakOnePay melalui rekening Bank DKI",
+      "Akses saldo JakOnePay melalui Bank DKI",
+      "Tambahkan promo Bank DKI pada transaksi Anda"
+    ],
+    "message": "Bank DKI ingin mengakses rekening ini. Dengan melakukan konfirmasi, Anda memberikan izin kepada JakOnePay untuk hal-hal sebagai berikut:",
+    "details": [
+      "Hubungi JakOnePay melalui rekening Bank DKI",
+      "Akses saldo JakOnePay melalui Bank DKI",
+      "Tambahkan promo Bank DKI pada transaksi Anda"
+    ]
+  },
+  "headerCreatePin": {
+    "headerPage": "Buat PIN",
+    "headerMessage": "Buat PIN Transaksi Anda"
+  },
+  "headerConfirmation": {
+    "headerPage": "Konfirmasi Pin",
+    "headerMessage": "Konfirmasi 6 Digit Pin Anda"
+  },
+  "descriptionTopUpWithCreditCard": {
+    "header": "Topup melalui",
+    "details": [
+      "Kartu Debit/Kredit",
+      "Praktis dan aman isi saldo dengan Debit atau Kartu Kredit International",
+      "JakOneMobile",
+      "Tanpa biaya! Isi saldo dari JakOne Mobile",
+      "ATM Bank DKI",
+      "ATM Bank DKI terdekat",
+      "Bank Lain",
+      "Kapan pun dimana pun melalui channel bank di Indonesia"
+    ]
+  },
+  "headerDescriptionTopup": {
+    "header": "TopUp JakOne Pay"
+  },
+  "topupDescription": {
+    "header": [
+      "ATM Bank DKI",
+      "ATM Bank DKI Terdekat"
+    ],
+    "body": "Sekarang kamu dapat mengisi JakonePay melalui seluruh mesin ATM Bank BKI. Ikuti Langkah-langkah di bawah ini untuk melakukan TopUp JakOnePay",
+    "description": [
+      "Pilih Menu Pembayaran",
+      "Pilih MenuVirtual Account",
+      "Masukan No. Virtual Account (9980) yang diikuti dengan nomor Handphone Kamu",
+      "Kosongkan kode pembayaran",
+      "Lalu pilih Lanjut",
+      "Masukan Nominal Transaksi",
+      "Lalu pilih lanjut",
+      "Masukan nominal transaksi",
+      "Setelah berhasil saldo JakOnePay Kamu akan bertambah"
+    ]
+  },
+  "topupDescriptionBankLain": {
+    "header": [
+      "ATM Bank DKI",
+      "ATM Bank DKI Terdekat"
+    ],
+    "body": "Sekarang kamu dapat mengisi JakonePay melalui seluruh mesin ATM Bank BKI. Ikuti Langkah-langkah di bawah ini untuk melakukan TopUp JakOnePay",
+    "description": [
+      "Pilih Menu Pembayaran",
+      "Pilih MenuVirtual Account",
+      "Masukan No. Virtual Account (9980) yang diikuti dengan nomor Handphone Kamu",
+      "Kosongkan kode pembayaran",
+      "Lalu pilih Lanjut",
+      "Masukan Nominal Transaksi",
+      "Lalu pilih lanjut",
+      "Masukan nominal transaksi",
+      "Setelah berhasil saldo JakOnePay Kamu akan bertambah"
+    ]
+  },
+  "topupDescriptionJakOneMobile": {
+    "header": [
+      "JakOne Mobile",
+      "Tanpa biaya isi saldo dari JakOne Mobile"
+    ],
+    "body": "Sekarang kamu dapat mengisi JakonePay melalui seluruh mesin ATM Bank BKI. Ikuti Langkah-langkah di bawah ini untuk melakukan TopUp JakOnePay",
+    "description": [
+      "Pilih Menu Pembayaran",
+      "Pilih MenuVirtual Account",
+      "Masukan No. Virtual Account (9980) yang diikuti dengan nomor Handphone Kamu",
+      "Kosongkan kode pembayaran",
+      "Lalu pilih Lanjut",
+      "Masukan Nominal Transaksi",
+      "Lalu pilih lanjut",
+      "Masukan nominal transaksi",
+      "Setelah berhasil saldo JakOnePay Kamu akan bertambah"
+    ]
+  },
+  "topupDescriptionDebitKredit": {
+    "header": [
+      "Kartu Debit/Kredit",
+      "Tanpa biaya isi saldo dari JakOne Mobile"
+    ],
+    "body": "Sekarang kamu dapat mengisi JakonePay melalui seluruh mesin ATM Bank BKI. Ikuti Langkah-langkah di bawah ini untuk melakukan TopUp JakOnePay",
+    "description": [
+      "Pilih Menu Pembayaran",
+      "Pilih MenuVirtual Account",
+      "Masukan No. Virtual Account (9980) yang diikuti dengan nomor Handphone Kamu",
+      "Kosongkan kode pembayaran",
+      "Lalu pilih Lanjut",
+      "Masukan Nominal Transaksi",
+      "Lalu pilih lanjut",
+      "Masukan nominal transaksi",
+      "Setelah berhasil saldo JakOnePay Kamu akan bertambah"
+    ]
+  },
+  "registerPageDescription": {
+    "header": "Halaman register",
+    "body": "Masukkan data personal anda",
+    "formBody": [
+      "Nama Lengkap",
+      "Tempat Tanggal Lahir",
+      "Email"
+    ]
+  }
+}

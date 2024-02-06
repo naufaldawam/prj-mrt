@@ -40,7 +40,6 @@ menggunakan yarn:
 ````
 
 
-
 ### struktur dari aplikasi :
 ``` bash
 Frontend_Diwa_Webview
@@ -51,14 +50,33 @@ Frontend_Diwa_Webview
 │ └── apis
 │ └── assets
 │ └── components
+│     └── configuration_css
+│         ── Config.json
+│     └── configuration_language
+│         ── ConfigEnLanguage.json
+│         ── ConfigIdLanguage.json
+│     ── ErrorPage.jsx
+│     ── ModalSyaratKetentuan.jsx
 │ └── constantFile
+│     ── I_Constant.jsx
 │ └── layouts
 │ └── pages
-│    └── createNewPin
-│    └── HomePage
+│    └── accordionTopupPage
+│         ── AccordionTopUp.jsx
+│    └── createNewPinPage
+│         ── ConfirmationPin.jsx
+│         ── CreatePin.jsx
+│    └── pageHome
+│         ── InputNoHp.jsx
 │    └── pinInputIfUserLoginPage
+│         ── InputPin.jsx
 │    └── registrationPage
+│         ── Register.jsx
+│     ── SuccessPin.jsx
 │ └── routers
+│     ── Index.jsx
+│ └── service
+│     ── APIServices.jsx
 │ └── App.css
 │ └── App.jsx
 │ └── filenManager.json

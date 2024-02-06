@@ -1,0 +1,130 @@
+{
+  "headerHome": {
+    "message": "Welcome"
+  },
+  "bodyHome": {
+    "body": "Experience a new way of transaction with JakOnePay"
+  },
+  "descriptionTermsAndCondition": {
+    "body": "All transactions are good and safe. By continuing this process, the menu approves"
+  },
+  "headerInputPinLoginAccount": {
+    "body": "Enter your JakOnePay PIN"
+  },
+  "accessRequest": {
+    "bank": ["Bank DKI", "want to access this account:"],
+    "permissionDetails": [
+      "Profile",
+      "Contact JakOnePay through Bank DKI account",
+      "Access JakOnePay balance through Bank DKI",
+      "Add Bank DKI promotions to your transactions"
+    ],
+    "message": "Bank DKI wants to access this account. By confirming, you give permission to JakOnePay for the following:",
+    "details": [
+      "Contact JakOnePay through Bank DKI account",
+      "Access JakOnePay balance through Bank DKI",
+      "Add Bank DKI promotions to your transactions"
+    ]
+  },
+  "headerCreatePin": {
+    "headerPage": "Create PIN",
+    "headerMessage": "Create your PIN Transaction"
+  },
+  "headerConfirmation": {
+    "headerPage": "Confirmation PIN",
+    "headerMessage": "Reconfirm 6 Digit Of Your Pin"
+  },
+  "descriptionTopUpWithCreditCard": {
+    "header": "Topup With",
+    "details": [
+      "Debit/Credit Card",
+      "Practically and safely top up your balance with an International Debit or Credit Card",
+      "JakOneMobile",
+      "No fees! Top up balance from JakOne Mobile",
+      "DKI Bank ATM",
+      "nearest DKI Bank ATM",
+      "Other Banks",
+      "Anytime, anywhere via bank channels in Indonesia"
+    ]
+  },
+  "headerDescriptionTopup": {
+    "header": "TopUp JakOne Pay"
+  },
+  "topupDescription": {
+    "header": ["Bank DKI ATM", "Nearest DKI Bank ATM"],
+    "body": "Now you can top up JakonePay through all BKI Bank ATM machines. Follow the steps below to top up JakOnePay",
+    "description": [
+      "Select Payment Menu",
+      "Select Menu Virtual Account",
+      "Enter Virtual Account Number (9980) followed by your cellphone number",
+      "Clear payment code",
+      "Then select Next",
+      "Enter Transaction Amount",
+      "Then select continue",
+      "Enter transaction amount",
+      "After success, your JakOnePay balance will increase"
+    ]
+  },
+  "topupDescriptionBankLain": {
+    "header": [
+      "Other Banks",
+      "Anytime, anywhere via bank channels in Indonesia"
+    ],
+    "body": "You can top up JakOne Pay via transfer via another bank. Follow the steps below to top up JakOne Pay",
+    "description": [
+      "Select Payment Menu",
+      "Select Menu Virtual Account",
+      "Enter Virtual Account Number (9980) followed by your cellphone number",
+      "Clear payment code",
+      "Then select Next",
+      "Enter Transaction Amount",
+      "Then select continue",
+      "Enter transaction amount",
+      "After success, your JakOnePay balance will increase"
+    ]
+  },
+
+  "topupDescriptionJakOneMobile": {
+    "header": ["JakOne Mobile", "No balance top up fees from JakOne Mobile"],
+    "body": "Now you can top up JakonePay through all BKI Bank ATM machines. Follow the steps below to top up JakOnePay",
+    "description": [
+      "Pilih Menu Pembayaran",
+      "Pilih MenuVirtual Account",
+      "Masukan No. Virtual Account (9980) yang diikuti dengan nomor Handphone Kamu",
+      "Kosongkan kode pembayaran",
+      "Lalu pilih Lanjut",
+      "Masukan Nominal Transaksi",
+      "Lalu pilih lanjut",
+      "Masukan nominal transaksi",
+      "Setelah berhasil saldo JakOnePay Kamu akan bertambah"
+    ]
+  },
+
+  "topupDescriptionDebitKredit": {
+    "header": [
+      "Debit/Credit Card",
+      "No balance top up fees from JakOne Mobile"
+    ],
+    "body": "Now you can top up JakonePay through all BKI Bank ATM machines. Follow the steps below to top up JakOnePay",
+    "description": [
+      "Select Payment Menu",
+      "Select Menu Virtual Account",
+      "Enter Virtual Account Number (9980) followed by your cellphone number",
+      "Clear payment code",
+      "Then select Next",
+      "Enter Transaction Amount",
+      "Then select continue",
+      "Enter transaction amount",
+      "After success, your JakOnePay balance will increase"
+    ]
+  },
+  "registerPageDescription": {
+      "header": "Register page",
+      "body": "Enter your personal data",
+      "formBody":[
+          "Full Name",
+          "place Of Birth",
+          "Email"
+      ]
+  }
+}

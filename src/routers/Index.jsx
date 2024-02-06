@@ -1,23 +1,26 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
 import HomePage from "../pages/HomePage/InputNoHp";
 import SuccessPin from "../pages/SuccessPin";
-import ConfirmationPin from "../pages/createNewPin/ConfirmationPin";
-import CreatePin from "../pages/createNewPin/CreatePin";
+import AccordionTopUp from "../pages/accordionTopupPage/AccordionTopUp";
+import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
+import CreatePin from "../pages/createNewPinPage/CreatePin";
+import StartPage from "../pages/pageStart/StartPageRegisttraion";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/home/bdki" />,
+    element: <StartPage/>
+    // element: <Navigate to="/home/bdki" />,
   },
   {
     errorElement: <ErrorPage />,
     children: [
 
       {
-        path: "/home/bdki",
+        path: "/home/bdki/:id",
         element: <HomePage />,
       },
       {
@@ -25,15 +28,35 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "register",
-        element: <Register />,
+        path: "login/bdki",
+        element: <InputPinLogin />,
       },
       {
-        path: "create-pin",
+        path: "login/mrt",
+        element: <InputPinLogin />,
+      },
+      {
+        path: "register/bdki",
+        element: <Register />,
+      },
+      // {
+      //   path: "register/mrt",
+      //   element: <Register />,
+      // },
+      {
+        path: "create-pin/bdki",
         element: <CreatePin />,
       },
       {
-        path: "confirmation-pin/:id",
+        path: "create-pin/mrt",
+        element: <CreatePin />,
+      },
+      {
+        path: "confirmation-pin/bdki",
+        element: <ConfirmationPin />,
+      },
+      {
+        path: "confirmation-pin/mrt",
         element: <ConfirmationPin />,
       },
       {
@@ -41,9 +64,10 @@ export const router = createBrowserRouter([
         element: <SuccessPin />,
       },
       {
-        path: "login",
-        element: <InputPinLogin />,
-      },
+        path: "topup",
+        element: <AccordionTopUp/>
+      }
+      
     ],
   },
 ]);
