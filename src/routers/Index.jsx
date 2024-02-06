@@ -1,13 +1,13 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
-import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
-import CreatePin from "../pages/createNewPinPage/CreatePin";
-import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
-import Register from "../pages/registrationPage/Register";
-import SuccessPin from "../pages/SuccessPin";
-import HomePage from "../pages/HomePage/InputNoHp";
+import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
+import HomePage from "../pages/HomePage/InputNoHp";
+import SuccessPin from "../pages/SuccessPin";
 import AccordionTopUp from "../pages/accordionTopupPage/AccordionTopUp";
+import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
+import CreatePin from "../pages/createNewPinPage/CreatePin";
 import StartPage from "../pages/pageStart/StartPageRegisttraion";
+import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
+import Register from "../pages/registrationPage/Register";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     children: [
 
       {
-        path: "/home/bdki",
+        path: "/home/bdki/:id",
         element: <HomePage />,
       },
       {

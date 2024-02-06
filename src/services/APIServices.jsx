@@ -1,4 +1,5 @@
 const apiUrl = process.env.API_JAVA_URL;
+const apiDiwaUrl = process.env.API_DIWA_URL;
 import axios from "axios";
 
 const config = {
@@ -16,19 +17,52 @@ const config = {
 // apiUrl = `http://api.thecatapi.com/v1/images/Rl39SPjDO`;  + otpPrams.id
 
 const APIServices = {
-  // Mengambil data dengan memvalidasi OTP via SMS
-  getCheckAccount: async (phonePrams) => {
+  getAccountInformation: async (setParam) => { // DIWA
+    console.log(apiDiwaUrl + ' - ' + setParam);
+    try {
+        let response = await axios.post(
+          apiDiwaUrl + `/diwa/accountservice/account/accountInformation`,
+            setParam,
+            {
+                method: 'POST',
+                config
+            ,}
+          );
+        return response;
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
+  },
+  getRequestLinkRegistration: async (phonePrams) => {
     console.log(phonePrams);
     try {
         let response = await axios.post(
-            apiUrl + `/paymentIntegration/checkAccount`,
+            apiUrl + `/paymentIntegration/requestLinkRegistration`,
             phonePrams,
             {
                 method: 'POST',
                 config
             ,}
           );
-        return response.data;
+        return response;
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
+  },
+  getRequestOtp: async (phonePrams) => { // Mengambil data dengan memvalidasi OTP via SMS
+    console.log(phonePrams);
+    try {
+        let response = await axios.post(
+            apiUrl + `/paymentIntegration/requestOtp`,
+            phonePrams,
+            {
+                method: 'POST',
+                config
+            ,}
+          );
+        return response;
       } catch (err) {
         console.error(err);
         throw err;

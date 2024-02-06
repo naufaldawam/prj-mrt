@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Flag from "react-world-flags";
@@ -7,71 +9,13 @@ import Flag from "react-world-flags";
 //========================================================================================================= start //
 import PinInputTemplate from "react-pin-input";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import PhoneInput from "react-phone-input-2";
 
-export const PinInputWithStyle = ({ secretDelay }) => {
-    const PinInput = PinInputTemplate;
-    return (
-        <PinInput
-            length={6}
-            initialValue=""
-            secret={false}
-            onChange={() => { }}
-            type="numeric"
-            inputMode="number"
-            inputStyle={getStyledPinInput()}
-            inputFocusStyle={{}}
-            onComplete={() => { }}
-            autoSelect={true}
-            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-            secretDelay={secretDelay}
-        />
-    );
-};
 
+export const PinInput = PinInputTemplate;
 export const ModalTermsAndCondition = ModalTermsAndConditionTemplate;
-export const FontAwesomeIconCheckeCircle = (
-    <FontAwesomeIcon icon={faCheckCircle} />
-);
-
-export const PhoneInputWithStyle = () => {
-    const [value, setValue] = useState(); //to handle change
-    // console.log("value fom phone input with style at phone input with style constant", value);
-    const PhoneInputTemplate = PhoneInput;
-    return (
-        <PhoneInputTemplate
-            country="id"
-            placeholder="input nomor anda"
-            masks={{ id: ".... .... ...." }}
-            inputStyle={{
-                border: "none",
-                boxShadow: "none",
-                outline: "none",
-                width: "230px",
-            }}
-            value={value}
-            onChange={setValue}
-        />
-    );
-};
-
-export const ButtonWithStyle = ({ onClick, disabled }) => {
-    return (
-        <button
-            onClick={onClick}
-            disabled={disabled}
-            className={getButtonStyleConfirmation()}
-            type="button"
-            data-ripple-light="true"
-        >
-            Konfirmasi
-        </button>
-    );
-};
-//=============================================================================================== end ===============//
-
+export const FontAwesomeIconCheckeCircle = <FontAwesomeIcon icon={faCheckCircle} />;
+export const TemplatePhoneInput = PhoneInput;
+//=============== end ===============//
 
 //========================================================================================== handle button to go to some page  ===============//
 //========================================================================================================= start //
@@ -79,7 +23,7 @@ export const handleButtonGoToPageRegister = () => {
     window.location.href = "/register";
 };
 export const handleButtonGoToPageCreatePin = () => {
-    window.location.href = "/create-pin";
+    window.location.href = "/create-pin/bdki";
 };
 export const handleButtonGoToPageLoginInputPin = () => {
     window.location.href = "/login/bdki";

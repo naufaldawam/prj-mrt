@@ -33,8 +33,8 @@ function RootLayout() {
         ref={headerRef}
       >
         <NavLink to="/">
-          {/* <strong className="ml-8">Bank DKI</strong> */}
-          <img style={{ width: '8rem', padding: "5px" }} src={myImage} alt="example" />
+          <strong className="ml-8">Bank DKI</strong>
+          <img style={{ width: '8rem', padding: "5px", backgroundColor: "red" }} src={myImage} alt="example" />
         </NavLink>
       </div>
       <Outlet />
