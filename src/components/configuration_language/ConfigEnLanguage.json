@@ -88,15 +88,15 @@
     "header": ["JakOne Mobile", "No balance top up fees from JakOne Mobile"],
     "body": "Now you can top up JakonePay through all BKI Bank ATM machines. Follow the steps below to top up JakOnePay",
     "description": [
-      "Pilih Menu Pembayaran",
-      "Pilih MenuVirtual Account",
-      "Masukan No. Virtual Account (9980) yang diikuti dengan nomor Handphone Kamu",
-      "Kosongkan kode pembayaran",
-      "Lalu pilih Lanjut",
-      "Masukan Nominal Transaksi",
-      "Lalu pilih lanjut",
-      "Masukan nominal transaksi",
-      "Setelah berhasil saldo JakOnePay Kamu akan bertambah"
+      "Select Payment Menu",
+      "Select Menu Virtual Account",
+      "Enter Virtual Account Number (9980) followed by your cellphone number",
+      "Clear payment code",
+      "Then select Next",
+      "Enter Transaction Amount",
+      "Then select continue",
+      "Enter transaction amount",
+      "After success, your JakOnePay balance will increase"
     ]
   },
 
@@ -119,12 +119,12 @@
     ]
   },
   "registerPageDescription": {
-      "header": "Register page",
-      "body": "Enter your personal data",
-      "formBody":[
-          "Full Name",
-          "place Of Birth",
-          "Email"
-      ]
+    "header": "Register page",
+    "body": "Enter your personal data",
+    "formBody":[
+      "Full Name",
+      "place Of Birth",
+      "Email"
+    ]
   }
 }

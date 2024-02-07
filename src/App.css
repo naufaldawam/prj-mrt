@@ -38,3 +38,10 @@
 }
 
 /* End Start Navbar */
+
+.centered-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35vh; /* Sesuaikan dengan kebutuhan Anda */
+}

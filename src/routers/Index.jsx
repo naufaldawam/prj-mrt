@@ -8,6 +8,8 @@ import CreatePin from "../pages/createNewPinPage/CreatePin";
 import StartPage from "../pages/pageStart/StartPageRegisttraion";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
+import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
+import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
 
 export const router = createBrowserRouter([
   {
@@ -66,8 +68,15 @@ export const router = createBrowserRouter([
       {
         path: "topup",
         element: <AccordionTopUp/>
+      },
+      {
+        path: "success",
+        element: <SuccesPageWithLottie />,
+      },
+      {
+        path: "loader",
+        element: <LoaderPageWithLottie />,
       }
-      
     ],
   },
 ]);
