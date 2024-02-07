@@ -1,22 +1,13 @@
 import moment from 'moment';
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import {
   handleButtonGoToPageLoginInputPin,
   handleButtonGoToPageRegister,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 
 
 const StartPage = () => {
-    // const handleOnclick = (e) => {
-    //     console.log("testing :", e);
-    // };
-
-    const navigate = useNavigate()
-
   const handleGoToRegisterMRT = () => {
     const pParams = {
       phoneNumber: '6285270196990', // value ? value : null,
