@@ -76,14 +76,15 @@ export const ButtonWithStyle = ({ onClick, disabled }) => {
 
 //========================================================================================== handle button to go to some page  ===============//
 //========================================================================================================= start //
-export const handleButtonGoToPageRegister = () => {
-    window.location.href = "/register";
+export const handleButtonGoToPageRegister = (urlvalidation) => {
+    window.location.href = urlvalidation; // "/register";
 };
 export const handleButtonGoToPageCreatePin = () => {
     window.location.href = "/create-pin/bdki";
 };
-export const handleButtonGoToPageLoginInputPin = () => {
-    window.location.href = "/login/bdki";
+export const handleButtonGoToPageLoginInputPin = (urlvalidation) => { // Account Binding
+    console.log('urlvalidation : ' + urlvalidation);
+    window.location.href = urlvalidation; // "/login/bdki";
 };
 export const handleButtonGoToPageHome = () => {
     window.location.href = "/";

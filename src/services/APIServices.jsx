@@ -8,10 +8,11 @@ const config = {
         'Access-Control-Allow-Origin': '*',
         'accept': 'application/json, text/plain, */*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
         // 'Authorization': `Bearer ${token}`,
     }
 };
-
+console.log(config);
 // Contoh hasil API
 // bisa lihat di file InputNoHp.jsx
 // apiUrl = `http://api.thecatapi.com/v1/images/Rl39SPjDO`;  + otpPrams.id
@@ -20,8 +21,7 @@ const APIServices = {
   getAccountInformation: async (setParam) => { // DIWA
     console.log(apiDiwaUrl + ' - ' + setParam);
     try {
-        let response = await axios.post(
-          apiDiwaUrl + `/diwa/accountservice/account/accountInformation`,
+        let response = await axios.post(apiUrl+`/paymentIntegration/accountInformation`,
             setParam,
             {
                 method: 'POST',

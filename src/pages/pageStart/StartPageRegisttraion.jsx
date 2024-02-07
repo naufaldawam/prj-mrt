@@ -1,6 +1,10 @@
 import moment from 'moment';
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  handleButtonGoToPageLoginInputPin,
+  handleButtonGoToPageRegister,
+} from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const StartPage = () => {
@@ -12,19 +16,57 @@ const StartPage = () => {
 
   const handleGoToRegisterMRT = () => {
     const pParams = {
-      phoneNumber: "082288889806", // value ? value : null,
-      stan: "123456", // setup dari BE
-      requestDate: moment().format("YYYY-MM-DD"),
-      requestTime: moment().format("hh:mm:ss"),
+      phoneNumber: '6285270196990', // value ? value : null,
+      stan: '123456', // setup dari BE
+      requestDate: moment().format('YYYY-MM-DD'),
+      requestTime: moment().format('hh:mm:ss')
     };
-    console.log("pParams : " + pParams);
+    console.log("pParams : " + pParams.phoneNumber);
     DataEndPoint.getAccountInformation(pParams)
       .then((res) => {
+        console.log("Request");
+        console.log(pParams);
+        console.log("Respons");
         console.log(res);
-        if (res.message == "Success") {
-          handleButtonGoToPageCreatePin();
+        const resParams = res.data.response.result;
+        console.log(resParams);
+
+        if (res.data.response.message == "Success") {
+          const aiRestParams = {
+            phoneNumber: resParams.accountNumber,
+            fullName: resParams.customerName,
+            birthdate: resParams.dateOfBirth,
+            placeOrBirth: resParams.placeOfBirth,
+            email: resParams.email,
+            channelId: 'MARTIPAY',
+            stan: '123456',
+            requestDate: '2024-01-30',
+            requestTime: '14:56:27'
+          };
+          console.log('aiRestParams');
+          console.log(aiRestParams);
+          DataEndPoint.getRequestLinkRegistration(aiRestParams)
+            .then((res) => {
+              console.log('RequestLinkRegistration');
+              console.log(res);
+              const resParams = res.data.response.data;
+              console.log(res.data.response.statusCode);
+              if (res.data.response.statusCode == "SUCCESS") {
+                
+                console.log(resParams.urlValidation);
+                const urlvalidation = resParams.urlValidation;
+                handleButtonGoToPageLoginInputPin(resParams.urlValidation);
+              } else if (res.statusCode == "FAILED") {
+                handleButtonGoToPageRegister(urlvalidation);
+              } else if (res.statusCode == "ERROR") {
+                alert("Server error...!");
+              }
+            })
+            .catch((err) => {
+              console.log("error : " + err);
+            });
         } else if (res.statusCode == "FAILED") {
-          handleButtonGoToPageRegister();
+          handleButtonGoToPageRegister(urlvalidation);
         } else if (res.statusCode == "ERROR") {
           alert("Server error...!");
         }
