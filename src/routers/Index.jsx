@@ -10,6 +10,7 @@ import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
 import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
+import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "loader",
         element: <LoaderPageWithLottie />,
+      },
+      {
+        path: "encdec",
+        element: <ExampleEncDec />,
       }
     ],
   },

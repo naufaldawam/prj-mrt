@@ -11,7 +11,7 @@ import PhoneInput from "react-phone-input-2";
 import PinInputTemplate from "react-pin-input";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
 
-export const PinInputWithStyle = ({ secretDelay,value,onChange }) => {
+export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
     const PinInput = PinInputTemplate;
     return (
         <PinInput
@@ -37,7 +37,7 @@ export const FontAwesomeIconCheckeCircle = (
     <FontAwesomeIcon icon={faCheckCircle} />
 );
 
-export const PhoneInputWithStyle = ({value,onChange}) => {
+export const PhoneInputWithStyle = ({ value, onChange }) => {
     // const [value, setValue] = useState(); //to handle change
     // console.log("value fom phone input with style at phone input with style constant", value);
     const PhoneInputTemplate = PhoneInput;
@@ -599,3 +599,49 @@ export const getDescriptionTopUpWithATMDebitKredit = () => {
 
 //=============================================================================================== end ===============//
 
+//===========================================================//
+// ============== start encrypt decyrpt =============//
+//===========================================================//
+import CryptoJS from "crypto-js";
+
+const IvEnkrip = "Y198HJ34BMH4D9EB";
+const KeyEnkrip = "RACPBQMF68R6BPOZKNW7ERD7ZYWO849T";
+const SaltEnkrip = "GET2L0JVOB4S2U0UBV920IT4T415IYA6";
+
+export const FunctionEncrypt = (inputData) => {
+    const iv = CryptoJS.enc.Hex.parse(IvEnkrip);
+    const salt = CryptoJS.enc.Hex.parse(SaltEnkrip);
+    const key = CryptoJS.enc.Hex.parse(KeyEnkrip);
+    const encrypt = CryptoJS.AES.encrypt(inputData, key, { iv, salt }).toString();
+
+    return encrypt;
+}
+
+export const FunctionEncryptBase64 = (inputData) => {
+    const iv = CryptoJS.enc.Hex.parse(IvEnkrip);
+    const salt = CryptoJS.enc.Hex.parse(SaltEnkrip);
+    const key = CryptoJS.enc.Hex.parse(KeyEnkrip);
+    const encrypt = CryptoJS.AES.encrypt(inputData, key, { iv, salt }).toString();
+    const encryptWithBase64 = CryptoJS.enc.Base64.parse(encrypt).toString();
+
+    return encryptWithBase64;
+}
+
+export const FunctionDecryptAES = (textEncrypt) => {
+    const iv = CryptoJS.enc.Hex.parse(IvEnkrip);
+    const salt = CryptoJS.enc.Hex.parse(SaltEnkrip);
+    const key = CryptoJS.enc.Hex.parse(KeyEnkrip);
+    const decrypt = CryptoJS.AES.decrypt(textEncrypt, key, { iv, salt }).toString(CryptoJS.enc.Utf8);
+    
+    return decrypt;
+}
+
+export const FunctionDecryptBase64 = (textEncryptBase64) => {
+    const encrypt = CryptoJS.enc.Base64.parse(textEncryptBase64).toString();
+    const iv = CryptoJS.enc.Hex.parse(IvEnkrip);
+    const salt = CryptoJS.enc.Hex.parse(SaltEnkrip);
+    const key = CryptoJS.enc.Hex.parse(KeyEnkrip);
+    const decryptEncryptWithBase64 = CryptoJS.AES.decrypt(encrypt, key, { iv, salt }).toString(CryptoJS.enc.Utf8);
+    
+    return decryptEncryptWithBase64;
+}
