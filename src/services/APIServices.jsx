@@ -90,7 +90,7 @@ const APIServices = {
   getRegistration: async (regnotelp) => {
     try {
       let response = await axios.post(
-        apiUrl + `/paymentIntegration/registration`,
+        apiUrl + `/paymentIntegration/inquiryDataByIdRequest`,
         regnotelp,
         {
             method: 'POST',

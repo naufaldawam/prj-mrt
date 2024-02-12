@@ -4,3 +4,5 @@ package-lock.json
 doctek/
 .vscode/
 yarn.lock
+src/pages/registrationPage/Register copy.jsx
+service

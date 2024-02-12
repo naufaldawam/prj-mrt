@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
     children: [
 
       {
-        path: "/home/bdki/:id",
+        path: "/home/bdki",
         element: <HomePage />,
       },
       {

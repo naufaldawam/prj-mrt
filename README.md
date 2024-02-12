@@ -120,3 +120,7 @@ Kemudian jalankan commend ini pada terminal :
 docker buildx build --platform linux/amd64 --push -t itdevbankdki/svc-diwa-webview-fe:tag_image .
 
 catatan tag_image : wajib diganti dengan angka bebas lepas tinggal semua itu
+
+Editional install :
+npm install js-cookie
+npm install react-hook-form react-icons tailwindcss
