@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import {
-  handleButtonGoToPageHome,
-  PROFILE_NAME,
+  ButtonWithStyle,
   ImagePin,
+  PROFILE_NAME,
+  PinInputWithStyle,
+  getDescriptionMessageInputPinAccess,
   getDescriptionTermsAndCondition,
   getHeaderMessageInputPinLogin,
+  getMessageHeaderPinAccess,
   getMessageInputPinAccess,
-  PinInputWithStyle,
-  ButtonWithStyle,
-  getDescriptionMessageInputPinAccess,
-  getMessageHeaderPinAccess
+  handleButtonGoToPageHome,
 } from "../../constantFile/I_Constant";
 
 function PinInputPage() {
@@ -20,27 +20,36 @@ function PinInputPage() {
     console.log("new value", newValue);
   };
 
-
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none">
-          <h2 className="block font-sans  font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased text-center my-8">
-            {getHeaderMessageInputPinLogin()}
-          </h2>
+      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+        <div>
+          <a href="/">
+            <h3 className="text-4xl font-bold text-red-600">JakOnePay</h3>
+          </a>
+        </div>
+        <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
+        <h4>{getHeaderMessageInputPinLogin()}</h4>
+        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
             <div className="text-center p-4">
-              {PinInputWithStyle({ secretDelay: 10, })}
+              {PinInputWithStyle({ secretDelay: 10 })}
+        <div className="mt-4 text-grey-600">
+            Reset your PIN when you aren't signed.{" "}
+            <span>
+              <a className="text-red-600 hover:underline" href="/home/bdki">
+                Forget PIN
+              </a>
+            </span>
+          </div>
             </div>
           </div>
-          <form className="mx-8 md:mx-20 md:px-20">
+          <form>
             <hr />
-
-              {getMessageHeaderPinAccess()}
+            {getMessageHeaderPinAccess()}
 
             <div className="my-2">
               <div className="flex items-center">
-
                 <img
                   src={ImagePin}
                   alt="Profile"
@@ -48,29 +57,26 @@ function PinInputPage() {
                 />
 
                 <div>
-                  <p className="text-xl bold font-medium">
-                    {PROFILE_NAME}
-                  </p>
+                  <p className="text-xl bold font-medium">{PROFILE_NAME}</p>
                 </div>
-
               </div>
             </div>
+            <div className=" text-justify">
+              <div className="mb-2">
+                {getMessageInputPinAccess()}
+                {getDescriptionMessageInputPinAccess()}
+              </div>
 
-            <div className="mb-2">
-              {getMessageInputPinAccess()}
-              {getDescriptionMessageInputPinAccess()}
+              <div>
+                <p>{getDescriptionTermsAndCondition()}</p>
+              </div>
             </div>
-
             <div>
-              <p>
-                {getDescriptionTermsAndCondition()}
-              </p>
+              {ButtonWithStyle({
+                onClick: handleButtonGoToPageHome,
+                disabled: isActive,
+              })}
             </div>
-
-            <div>
-              {ButtonWithStyle({ onClick: handleButtonGoToPageHome, disabled: isActive })}
-            </div>
-
           </form>
         </div>
       </div>

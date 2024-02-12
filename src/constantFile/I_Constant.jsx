@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import Flag from "react-world-flags";
 
-//===================================================================================== for folder homepage -> InputNoHp.jsx ===============//
-//========================================================================================================= start //
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from 'js-cookie';
 import PhoneInput from "react-phone-input-2";
 import PinInputTemplate from "react-pin-input";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
@@ -76,8 +75,8 @@ export const ButtonWithStyle = ({ onClick, disabled }) => {
 
 //========================================================================================== handle button to go to some page  ===============//
 //========================================================================================================= start //
-export const handleButtonGoToPageRegister = (urlvalidation) => {
-    window.location.href = urlvalidation; // "/register";
+export const handleButtonGoToPageRegister = () => {
+    window.location.href = "/register/bdki";
 };
 export const handleButtonGoToPageCreatePin = () => {
     window.location.href = "/create-pin/bdki";
@@ -597,3 +596,19 @@ export const getDescriptionTopUpWithATMDebitKredit = () => {
 
 //=============================================================================================== end ===============//
 
+// ============== Setup Cookies =============//
+export const setCookie = (userToken) => {
+    Cookies.set('userToken', 'setToken', { userToken }); // Set a cookie that expires in 7 days
+  };
+
+export const getCookie = () => {
+    const userToken = Cookies.get('userToken'); // Get the value of the cookie
+    alert(`User Token: ${userToken || 'Not found'}`);
+    // return userToken;
+  };
+
+export const deleteCookie = () => {
+    Cookies.remove('userToken'); // Remove the cookie
+  };
+
+  // ============== End Setup Cookies =============//
