@@ -109,7 +109,7 @@ import ImagePinImageTemplate from "../assets/icons/account-home.png";
 
 export const PROFILE_NAME = "NAMA USER"; //profile imagae
 export const ImagePin = ImagePinImageTemplate; //
-export const DescriptionSuccess = "Top-up Berhasil !"; //profile imagae
+export const DescriptionSuccess = "Top Up JakOne Berhasil !"; //profile imagae
 
 //=============================================================================================== end ===============//
 
