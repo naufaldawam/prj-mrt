@@ -97,36 +97,3 @@ const CreatePin = () => {
 };
 
 export default CreatePin;
-
-// import "react-phone-input-2/lib/bootstrap.css";
-// import React from "react";
-// import { getButtonStyle, getButtonStyleConfirmation, getButtonStyleMaterial, changeLanguageAndRenderButton, useTranslationHook } from "../../constantFile/I_Constant";
-
-// const CreatePin = () => {
-//   const { i18n } = useTranslationHook();
-//   console.log('i18n in component:', i18n);
-
-//   return (
-//     <div className="max-w-lg mx-auto bg-white overflow-hidden">
-//       <div className="p-4">
-//         {/* <button onClick={() => changeLanguage('en', i18n)} className="">English</button> */}
-//         {/* //         <button onClick={() => changeLanguage('id', i18n)}>Indonesia</button> */}
-//         {changeLanguageAndRenderButton({ country: 'us', i18n })}
-//         {changeLanguageAndRenderButton({ country: 'id', i18n })}
-
-//         <h2 className="text-xl font-semibold my-2 text-center">ini te</h2>
-//         <p className="my-4">testing</p>
-//         <button type="button" className={getButtonStyle()}>
-//           Send kode otp
-//         </button>
-//         {getButtonStyleMaterial()}
-//         <button type="button" className={getButtonStyleConfirmation()}>
-//           Konfirmasi
-//         </button>
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CreatePin;

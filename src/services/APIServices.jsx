@@ -87,11 +87,10 @@ const APIServices = {
       }
 
   },
-  getRegistration: async (regnotelp) => {
+  getinquiryDataByIdRequest: async (idRequest) => {
     try {
-      let response = await axios.post(
-        apiUrl + `/paymentIntegration/inquiryDataByIdRequest`,
-        regnotelp,
+      let response = await axios.post(apiUrl + `/paymentIntegration/inquiryDataByIdRequest`,
+        idRequest,
         {
             method: 'POST',
             config
@@ -153,7 +152,7 @@ const APIServices = {
   getInquiryQris: async (InquiryQrisParams) => {
     try {
       let response = await axios.post(
-        apiUrl + `/paymentIntegration/InquiryQris/`, 
+        apiUrl + `/paymentIntegration/InquiryQris`, 
         InquiryQrisParams,
         {
             method: 'POST',
@@ -185,7 +184,7 @@ const APIServices = {
   getValidationToken: async (ValidationTokenParams) => {
     try {
       let response = await axios.post(
-        apiUrl + `/paymentIntegration/validationToken/`,
+        apiUrl + `/paymentIntegration/validationToken`,
           ValidationTokenParams,
           {
               method: 'POST',
@@ -201,7 +200,7 @@ const APIServices = {
   getGenerateLinkTransaction: async (GenerateLinkTransactionParams) => {
     try {
       let response = await axios.post(
-        apiUrl + `/paymentIntegration/generateLinkTransaction/`,
+        apiUrl + `/paymentIntegration/generateLinkTransaction`,
         GenerateLinkTransactionParams,
         {
             method: 'POST',
@@ -218,8 +217,42 @@ const APIServices = {
     try {
       let response = await axios.post(
         apiUrl +
-          `/paymentIntegration/unbindingAccount/`,
+          `/paymentIntegration/unbindingAccount`,
           UnbindingAccountParams,
+          {
+              method: 'POST',
+              config
+          ,}
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  },
+  getPostRegistrationAccount: async (PostRegistrationAccount) => {
+    try {
+      let response = await axios.post(
+        apiUrl +
+          `/paymentIntegration/postRegistrationAccount`,
+          PostRegistrationAccount,
+          {
+              method: 'POST',
+              config
+          ,}
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  },
+  getEnkripAes: async (enkripAes) => {
+    try {
+      let response = await axios.post(
+        apiUrl +
+          `/paymentIntegration/enkripFe`,
+          enkripAes,
           {
               method: 'POST',
               config

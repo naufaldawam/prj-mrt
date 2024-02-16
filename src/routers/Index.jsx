@@ -5,12 +5,12 @@ import SuccessPin from "../pages/SuccessPin";
 import AccordionTopUp from "../pages/accordionTopupPage/AccordionTopUp";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
 import CreatePin from "../pages/createNewPinPage/CreatePin";
+import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
+import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
 import StartPage from "../pages/pageStart/StartPageRegisttraion";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
-import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
-import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
 
 export const router = createBrowserRouter([
   {
@@ -27,39 +27,39 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/home/mrt",
+        path: "/home/martipay",
         element: <HomePage />,
       },
       {
-        path: "login/bdki",
+        path: "login/bdki/:id",
         element: <InputPinLogin />,
       },
       {
-        path: "login/mrt",
+        path: "login/martipay/:id",
         element: <InputPinLogin />,
       },
       {
-        path: "register/bdki",
+        path: "register/bdki/:id",
         element: <Register />,
       },
-      // {
-      //   path: "register/mrt",
-      //   element: <Register />,
-      // },
       {
-        path: "create-pin/bdki",
+        path: "register/martipay/:id",
+        element: <Register />,
+      },
+      {
+        path: "create-pin/bdki/:id",
         element: <CreatePin />,
       },
       {
-        path: "create-pin/mrt",
+        path: "create-pin/martipay/:id",
         element: <CreatePin />,
       },
       {
-        path: "confirmation-pin/bdki",
+        path: "confirmation-pin/bdki/:id",
         element: <ConfirmationPin />,
       },
       {
-        path: "confirmation-pin/mrt",
+        path: "confirmation-pin/martipay/:id",
         element: <ConfirmationPin />,
       },
       {

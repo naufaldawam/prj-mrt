@@ -1,8 +1,8 @@
-import React from "react";
 import Lottie from "lottie-react";
+import React from "react";
 import AnimationLoader from "../../components/lottieFiles/AnimationLoader2.json";
 
-const LoaderPageWithLottie = () => {
+export const LoaderPageWithLottie = () => {
   return (
     <div
       style={{

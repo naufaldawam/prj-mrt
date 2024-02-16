@@ -3,10 +3,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ImageSucces from "../assets/icons/icon-success.png";
 import ImageSuccesPeople from "../assets/icons/success-image.png";
+import {
+  getCookie,
+} from "../constantFile/I_Constant";
 
 const SuccessPin = () => {
   const apiUrl = process.env.API_JAVA_URL;
   console.log(apiUrl)
+
+  const _getCookie = JSON.parse(getCookie());
+  console.log("_getCookie : ", _getCookie);
+  
   return (
     <div>
       <div className="max-w-md mx-auto my-2 bg-white rounded-md overflow-hidden shadow-sm">
@@ -17,7 +24,7 @@ const SuccessPin = () => {
           <h6 className="text-xl my-2 text-center">CONGRATULATION</h6>
           <strong>
             <h2 className="text-xl font-semibold my-2 text-center">
-              Fadhilah Yuda Pratama
+              {_getCookie.fullName}
             </h2>
           </strong>
           <div className="flex items-center justify-center my-4">

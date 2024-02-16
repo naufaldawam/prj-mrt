@@ -18,6 +18,7 @@ function PinInputPage() {
   const handleChange = (newValue) => {
     setValue(newValue);
     console.log("new value", newValue);
+
   };
 
   return (
