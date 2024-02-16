@@ -1,4 +1,3 @@
-// CreatePin.js
 import React from "react";
 import { Link } from "react-router-dom";
 import ImageSucces from "../assets/icons/icon-success.png";
@@ -49,9 +48,24 @@ const SuccessPin = () => {
           </Link>
         </div>
       </div>
-      <div className="bg-gray-50"></div>
+      <div className="">
+        <Lottie
+          animationData={AnimationSuccess}
+          loop={true}
+          autoplay={true}
+          style={{
+            width: "150px",
+            height: "150px",
+          }}
+        />
+      </div>
+      <strong>
+        <h2 className="text-lg font-bold text-red-500 text-center">
+          Top Up JakOne
+        </h2>
+      </strong>
+      <p className="text-sm">AYI ABDUL AZIZ</p>
     </div>
   );
 };
-
-export default SuccessPin;
+export default SuccesPageWithLottie;

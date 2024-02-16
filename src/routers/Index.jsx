@@ -11,17 +11,18 @@ import StartPage from "../pages/pageStart/StartPageRegisttraion";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
-
+import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
+import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
+import Topup from "../pages/accordionTopupPage/TopUp";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <StartPage/>
+    element: <StartPage />,
     // element: <Navigate to="/home/bdki" />,
   },
   {
     errorElement: <ErrorPage />,
     children: [
-
       {
         path: "/home/bdki",
         element: <HomePage />,
@@ -68,7 +69,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "topup",
-        element: <AccordionTopUp/>
+        element: <AccordionTopUp />,
       },
       {
         path: "success",
@@ -81,7 +82,11 @@ export const router = createBrowserRouter([
       {
         path: "encdec",
         element: <ExampleEncDec />,
-      }
+      },
+      {
+        path: "top-up",
+        element: <Topup />,
+      },
     ],
   },
 ]);
