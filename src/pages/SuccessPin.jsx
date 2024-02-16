@@ -1,7 +1,8 @@
+import Lottie from "lottie-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import ImageSucces from "../assets/icons/icon-success.png";
 import ImageSuccesPeople from "../assets/icons/success-image.png";
+import AnimationSuccess from "../components/lottieFiles/AnimationSuccess.json";
 import {
   getCookie,
 } from "../constantFile/I_Constant";
@@ -18,7 +19,18 @@ const SuccessPin = () => {
       <div className="max-w-md mx-auto my-2 bg-white rounded-md overflow-hidden shadow-sm">
         <div className="p-4 items-center justify-center">
           <div className="flex items-center justify-center my-4">
-            <img className="" width={60} src={ImageSucces} alt="My Image" />
+            {/* <img className="" width={60} src={ImageSucces} alt="My Image" /> */}
+            <div className="">
+        <Lottie
+          animationData={AnimationSuccess}
+          loop={true}
+          autoplay={true}
+          style={{
+            width: "150px",
+            height: "150px",
+          }}
+        />
+      </div>
           </div>
           <h6 className="text-xl my-2 text-center">CONGRATULATION</h6>
           <strong>
@@ -48,24 +60,13 @@ const SuccessPin = () => {
           </Link>
         </div>
       </div>
-      <div className="">
-        <Lottie
-          animationData={AnimationSuccess}
-          loop={true}
-          autoplay={true}
-          style={{
-            width: "150px",
-            height: "150px",
-          }}
-        />
-      </div>
+      
       <strong>
         <h2 className="text-lg font-bold text-red-500 text-center">
           Top Up JakOne
         </h2>
       </strong>
-      <p className="text-sm">AYI ABDUL AZIZ</p>
     </div>
   );
 };
-export default SuccesPageWithLottie;
+export default SuccessPin;

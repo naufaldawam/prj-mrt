@@ -635,6 +635,16 @@ export const LoadIconShield = () => {
     ? <img className="" width={200} src={logoiconbdki} alt="My Image" />
     : <img className="" width={200} src={logoiconmartipay} alt="My Image" />;
 };
+
+export const LoadBgColor = () => {
+  const location = useLocation();
+  const pathName = location.pathname;
+  const lastSegment = pathName.split("/");
+  // console.log("LoadImage : ", lastSegment[2]);
+  return lastSegment[2] === "bdki"
+    ? themeStyling.bdki.styleloadBgColor
+    : themeStyling.martipay.styleloadBgColor;
+};
 //===========================================================//
 // ============== end message how to top up =============//
 //===========================================================//
@@ -663,9 +673,9 @@ export const FunctionEncrypt = (inputData) => {
 
 export const FunctionEncryptBase64 = (inputData) => {
   const iv = CryptoJS.enc.Utf8.parse(IvEnkrip);
-  const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
+  // const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
   const key = CryptoJS.enc.Utf8.parse(KeyEnkrip);
-  const encrypt = CryptoJS.AES.encrypt(inputData, key, { iv, salt }).toString();
+  const encrypt = CryptoJS.AES.encrypt(inputData, key, { iv: iv }).toString();
   const encryptWithBase64 = CryptoJS.enc.Base64.parse(encrypt).toString();
 
   return encryptWithBase64;
@@ -673,9 +683,9 @@ export const FunctionEncryptBase64 = (inputData) => {
 
 export const FunctionDecryptAES = (textEncrypt) => {
   const iv = CryptoJS.enc.Utf8.parse(IvEnkrip);
-  const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
+  // const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
   const key = CryptoJS.enc.Utf8.parse(KeyEnkrip);
-  const decrypt = CryptoJS.AES.decrypt(textEncrypt, key, { iv, salt }).toString(
+  const decrypt = CryptoJS.AES.decrypt(textEncrypt, key, { iv: iv }).toString(
     CryptoJS.enc.Utf8
   );
 
@@ -685,12 +695,9 @@ export const FunctionDecryptAES = (textEncrypt) => {
 export const FunctionDecryptBase64 = (textEncryptBase64) => {
   const encrypt = CryptoJS.enc.Base64.parse(textEncryptBase64).toString();
   const iv = CryptoJS.enc.Utf8.parse(IvEnkrip);
-  const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
+  // const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
   const key = CryptoJS.enc.Utf8.parse(KeyEnkrip);
-  const decryptEncryptWithBase64 = CryptoJS.AES.decrypt(encrypt, key, {
-    iv,
-    salt,
-  }).toString(CryptoJS.enc.Utf8);
+  const decryptEncryptWithBase64 = CryptoJS.AES.decrypt(encrypt, key, { iv: iv }).toString(CryptoJS.enc.Utf8);
 
   return decryptEncryptWithBase64;
 };

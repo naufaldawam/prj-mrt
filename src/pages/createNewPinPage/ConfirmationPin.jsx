@@ -1,20 +1,22 @@
+import { decode as base64_decode, encode as base64_encode } from 'base-64';
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import DataEndPoint from "../../services/APIServices";
-
 import {
+  FunctionDecryptAES,
   FunctionEncrypt,
-  FunctionEncryptBase64,
+  LoadBgColor,
   LoadIconShield,
   LoadLogo,
   PinInputWithStyle,
   getCookie,
   getMessageHeaderConfirmationPin
 } from "../../constantFile/I_Constant";
+import DataEndPoint from "../../services/APIServices";
 
 const ConfirmationPin = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [pin, setPin] = useState("");
+  let { idreg, id } = useParams();
   const params = useParams();
 
   const _getCookie = JSON.parse(getCookie());
@@ -37,20 +39,21 @@ const ConfirmationPin = () => {
   };
 
   const handlePinComplete = (value) => {
+    console.log(params.id);
+    const paramsid = FunctionDecryptAES(base64_decode(params.id));
+    
+    console.log(value);
     if (value.length === 6) {
-      if (params.id === value) {
+      if (paramsid === value) {
         const jsonPin = {
-          pin: value,
+          pin: base64_encode(FunctionEncrypt(value)),
         };
-        DataEndPoint.getEnkripAes(jsonPin)
-          .then((res) => {
-            console.log("respin : ", res);
+        console.log("base64_encode : ", jsonPin);
             
             console.log("FunctionEncrypt : ", FunctionEncrypt(value));
-            console.log("FunctionEncryptBase64 : ", FunctionEncryptBase64(value));
-
-            let pin = { pin: res };
-            let pPostRegistrationAccount = Object.assign(_getCookie, pin);
+            console.log("FunctionDecryptAES : ", value);
+            // let pin = { pin: res };
+            let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
             console.log("encpin : ", pPostRegistrationAccount);
             DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
               .then((res) => {
@@ -66,10 +69,35 @@ const ConfirmationPin = () => {
                 alert("Connection error...!");
                 // window.location.reload();
               });
-          })
-          .catch((err) => {
-            console.log("encript pin error : " + err);
-          });
+
+        // DataEndPoint.getEnkripAes(jsonPin)
+        //   .then((res) => {
+        //     console.log("respin : ", res);
+            
+        //     console.log("FunctionEncrypt : ", FunctionEncrypt(value));
+        //     console.log("FunctionDecryptAES : ", value);
+
+            // let pin = { pin: res };
+            // let pPostRegistrationAccount = Object.assign(_getCookie, pin);
+            // console.log("encpin : ", pPostRegistrationAccount);
+            // DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
+            //   .then((res) => {
+            //     console.log(res);
+            //     if (res.resultMessages == "Success") {
+            //       window.location.href = "/success-pin";
+            //     } else {
+            //       alert("Connection error...!");
+            //     }
+            //   })
+            //   .catch((err) => {
+            //     console.log("error : " + err);
+            //     alert("Connection error...!");
+            //     // window.location.reload();
+            //   });
+          // })
+          // .catch((err) => {
+          //   console.log("encript pin error : " + err);
+          // });
       } else {
         setShowModal(true);
       }
@@ -79,7 +107,7 @@ const ConfirmationPin = () => {
   return (
     <>
       <div>
-        <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+        <div className={LoadBgColor()}>
           <div>
             <a href="/">
               <h3 className="text-4xl font-bold text-red-600">
@@ -89,11 +117,8 @@ const ConfirmationPin = () => {
           </div>
           <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
           <h4>{getMessageHeaderConfirmationPin()}</h4>
-          <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
+          <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg bg-opacity-0">
             <div className="p-4 items-center justify-center">
-              <div className="flex items-center justify-center my-4">
-                {LoadIconShield()}
-              </div>
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="phoneNumber"
@@ -105,6 +130,9 @@ const ConfirmationPin = () => {
                     onChange: handlePinComplete,
                   })}
                 </div>
+              <div className="flex items-center justify-center my-4">
+                {LoadIconShield()}
+              </div>
               </div>
             </div>
           </div>

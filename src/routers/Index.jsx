@@ -3,6 +3,7 @@ import ErrorPage from "../components/ErrorPage";
 import HomePage from "../pages/HomePage/InputNoHp";
 import SuccessPin from "../pages/SuccessPin";
 import AccordionTopUp from "../pages/accordionTopupPage/AccordionTopUp";
+import Topup from "../pages/accordionTopupPage/TopUp";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
 import CreatePin from "../pages/createNewPinPage/CreatePin";
 import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
@@ -11,9 +12,7 @@ import StartPage from "../pages/pageStart/StartPageRegisttraion";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
-import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
-import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
-import Topup from "../pages/accordionTopupPage/TopUp";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -48,23 +47,23 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "create-pin/bdki/:id",
+        path: "create-pin/bdki/:idreg",
         element: <CreatePin />,
       },
       {
-        path: "create-pin/martipay/:id",
+        path: "create-pin/martipay/:idreg",
         element: <CreatePin />,
       },
       {
-        path: "confirmation-pin/bdki/:id",
+        path: "confirmation-pin/bdki/:idreg/:id",
         element: <ConfirmationPin />,
       },
       {
-        path: "confirmation-pin/martipay/:id",
+        path: "confirmation-pin/martipay/:idreg/:id",
         element: <ConfirmationPin />,
       },
       {
-        path: "success-pin",
+        path: "Success-pin",
         element: <SuccessPin />,
       },
       {

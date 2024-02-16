@@ -18,6 +18,7 @@
             "textAlign": "center",
             "marginBottom": "1rem"
         },
+        "styleloadBgColor" : "flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0",
         "buttonStyleConfirmationMaterialTailwind": {
             "size": "md",
             "fullWidth": true,
@@ -42,7 +43,8 @@
             "fontWeight": "100",
             "textAlign": "center",
             "marginBottom": "1rem"
-        }
+        },
+        "styleloadBgColor" : "flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0"
     },
     "btnyellow": {
         "buttonStyleConfirmation": "mt-6 block w-full select-none rounded-lg bg-yellow-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
