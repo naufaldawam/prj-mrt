@@ -26,7 +26,7 @@ const CreatePin = () => {
 
     // contoh menggunakan API services
     DataEndPoint.getOtp(paramOtp).then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   };
 

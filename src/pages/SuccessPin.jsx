@@ -9,10 +9,10 @@ import {
 
 const SuccessPin = () => {
   const apiUrl = process.env.API_JAVA_URL;
-  console.log(apiUrl)
+  // console.log(apiUrl)
 
   const _getCookie = JSON.parse(getCookie());
-  console.log("_getCookie : ", _getCookie);
+  // console.log("_getCookie : ", _getCookie);
   
   return (
     <div>

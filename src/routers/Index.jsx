@@ -39,11 +39,11 @@ export const router = createBrowserRouter([
         element: <InputPinLogin />,
       },
       {
-        path: "register/bdki/:id",
+        path: "register/bdki/:idreg",
         element: <Register />,
       },
       {
-        path: "register/martipay/:id",
+        path: "register/martipay/:idreg",
         element: <Register />,
       },
       {

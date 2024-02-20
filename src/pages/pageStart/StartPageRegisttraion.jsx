@@ -1,40 +1,37 @@
-import Cookies from 'js-cookie';
 import moment from "moment";
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import {
   LoaderPageWithLottie,
-  handleButtonGoToPageLoginInputPin
+  getCookie,
+  handleButtonGoToPageLoginInputPin,
+  handleButtonGoToPageRegister,
+  setCookie,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const StartPage = () => {
   // const navigate = useNavigate();
-  const cssColor = "";
+  // const cssColor = "";
   const [isLoading, setIsLoading] = useState(false);
-  const local_host = process.env.LOCAL_HOST;
+  // const local_host = process.env.LOCAL_HOST;
 
   const handleGoToRegisterBDKI = () => {
-    // check - Account Information
     const pParams = {
       phoneNumber: "085270196990", // value ? value : null,
       stan: "123456", // setup dari BE
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("pParams : " + pParams.phoneNumber);
     setIsLoading(true);
     DataEndPoint.getAccountInformation(pParams)
       .then((res) => {
-        console.log("Request");
-        console.log(pParams);
-        console.log("Respons");
-        console.log(res);
-        const resParams = res.data.response.result ? res.data.response.result : res.data.response;
-        console.log(resParams);
+        const resParams = res.data.response.result
+          ? res.data.response.result
+          : res.data.response;
 
         if (res.data.response.message == "Success") {
-          // Generate Link Account Binding / Registration
           const aiRestParams = {
             phoneNumber: resParams.accountNumber,
             fullName: resParams.customerName,
@@ -46,28 +43,21 @@ const StartPage = () => {
             requestDate: "2024-01-30",
             requestTime: "14:56:27",
           };
-          
-          console.log("aiRestParams");
-          console.log(aiRestParams);
           DataEndPoint.getRequestLinkRegistration(aiRestParams)
             .then((res) => {
-              console.log("RequestLinkRegistration");
-              console.log(res);
               const resParams = res.data;
-              console.log(resParams);
               if (resParams.resultMessages == "Success") {
-                console.log("BDKI URL : ", resParams.result.urlValidation);
-                // const urlvalidation = resParams.urlValidation;
-                Cookies.set('linkParam', JSON.stringify(aiRestParams), { expires: 7 });
-                var json_string = Cookies.get("name");
-                var array = JSON.parse(json_string);
-                // setCookie(resParams);
-                console.log(array.statusCode);
-                
-                handleButtonGoToPageLoginInputPin(resParams.result.urlValidation);
+                setCookie(resParams);
+                // Cookies.set("linkParam : ", JSON.stringify(aiRestParams));
+                // var json_string = Cookies.get("linkParam");
+                // var array = JSON.parse(json_string);
+                handleButtonGoToPageLoginInputPin(
+                  resParams.result.urlValidation
+                );
                 setIsLoading(false);
               } else if (resParams.resultMessages == "Failed") {
-                handleButtonGoToPageRegister(urlvalidation);
+                // console.log("URL : ", resParams.result.urlValidation);
+                handleButtonGoToPageRegister(resParams.result.urlValidation);
                 setIsLoading(false);
               } else if (resParams.resultMessages == "Error") {
                 setIsLoading(false);
@@ -79,7 +69,7 @@ const StartPage = () => {
               setIsLoading(false);
             });
         } else {
-          // handleButtonGoToPageRegister(local_host+`/register/bdki`);
+          // handleButtonGoToPageRegister(`/register/martipay/0`);
           setIsLoading(false);
         }
       })
@@ -87,14 +77,6 @@ const StartPage = () => {
         setIsLoading(false);
         console.log("error : " + err);
       });
-    // navigate("register/mrt");
-    // setLoading(true);
-    // {loading ? (
-    //   <TailSpin color="red" radius={"8px"} />
-    // ) : (
-      // navigate("register/bdki");
-    // )}
-    // setLoading(false);
   };
 
   const handleGoToRegisterMRT = () => {
@@ -104,17 +86,13 @@ const StartPage = () => {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("pParams : " + pParams.phoneNumber);
     setIsLoading(true);
     DataEndPoint.getAccountInformation(pParams)
       .then((res) => {
-        console.log("Request");
-        console.log(pParams);
-        console.log("Respons");
-        console.log(res);
-        const resParams = res.data.response.result ? res.data.response.result : res.data.response;
-        console.log(resParams);
-
+        const resParams = res.data.response.result
+          ? res.data.response.result
+          : res.data.response;
+        console.log(res.data.response.message);
         if (res.data.response.message == "Success") {
           const aiRestParams = {
             phoneNumber: resParams.accountNumber,
@@ -127,30 +105,24 @@ const StartPage = () => {
             requestDate: "2024-01-30",
             requestTime: "14:56:27",
           };
-          console.log("aiRestParams : ",aiRestParams);
-          
+          console.log(aiRestParams);
           DataEndPoint.getRequestLinkRegistration(aiRestParams)
             .then((res) => {
-              console.log("RequestLinkRegistration");
-              console.log(res);
               const resParams = res.data;
-              console.log(resParams);
+              console.log(resParams.resultMessages);
               if (resParams.resultMessages == "Success") {
-                console.log("URL : ", resParams.result.urlValidation);
-                // const urlvalidation = resParams.urlValidation; , { expires: 7 }
-                Cookies.set('linkParam : ', JSON.stringify(aiRestParams));
-                var json_string = Cookies.get("linkParam");
-                var array = JSON.parse(json_string);
-                // setCookie(resParams);
-                // console.log(array.statusCode);
-                // setCookie(JSON.stringify(output));
-                // const _getCookie = JSON.parse(getCookie());
-                // handleButtonGoToPageRegister(resParams.result.urlValidation);
-                handleButtonGoToPageLoginInputPin(resParams.result.urlValidation);
+                setCookie(resParams);
+
+                const _getCookie = getCookie();
+                console.log("d Pin : ", Cookies.get("data"));
+                // Cookies.set("linkParam : ", aiRestParams);
+                // var json_string = Cookies.get("linkParam");
+                // var array = JSON.parse(json_string);
+                handleButtonGoToPageLoginInputPin(
+                  resParams.result.urlValidation
+                );
                 setIsLoading(false);
-              } 
-              else if (resParams.resultMessages == "Failed") {
-                console.log("URL : ", resParams.result.urlValidation);
+              } else if (resParams.resultMessages == "Failed") {
                 handleButtonGoToPageRegister(resParams.result.urlValidation);
                 setIsLoading(false);
               } else if (resParams.resultMessages == "Error") {
@@ -171,12 +143,11 @@ const StartPage = () => {
         setIsLoading(false);
         console.log("error : " + err);
       });
-    // navigate("register/mrt");
   };
 
   return (
     <div>
-    {isLoading ? <LoaderPageWithLottie /> : StartPage}
+      {isLoading ? <LoaderPageWithLottie /> : StartPage}
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">

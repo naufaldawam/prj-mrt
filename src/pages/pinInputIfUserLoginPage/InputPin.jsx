@@ -2,31 +2,36 @@ import React, { useState } from "react";
 import {
   ButtonWithStyle,
   ImagePin,
-  PROFILE_NAME,
+  LoadBgColor,
+  LoadLogo,
   PinInputWithStyle,
+  getCookie,
   getDescriptionMessageInputPinAccess,
   getDescriptionTermsAndCondition,
   getHeaderMessageInputPinLogin,
   getMessageHeaderPinAccess,
   getMessageInputPinAccess,
-  handleButtonGoToPageHome,
+  handleButtonGoToPageHome
 } from "../../constantFile/I_Constant";
 
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [value, setValue] = useState("");
+  const _getCookie = JSON.parse(getCookie());
+  console.log("Input Pin : ", _getCookie.result);
+
   const handleChange = (newValue) => {
     setValue(newValue);
-    console.log("new value", newValue);
+    // console.log("new value", newValue);
 
   };
 
   return (
     <>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+      <div className={LoadBgColor()}>
         <div>
           <a href="/">
-            <h3 className="text-4xl font-bold text-red-600">JakOnePay</h3>
+            <h3 className="text-4xl font-bold text-red-600">{LoadLogo()}</h3>
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
@@ -58,7 +63,7 @@ function PinInputPage() {
                 />
 
                 <div>
-                  <p className="text-xl bold font-medium">{PROFILE_NAME}</p>
+                  <p className="text-xl bold font-medium">{_getCookie.result.fullName}</p>
                 </div>
               </div>
             </div>

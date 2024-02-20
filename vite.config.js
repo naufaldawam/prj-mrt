@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv("mock", process.cwd(), "");
   const processEnvValues = {
     "process.env": Object.entries(env).reduce((prev, [key, val]) => {
-      console.log(key, val);
+      // console.log(key, val);
       return {
         ...prev,
         [key]: val,
@@ -19,8 +19,22 @@ export default defineConfig(({ mode }) => {
   };
 
   return {
+    base: "/",
     plugins: [react()],
+    preview: {
+      port: 9999,
+      strictPort: true,
+     },
+    server: {
+      watch: {
+        usePolling: true,
+      },
+      host: true, // needed for the Docker Container port mapping to work
+      strictPort: true,
+      port: 9999, // you can replace this port with any port
+    },
     define: processEnvValues,
+    build: { chunkSizeWarningLimit: 6000 }
   };
   // plugins: [react()],
 });

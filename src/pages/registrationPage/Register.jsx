@@ -11,7 +11,7 @@ import DataEndPoint from "../../services/APIServices";
 
 const Registration = () => {
   const params = useParams();
-  console.log(params.id);
+  // console.log(params.id);
   const local_host = process.env.LOCAL_HOST;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,9 +45,9 @@ const Registration = () => {
 
   // const getFormLabel = getFormAndRegister();
   const linkParam = Cookies.get("linkParam");
-  console.log("linkParam : ", linkParam);
+  // console.log("linkParam : ", linkParam);
   const sesData = JSON.parse(linkParam);
-  console.log("channelId : ", sesData.channelId);
+  // console.log("channelId : ", sesData.channelId);
   
     const pParams = {
       idRequest: params.id, // value ? value : null,
@@ -56,9 +56,9 @@ const Registration = () => {
       channelId: sesData.channelId, // "MARTIPAY"
     };
 
-    console.log("pParams : ", pParams);
+    // console.log("pParams : ", pParams);
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      console.log("getinquiryDataByIdRequest : ", res);
+      // console.log("getinquiryDataByIdRequest : ", res);
       if (res.resultMessages == "Success") {
         setIsLoading(false);
       }

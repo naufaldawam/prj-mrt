@@ -12,14 +12,14 @@ const config = {
         // 'Authorization': `Bearer ${token}`,
     }
 };
-console.log(config);
+// console.log(config);
 // Contoh hasil API
 // bisa lihat di file InputNoHp.jsx
 // apiUrl = `http://api.thecatapi.com/v1/images/Rl39SPjDO`;  + otpPrams.id
 
 const APIServices = {
   getAccountInformation: async (setParam) => { // DIWA
-    console.log(apiDiwaUrl + ' - ' + setParam);
+    // console.log(apiDiwaUrl + ' - ' + setParam);
     try {
         let response = await axios.post(apiUrl+`/paymentIntegration/accountInformation`,
             setParam,
@@ -35,7 +35,7 @@ const APIServices = {
       }
   },
   getRequestLinkRegistration: async (phonePrams) => {
-    console.log(phonePrams);
+    // console.log(phonePrams);
     try {
         let response = await axios.post(
             apiUrl + `/paymentIntegration/requestLinkRegistration`,
@@ -70,7 +70,7 @@ const APIServices = {
 
   },
   getValidationOtp: async (otpPrams) => {
-    console.log(otpPrams);
+    // console.log(otpPrams);
     try {
         let response = await axios.post(
             apiUrl + `/paymentIntegration/validationOtp`,

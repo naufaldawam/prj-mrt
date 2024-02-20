@@ -15,10 +15,11 @@ import logoiconbdki from "../assets/icons/shield-bdki.png";
 import logoiconmartipay from "../assets/icons/shield-martipay.png";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
 import AnimationLoader from "../components/lottieFiles/AnimationLoader2.json";
+const domain = process.env.LOCAL_HOST;
 
 export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
   const PinInput = PinInputTemplate;
-  console.log(value);
+  // console.log(value);
   return (
     <PinInput
       length={6}
@@ -65,6 +66,29 @@ export const PhoneInputWithStyle = ({ value, onChange }) => {
   );
 };
 
+export const BtnSendWithStyle = ({ onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={getbtnSendStyle()}
+      type="button"
+      data-ripple-light="true"
+    >
+      Konfirmasi
+    </button>
+  );
+};
+
+export const getbtnSendStyle = () => {
+  const location = useLocation();
+  const pathName = location.pathname;
+  const lastSegment = pathName.split("/").pop();
+
+  return lastSegment === "bdki"
+    ? themeStyling.bdki.btnSendStyle
+    : themeStyling.martipay.btnSendStyle;
+};
+
 export const ButtonWithStyle = ({ onClick, disabled }) => {
   return (
     <button
@@ -83,15 +107,16 @@ export const ButtonWithStyle = ({ onClick, disabled }) => {
 //========================================================================================== handle button to go to some page  ===============//
 //========================================================================================================= start //
 export const handleButtonGoToPageRegister = (urlvalidation) => {
-  window.location.href = urlvalidation; // "/register/bdki";
+  // console.log(domain+urlvalidation);
+  window.location.href = domain+urlvalidation; // "/register/bdki";
 };
 export const handleButtonGoToPageCreatePin = (urlvalidation) => {
-  window.location.href = urlvalidation; // "/create-pin/bdki";
+  // console.log(domain+urlvalidation);
+  window.location.href = domain+urlvalidation; // "/create-pin/bdki";
 };
 export const handleButtonGoToPageLoginInputPin = (urlvalidation) => {
-  // Account Binding
-  console.log("urlvalidation : " + urlvalidation);
-  window.location.href = urlvalidation; // "/login/bdki";
+  // console.log(domain+urlvalidation);
+  window.location.href = domain+urlvalidation; // "/login/bdki";
 };
 export const handleButtonGoToPageHome = () => {
   window.location.href = "/";
@@ -276,10 +301,10 @@ export const getMessageHeaderConfirmationPin = () => {
 
 export const changeLanguageAndRenderButton = ({ country, i18n }) => {
   const handleButtonClick = () => {
-    console.log("i18n:", i18n);
-    console.log(`Button clicked for ${country}`);
+    // console.log("i18n:", i18n);
+    // console.log(`Button clicked for ${country}`);
     i18n.changeLanguage(country);
-    console.log("Bahasa berhasil diubah ", country);
+    // console.log("Bahasa berhasil diubah ", country);
     localStorage.setItem("language", country);
   };
 
@@ -703,7 +728,8 @@ export const FunctionDecryptBase64 = (textEncryptBase64) => {
 };
 // ============== Setup Cookies =============//
 export const setCookie = (value) => {
-  Cookies.set('data', value, { expires: 7, secure: true });
+  const expirationTime = newDate(newDate().getTime() + 60000);
+  Cookies.set('data', JSON.stringify(value), { expires: expirationTime, secure: true }); // , { expires: 7, secure: true }
 };
 
 export const getCookie = () => {

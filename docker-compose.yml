@@ -1,0 +1,7 @@
+version: "3.4"
+services:
+ project-martipay:
+   image: project-martipay:v1.0
+   container_name: project_martipay_container
+   ports:
+     - 9999:80

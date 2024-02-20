@@ -1,14 +1,14 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import {
   Accordion,
-  AccordionHeader,
   AccordionBody,
+  AccordionHeader,
 } from "@material-tailwind/react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import IcoBankCard from "../../assets/icons/ico_bank_card.png";
-import IcoAccountBalance from "../../assets/icons/ico_account_balance.png";
-import IcoJakoneMobile from "../../assets/icons/ico_jakone_mobile.png";
-import IconCc2 from "../../assets/icons/icon_cc_2.png";
+import IcoAccountBalance from "../../assets/icons/icon_bank.png";
+import IconCc2 from "../../assets/icons/icon_jack_card_balance.png";
+import IcoJakoneMobile from "../../assets/icons/scan-card.png";
 
 import {
   getBodyDescriptionTopUpWithATMJakOneMobile,
@@ -55,13 +55,35 @@ function AccordionCustomIcon() {
   });
 
   return (
-    <>
+    <div>
+      {/* <div className={LoadBgColor()}>
+        <div>
+          <a href="/">
+            <h3 className="text-4xl font-bold text-red-600">{LoadLogo()}</h3>
+          </a>
+        </div>
+        <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" /> */}
       <div className="bg-white min-h-screen flex flex-col">
         <nav className="bg-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <a href="/" className="text-black text-xl font-bold ml-3">
-              Top up
+          <div className="container mx-auto flex items-center text-3xl font-bold text-black-600">
+            <a href="/" className=" ml-3">
+              <svg
+                class="w-[35px] h-[35px] text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M5 12h14M5 12l4-4m-4 4 4 4"
+                />
+              </svg>
             </a>
+            <b>Top up</b>
           </div>
         </nav>
         <div className="m-5">
@@ -74,7 +96,7 @@ function AccordionCustomIcon() {
               className="bg-white rounded-md rounded-xl px-2 my-1 border border-gray-300"
               onClick={() => handleOpen(1)}
             >
-              <img className="" width={25} src={IcoBankCard} alt="My Image" />
+              <img className="" width={40} src={IcoBankCard} alt="My Image" />
               <div className="text-base -ml-28">
                 {headerDescription.map((key, index) => (
                   <div key={index}>
@@ -104,17 +126,17 @@ function AccordionCustomIcon() {
                   <React.Fragment key={index}>
                     <div
                       key={index}
-                      className="w-6 h-6 bg-red-200 rounded-full text-white flex items-center justify-center mb-2 relative"
+                      className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white flex items-center justify-center mb-2 relative"
                     >
                       {index + 1}
                       {index !== 8 && (
-                        <div className="h-10 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-10 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 2 && (
-                        <div className="h-16 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-16 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 3 && (
-                        <div className="h-12 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-12 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                     </div>
                     <div className="col-span-4">
@@ -122,7 +144,7 @@ function AccordionCustomIcon() {
                         i % 2 === 0 ? (
                           <React.Fragment key={i}>
                             {part}
-                            <hr className="my-5 bg-gray-300 h-0.3" />
+                            <hr className="my-3 bg-black-300 h-0.3" />
                           </React.Fragment>
                         ) : (
                           <span key={i}>{part}</span>
@@ -143,7 +165,7 @@ function AccordionCustomIcon() {
             >
               <img
                 className="mr-5"
-                width={25}
+                width={40}
                 src={IcoJakoneMobile}
                 alt="My Image"
               />
@@ -175,17 +197,17 @@ function AccordionCustomIcon() {
                   <React.Fragment key={index}>
                     <div
                       key={index}
-                      className="w-6 h-6 bg-red-200 rounded-full text-white flex items-center justify-center mb-2 relative"
+                      className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white flex items-center justify-center mb-2 relative"
                     >
                       {index + 1}
                       {index !== 8 && (
-                        <div className="h-10 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-10 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 2 && (
-                        <div className="h-16 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-16 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 3 && (
-                        <div className="h-12 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-12 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                     </div>
                     <div className="col-span-4">
@@ -193,7 +215,7 @@ function AccordionCustomIcon() {
                         i % 2 === 0 ? (
                           <React.Fragment key={i}>
                             {part}
-                            <hr className="my-5 bg-gray-300 h-0.3" />
+                            <hr className="my-3 bg-gray-300 h-0.3" />
                           </React.Fragment>
                         ) : (
                           <span key={i}>{part}</span>
@@ -212,7 +234,7 @@ function AccordionCustomIcon() {
               className="bg-white rounded-md rounded-xl px-2 my-1 border border-gray-300"
               onClick={() => handleOpen(4)}
             >
-              <img className="mr-5" width={25} src={IconCc2} alt="My Image" />
+              <img className="mr-5" width={40} src={IconCc2} alt="My Image" />
               <div className="text-base">
                 {getDescriptionHeaderTopUpWithATMDebitKredit()}
               </div>
@@ -224,17 +246,17 @@ function AccordionCustomIcon() {
                   <React.Fragment key={index}>
                     <div
                       key={index}
-                      className="w-6 h-6 bg-red-200 rounded-full text-white flex items-center justify-center mb-2 relative"
+                      className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white flex items-center justify-center mb-2 relative"
                     >
                       {index + 1}
                       {index !== 8 && (
-                        <div className="h-10 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-10 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 2 && (
-                        <div className="h-16 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-16 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 3 && (
-                        <div className="h-12 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-12 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                     </div>
                     <div className="col-span-4">
@@ -242,7 +264,7 @@ function AccordionCustomIcon() {
                         i % 2 === 0 ? (
                           <React.Fragment key={i}>
                             {part}
-                            <hr className="my-5 bg-gray-300 h-0.3" />
+                            <hr className="my-3 bg-gray-300 h-0.3" />
                           </React.Fragment>
                         ) : (
                           <span key={i}>{part}</span>
@@ -263,7 +285,7 @@ function AccordionCustomIcon() {
             >
               <img
                 className="mr-5"
-                width={25}
+                width={40}
                 src={IcoAccountBalance}
                 alt="My Image"
               />
@@ -295,17 +317,17 @@ function AccordionCustomIcon() {
                   <React.Fragment key={index}>
                     <div
                       key={index}
-                      className="w-6 h-6 bg-red-200 rounded-full text-white flex items-center justify-center mb-2 relative"
+                      className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg text-white flex items-center justify-center mb-2 relative"
                     >
                       {index + 1}
                       {index !== 8 && (
-                        <div className="h-10 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-10 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 2 && (
-                        <div className="h-16 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-16 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                       {index === 3 && (
-                        <div className="h-12 bg-red-200 absolute top-6 w-0.5"></div>
+                        <div className="h-12 bg-gradient-to-r from-orange-500 to-red-500 absolute top-6 w-0.5"></div>
                       )}
                     </div>
                     <div className="col-span-4">
@@ -313,7 +335,7 @@ function AccordionCustomIcon() {
                         i % 2 === 0 ? (
                           <React.Fragment key={i}>
                             {part}
-                            <hr className="my-5 bg-gray-300 h-0.3" />
+                            <hr className="my-3 bg-gray-300 h-0.3" />
                           </React.Fragment>
                         ) : (
                           <span key={i}>{part}</span>
@@ -328,7 +350,8 @@ function AccordionCustomIcon() {
           </Accordion>
         </div>
       </div>
-    </>
+    </div>
+    // </div>
   );
 }
 export default AccordionCustomIcon;

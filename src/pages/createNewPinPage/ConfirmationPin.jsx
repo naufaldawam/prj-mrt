@@ -1,4 +1,4 @@
-import { decode as base64_decode, encode as base64_encode } from 'base-64';
+import { decode as base64_decode, encode as base64_encode } from "base-64";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -7,6 +7,7 @@ import {
   LoadBgColor,
   LoadIconShield,
   LoadLogo,
+  LoaderPageWithLottie,
   PinInputWithStyle,
   getCookie,
   getMessageHeaderConfirmationPin
@@ -18,86 +19,46 @@ const ConfirmationPin = () => {
   const [pin, setPin] = useState("");
   let { idreg, id } = useParams();
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const _getCookie = JSON.parse(getCookie());
-  console.log("_getCookie : ", _getCookie);
 
   const modalclose = () => {
     window.location.reload();
   };
 
   const enkripPIN = (pin) => {
-    console.log("respins : ", pin);
     DataEndPoint.getEnkripAes(pin)
       .then((res) => {
-        console.log("respin : ", res);
         return res;
       })
       .catch((err) => {
-        console.log("encript pin error : " + err);
       });
   };
 
   const handlePinComplete = (value) => {
-    console.log(params.id);
     const paramsid = FunctionDecryptAES(base64_decode(params.id));
-    
-    console.log(value);
     if (value.length === 6) {
       if (paramsid === value) {
+        setIsLoading(true);
         const jsonPin = {
           pin: base64_encode(FunctionEncrypt(value)),
         };
-        console.log("base64_encode : ", jsonPin);
-            
-            console.log("FunctionEncrypt : ", FunctionEncrypt(value));
-            console.log("FunctionDecryptAES : ", value);
-            // let pin = { pin: res };
-            let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
-            console.log("encpin : ", pPostRegistrationAccount);
-            DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
-              .then((res) => {
-                console.log(res);
-                if (res.resultMessages == "Success") {
-                  window.location.href = "/success-pin";
-                } else {
-                  alert("Connection error...!");
-                }
-              })
-              .catch((err) => {
-                console.log("error : " + err);
-                alert("Connection error...!");
-                // window.location.reload();
-              });
-
-        // DataEndPoint.getEnkripAes(jsonPin)
-        //   .then((res) => {
-        //     console.log("respin : ", res);
-            
-        //     console.log("FunctionEncrypt : ", FunctionEncrypt(value));
-        //     console.log("FunctionDecryptAES : ", value);
-
-            // let pin = { pin: res };
-            // let pPostRegistrationAccount = Object.assign(_getCookie, pin);
-            // console.log("encpin : ", pPostRegistrationAccount);
-            // DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
-            //   .then((res) => {
-            //     console.log(res);
-            //     if (res.resultMessages == "Success") {
-            //       window.location.href = "/success-pin";
-            //     } else {
-            //       alert("Connection error...!");
-            //     }
-            //   })
-            //   .catch((err) => {
-            //     console.log("error : " + err);
-            //     alert("Connection error...!");
-            //     // window.location.reload();
-            //   });
-          // })
-          // .catch((err) => {
-          //   console.log("encript pin error : " + err);
-          // });
+        let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
+        
+        DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
+          .then((res) => {
+            if (res.resultMessages == "Success") {
+              window.location.href = "/success-pin";
+            } else {
+              alert("Connection error...!");
+            }
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            alert("Connection error...!");
+          });
       } else {
         setShowModal(true);
       }
@@ -107,12 +68,11 @@ const ConfirmationPin = () => {
   return (
     <>
       <div>
+    {isLoading ? <LoaderPageWithLottie /> : ConfirmationPin}
         <div className={LoadBgColor()}>
           <div>
             <a href="/">
-              <h3 className="text-4xl font-bold text-red-600">
-                {LoadLogo()}
-              </h3>
+              <h3 className="text-4xl font-bold text-red-600">{LoadLogo()}</h3>
             </a>
           </div>
           <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
@@ -130,9 +90,9 @@ const ConfirmationPin = () => {
                     onChange: handlePinComplete,
                   })}
                 </div>
-              <div className="flex items-center justify-center my-4">
-                {LoadIconShield()}
-              </div>
+                <div className="flex items-center justify-center my-4">
+                  {LoadIconShield()}
+                </div>
               </div>
             </div>
           </div>
