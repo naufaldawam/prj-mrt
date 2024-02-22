@@ -82,11 +82,20 @@ export const BtnSendWithStyle = ({ onClick }) => {
 export const getbtnSendStyle = () => {
   const location = useLocation();
   const pathName = location.pathname;
-  const lastSegment = pathName.split("/").pop();
+  const lastSegment = pathName.split("/");
 
-  return lastSegment === "bdki"
+  return lastSegment[2] === "bdki"
     ? themeStyling.bdki.btnSendStyle
     : themeStyling.martipay.btnSendStyle;
+};
+
+export const getChannelID = () => {
+  const location = useLocation();
+  const pathName = location.pathname;
+  const path = pathName.split("/");
+  
+  // console.log("path[2] : ", path[2]);
+  return path[2];
 };
 
 export const ButtonWithStyle = ({ onClick, disabled }) => {
@@ -153,9 +162,9 @@ import themeStyling from "../components/configuration_css/Config.json";
 export const getButtonStyle = () => {
   const location = useLocation();
   const pathName = location.pathname;
-  const lastSegment = pathName.split("/").pop();
-
-  return lastSegment === "bdki"
+  const lastSegment = pathName.split("/");
+  // console.log(lastSegment[2]);
+  return lastSegment[2] === "bdki"
     ? themeStyling.bdki.buttonStyle
     : themeStyling.martipay.buttonStyle;
 };
@@ -163,9 +172,9 @@ export const getButtonStyle = () => {
 export const getButtonStyleConfirmation = () => {
   const location = useLocation();
   const pathName = location.pathname;
-  const lastSegment = pathName.split("/").pop();
+  const lastSegment = pathName.split("/");
 
-  return lastSegment === "bdki"
+  return lastSegment[2] === "bdki"
     ? themeStyling.bdki.buttonStyleConfirmation
     : themeStyling.martipay.buttonStyleConfirmation;
 };
@@ -728,7 +737,7 @@ export const FunctionDecryptBase64 = (textEncryptBase64) => {
 };
 // ============== Setup Cookies =============//
 export const setCookie = (value) => {
-  const expirationTime = newDate(newDate().getTime() + 60000);
+  const expirationTime = 60000; // newDate(newDate().getTime() + 60000);
   Cookies.set('data', JSON.stringify(value), { expires: expirationTime, secure: true }); // , { expires: 7, secure: true }
 };
 

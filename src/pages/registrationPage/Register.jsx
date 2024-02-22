@@ -1,19 +1,17 @@
-import Cookies from "js-cookie";
 import moment from "moment";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  LoadLogo,
   getButtonStyle,
+  getChannelID,
   handleButtonGoToPageCreatePin,
-  LoaderPageWithLottie,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const Registration = () => {
-  const params = useParams();
-  // console.log(params.id);
   const local_host = process.env.LOCAL_HOST;
-  const [isLoading, setIsLoading] = useState(false);
+  let { idreg } = useParams();
 
   const [formData, setFormData] = useState({
     phoneNumber: "",
@@ -43,68 +41,36 @@ const Registration = () => {
     });
   };
 
-  // const getFormLabel = getFormAndRegister();
-  const linkParam = Cookies.get("linkParam");
-  // console.log("linkParam : ", linkParam);
-  const sesData = JSON.parse(linkParam);
-  // console.log("channelId : ", sesData.channelId);
-  
-    const pParams = {
-      idRequest: params.id, // value ? value : null,
-      requestDate: moment().format("YYYY-MM-DD"),
-      requestTime: moment().format("hh:mm:ss"),
-      channelId: sesData.channelId, // "MARTIPAY"
-    };
+  const params = useParams();
+  const pParams = {
+    idRequest: params.idreg, // value ? value : null,
+    requestDate: moment().format("YYYY-MM-DD"),
+    requestTime: moment().format("hh:mm:ss"),
+    channelId: getChannelID(), //sesData.channelId, // "MARTIPAY"
+  };
 
-    // console.log("pParams : ", pParams);
-    DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      // console.log("getinquiryDataByIdRequest : ", res);
-      if (res.resultMessages == "Success") {
-        setIsLoading(false);
+  // console.log("pParams : ", pParams);
+  DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+    // console.log("getinquiryDataByIdRequest : ", res);
+    if (res.resultMessages == "Success") {
+      if (res.result.username !== null) {
+        window.location.href = "/";
       }
-    });
-    
+    }
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    // console.log("Form submitted:", formData);
-    // console.log(formData);
-    // let output = Object.assign(_getCookie, formData);
-    // setCookie(JSON.stringify(output));
-    // const _getCookie = JSON.parse(getCookie());
-
-    // console.log("_getCookie : ", _getCookie);
-    // console.log("getCookie : ", _getCookie.fullName);
-    // console.log(this.props.match.params.idRequest);
-    // let pin = {"pin": FunctionEncrypt("213424")};
-    // let output = Object.assign(_getCookie, pin);
-
-    // console.log("output : ", output);
     handleButtonGoToPageCreatePin(local_host + `/create-pin/bdki`);
-    // DataEndPoint.getRegistration(formData)
-    //   .then((res) => {
-    //     console.log(res);
-    //     // if (res.message == "Success") {
-    //     //   handleButtonGoToPageCreatePin(local_host+`/create-pin/bdki`);
-    //     // } else if (res.statusCode == "FAILED") {
-    //     //   handleButtonGoToPageRegister(local_host+`/register/bdki`);
-    //     // } else if (res.statusCode == "ERROR") {
-    //     //   alert("Server error...!");
-    //     // }
-    //   })
-    //   .catch((err) => {
-    //     console.log("error : " + err);
-    //   });
   };
 
   return (
     <div>
-      {isLoading ? <LoaderPageWithLottie /> : Registration}
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
-            <h3 className="text-4xl font-bold text-red-600">JakOnePay</h3>
+            <h3 className="text-4xl font-bold text-red-600">{LoadLogo()}</h3>
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />

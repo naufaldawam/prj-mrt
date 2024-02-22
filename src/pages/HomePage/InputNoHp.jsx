@@ -8,7 +8,8 @@ import {
   ModalTermsAndCondition,
   PhoneInputWithStyle,
   PinInputWithStyle,
-  getButtonStyle
+  getButtonStyle,
+  getChannelID,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -21,7 +22,7 @@ const CreatePin = () => {
     const RequestOtpParam = {
       phoneNumber: value ? value : null,
       datetimerequest: "15-11-2021 10:00:21",
-      channelid: "MARTIPAY",
+      channelid: getChannelID(), // "MARTIPAY",
       flag: "1",
     };
 
@@ -84,7 +85,7 @@ const CreatePin = () => {
           <div className="p-4">
             <h2 className="text-xl font-semibold my-2 text-center">Welcome</h2>
             <p className="my-4">
-              Experience a new way of transaction with JakOnePay
+              Experience a new way of transaction with {getChannelID()}
             </p>
 
             <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row">
@@ -111,7 +112,6 @@ const CreatePin = () => {
                     </div>
                     <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-1">
                       {BtnSendWithStyle(handleOTPButtonClick)}
-                      
                     </div>
                   </div>
                 </div>
@@ -123,20 +123,24 @@ const CreatePin = () => {
                     Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
                   </p>
                   <div className="flex flex-wrap items-center">
-                    {PinInputWithStyle({ secretDelay: 0, value: otpvalue, onChange: setOtpValue })}
+                    {PinInputWithStyle({
+                      secretDelay: 0,
+                      value: otpvalue,
+                      onChange: setOtpValue,
+                    })}
                     <button
-                onClick={btnConfirmOTP}
-                disabled={!isActive}
-                // className="mt-6 block w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                type="button"
-                data-ripple-light="true"
-                className={getButtonStyle()}
-              >
-                Konfirmasi
-              </button>
+                      onClick={btnConfirmOTP}
+                      disabled={!isActive}
+                      // className="mt-6 block w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      type="button"
+                      data-ripple-light="true"
+                      className={getButtonStyle()}
+                    >
+                      Konfirmasi
+                    </button>
                   </div>
                 </div>
-               )}
+              )}
             </div>
 
             <div className="mt-20">
@@ -152,29 +156,3 @@ const CreatePin = () => {
 };
 
 export default CreatePin;
-
-// import "react-phone-input-2/lib/bootstrap.css";
-// import React from "react";
-// import { getButtonStyle,getButtonStyleConfirmation } from "../../constantFile/I_Constant";
-
-// const CreatePin = () => {
-
-//   return (
-//     <div className="max-w-lg mx-auto bg-white overflow-hidden">
-//       <div className="p-4">
-//         <h2 className="text-xl font-semibold my-2 text-center">Welcome</h2>
-//         <p className="my-4">Experience a new way of transaction with JakOnePay</p>
-//         <button className={getButtonStyle()}>COK</button>
-//         <button type="button" className={getButtonStyle()}>
-//           Send kode otp
-//         </button>
-//         <button type="button" className={getButtonStyleConfirmation()}>
-//           Konfirmasi
-//         </button>
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CreatePin;

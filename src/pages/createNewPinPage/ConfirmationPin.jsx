@@ -42,6 +42,7 @@ const ConfirmationPin = () => {
       if (paramsid === value) {
         setIsLoading(true);
         const jsonPin = {
+          idRequest: params.id,
           pin: base64_encode(FunctionEncrypt(value)),
         };
         let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);

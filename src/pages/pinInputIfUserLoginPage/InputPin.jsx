@@ -1,29 +1,77 @@
+import { encode as base64_encode } from "base-64";
+import moment from "moment";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
-  ButtonWithStyle,
+  FunctionEncrypt,
   ImagePin,
   LoadBgColor,
   LoadLogo,
   PinInputWithStyle,
-  getCookie,
+  getButtonStyle,
+  getChannelID,
   getDescriptionMessageInputPinAccess,
   getDescriptionTermsAndCondition,
   getHeaderMessageInputPinLogin,
   getMessageHeaderPinAccess,
   getMessageInputPinAccess,
-  handleButtonGoToPageHome
+  setCookie
 } from "../../constantFile/I_Constant";
+import DataEndPoint from "../../services/APIServices";
 
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
-  const [value, setValue] = useState("");
-  const _getCookie = JSON.parse(getCookie());
-  console.log("Input Pin : ", _getCookie.result);
+  const [pin, setPin] = useState("");
+  let { id, nama, dataRespont } = useParams();
+  // var _getCookie = '';
+  // console.log("Input Pin : ", _getCookie.result);
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-    // console.log("new value", newValue);
+  const params = useParams();
+  const pParams = {
+    idRequest: params.id, // value ? value : null,
+    requestDate: moment().format("YYYY-MM-DD"),
+    requestTime: moment().format("hh:mm:ss"),
+    channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
+  };
+  // console.log(pParams);
+  DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+    if (res.resultMessages == "Success") {
+      setCookie(res.result);
+      // console.log(res.result);
+      params.nama = res.result.fullName;
+      dataRespont = res;
+      console.log("params.nama : ", params.nama);
+      
 
+      if (res.result.username === null || res.result.fullname === null) {
+        window.location.href = "/";
+        console.log("404");
+      }
+    }
+  });
+
+  const BtnPostAccountBinding = () => {
+    console.log("BtnPostAccountBinding : " ,dataRespont.result.fullName);
+    const pabParams = {
+        idRequest: params.id, // value ? value : null,
+        phoneNumber: dataRespont.result.phoneNumber,
+        pin: base64_encode(FunctionEncrypt(pin)),
+        channelId: dataRespont.result.channelId,
+        stan: dataRespont.result.stan,
+        requestDate: moment().format("YYYY-MM-DD"),
+        requestTime: moment().format("hh:mm:ss"),
+      };
+      console.log("BtnPostAccountBinding : " ,pabParams);
+    DataEndPoint.getPostAccountBinding(pabParams).then((res) => {
+      if (res.resultMessages == "Success") {
+        window.location.href = "/success-pin";
+      }
+    });
+  };
+
+  const handlePinChange = (value) => {
+    setPin(value);
+    console.log("id : ", value);
   };
 
   return (
@@ -39,15 +87,18 @@ function PinInputPage() {
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
             <div className="text-center p-4">
-              {PinInputWithStyle({ secretDelay: 10 })}
-        <div className="mt-4 text-grey-600">
-            Reset your PIN when you aren't signed.{" "}
-            <span>
-              <a className="text-red-600 hover:underline" href="/home/bdki">
-                Forget PIN
-              </a>
-            </span>
-          </div>
+              {PinInputWithStyle({ secretDelay: 0, value:'', onChange: handlePinChange })}
+              <div className="mt-4 text-grey-600">
+                Reset your PIN when you aren't signed.{" "}
+                <span>
+                  <a
+                    className="text-red-600 hover:underline"
+                    href={"/home/" + getChannelID()}
+                  >
+                    Forget PIN
+                  </a>
+                </span>
+              </div>
             </div>
           </div>
           <form>
@@ -63,7 +114,7 @@ function PinInputPage() {
                 />
 
                 <div>
-                  <p className="text-xl bold font-medium">{_getCookie.result.fullName}</p>
+                  <p className="text-xl bold font-medium">{params.nama}</p>
                 </div>
               </div>
             </div>
@@ -78,10 +129,15 @@ function PinInputPage() {
               </div>
             </div>
             <div>
-              {ButtonWithStyle({
-                onClick: handleButtonGoToPageHome,
-                disabled: isActive,
-              })}
+              <button
+                onClick={BtnPostAccountBinding}
+                disabled={isActive}
+                type="button"
+                data-ripple-light="true"
+                className={getButtonStyle()}
+              >
+                Konfirmasi
+              </button>
             </div>
           </form>
         </div>

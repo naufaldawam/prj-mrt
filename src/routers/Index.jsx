@@ -1,34 +1,34 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
-import HomePage from "../pages/HomePage/InputNoHp";
+import InputNoHp from "../pages/HomePage/InputNoHp";
 import SuccessPin from "../pages/SuccessPin";
-import AccordionTopUp from "../pages/accordionTopupPage/AccordionTopUp";
 import Topup from "../pages/accordionTopupPage/TopUp";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
 import CreatePin from "../pages/createNewPinPage/CreatePin";
 import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
 import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
-import StartPage from "../pages/pageStart/StartPageRegisttraion";
+import Load404 from "../pages/pageStart/load404";
+import PostRequestPayment from "../pages/pinBeforePayment/PaymentPin";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <StartPage />,
-    // element: <Navigate to="/home/bdki" />,
+    path: "*",
+    element: <Load404 />,
+    // element: <StartPage />,
   },
   {
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/home/bdki",
-        element: <HomePage />,
+        element: <InputNoHp />,
       },
       {
         path: "/home/martipay",
-        element: <HomePage />,
+        element: <InputNoHp />,
       },
       {
         path: "login/bdki/:id",
@@ -67,8 +67,12 @@ export const router = createBrowserRouter([
         element: <SuccessPin />,
       },
       {
-        path: "topup",
-        element: <AccordionTopUp />,
+        path: "postRequestPayment/bdki/:idreg",
+        element: <PostRequestPayment />,
+      },
+      {
+        path: "postRequestPayment/martipay/:idreg",
+        element: <PostRequestPayment />,
       },
       {
         path: "success",
@@ -83,9 +87,17 @@ export const router = createBrowserRouter([
         element: <ExampleEncDec />,
       },
       {
-        path: "top-up",
+        path: "top-up/bdki",
+        element: <Topup />,
+      },,
+      {
+        path: "top-up/martipay",
         element: <Topup />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);

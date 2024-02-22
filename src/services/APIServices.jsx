@@ -247,6 +247,37 @@ const APIServices = {
       throw err;
     }
   },
+  getPostAccountBinding: async (postAccountBinding) => {
+    console.log("API : ", postAccountBinding);
+    try {
+      let response = await axios.post(apiUrl + `/paymentIntegration/postAccountBinding`,
+          postAccountBinding,
+          {
+              method: 'POST',
+              config
+          ,}
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  },
+  getPostRequestPayment: async (postRequestPayment) => {
+    console.log("API : ", postRequestPayment);
+    try {
+      let response = await axios.post(apiUrl + `/paymentIntegration/postRequestPayment`,postRequestPayment,
+          {
+              method: 'POST',
+              config
+          ,}
+      );
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  },
   getEnkripAes: async (enkripAes) => {
     try {
       let response = await axios.post(
