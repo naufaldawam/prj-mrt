@@ -6,12 +6,18 @@ import {
   getButtonStyle,
   getChannelID,
   handleButtonGoToPageCreatePin,
+  setCookie
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const Registration = () => {
   const local_host = process.env.LOCAL_HOST;
-  let { idreg } = useParams();
+  let { idreg, channel, url, stannum } = useParams();
+  
+  url = "/create-pin/" + getChannelID();
+  // console.log(channel);
+  channel = getChannelID();
+  stannum = Math.floor(Math.random() * 999999) + 100000;
 
   const [formData, setFormData] = useState({
     phoneNumber: "",
@@ -34,8 +40,8 @@ const Registration = () => {
       [e.target.dateOfBirth]: e.target.value,
       [e.target.placeOfBirth]: e.target.value,
       [e.target.email]: e.target.value,
-      channelId: "",
-      stan: "",
+      channelId: channel,
+      stan: stannum,
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     });
@@ -49,7 +55,7 @@ const Registration = () => {
     channelId: getChannelID(), //sesData.channelId, // "MARTIPAY"
   };
 
-  // console.log("pParams : ", pParams);
+  // console.log("pParams : ", pParams.channelId);
   DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
     // console.log("getinquiryDataByIdRequest : ", res);
     if (res.resultMessages == "Success") {
@@ -61,8 +67,9 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    handleButtonGoToPageCreatePin(local_host + `/create-pin/bdki`);
+    console.log(formData);
+    setCookie(formData);
+    handleButtonGoToPageCreatePin(url + "/" + params.idreg);
   };
 
   return (
@@ -76,7 +83,7 @@ const Registration = () => {
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
         <h4>Registration form</h4>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"

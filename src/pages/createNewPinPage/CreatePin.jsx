@@ -1,5 +1,4 @@
-import { encode as base64_encode } from 'base-64';
-import Cookies from 'js-cookie';
+import { encode as base64_encode } from "base-64";
 import moment from "moment";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -17,7 +16,7 @@ import DataEndPoint from "../../services/APIServices";
 
 const CreatePin = () => {
   const [pin, setPin] = useState("");
-  let { idreg, id } = useParams();
+  let { idreg, id, url } = useParams();
 
   const params = useParams();
   const pParams = {
@@ -31,8 +30,9 @@ const CreatePin = () => {
     // console.log("getinquiryDataByIdRequest : ", res);
     if (res.resultMessages == "Success") {
       // console.log("res.result : ", res.result);
-      Cookies.set('data', JSON.stringify(res.result)); // , { expires: 7 }
+      // Cookies.set('data', JSON.stringify(res.result)); // , { expires: 7 }
       // setCookie(JSON.stringify(res.result));
+      // setCookie(res.result);
       const _getCookie = JSON.parse(getCookie());
       // console.log("_getCookie : ", _getCookie);
     }
@@ -44,8 +44,10 @@ const CreatePin = () => {
     setPin(value);
     if (pin.length === 5) {
       id = value;
-      // console.log("id : ", id);
-      window.location.href = `/confirmation-pin/`+getChannelID+`/${idreg}/${base64_encode(FunctionEncrypt(id))}`;
+      // console.log("id : ", idreg);
+      url = "/confirmation-pin/"+pParams.channelId+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id));
+      // console.log("Channel : ", url);
+      window.location.href = url;
     }
   };
 
