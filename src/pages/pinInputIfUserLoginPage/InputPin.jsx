@@ -88,7 +88,7 @@ function PinInputPage() {
 
   return (
     <>
-    {isLoading ? <LoaderPageWithLottie /> : PinInputPage}
+      {isLoading ? <LoaderPageWithLottie /> : PinInputPage}
       <div className={LoadBgColor()}>
         <div>
           <a href="/">
@@ -97,26 +97,37 @@ function PinInputPage() {
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
         <h4>{getHeaderMessageInputPinLogin()}</h4>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
+        <div className="w-full py-2 mt-4 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
-            <div className="text-center p-4">
+            <div className="text-center">
               {PinInputWithStyle({
                 secretDelay: 0,
                 value: "",
                 onChange: handlePinChange,
               })}
-              <div className="mt-4 text-grey-600">
-                Reset your PIN when you aren't signed.{" "}
-                <span>
-                  <a
-                    className="text-red-600 hover:underline"
-                    href={"/home/" + getChannelID()}
-                  >
-                    Forget PIN
-                  </a>
-                </span>
-              </div>
             </div>
+          </div>
+        </div>
+        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
+          <div className="flex flex-wrap flex-col items-center">
+            {/* <div className="text-center p-2">
+              {PinInputWithStyle({
+                secretDelay: 0,
+                value: "",
+                onChange: handlePinChange,
+              })} */}
+            <div className="mt-4 text-grey-600">
+              Reset your PIN when you aren't signed.{" "}
+              <span>
+                <a
+                  className="text-red-600 hover:underline"
+                  href={"/home/" + getChannelID()}
+                >
+                  Forget PIN
+                </a>
+              </span>
+            </div>
+            {/* </div> */}
           </div>
           <form>
             <hr />

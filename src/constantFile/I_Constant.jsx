@@ -24,7 +24,7 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
     <PinInput
       length={6}
       initialValue=""
-      secret={false}
+      secret={true}
       onChange={onChange}
       value={value}
       type="numeric"

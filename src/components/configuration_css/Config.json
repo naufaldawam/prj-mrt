@@ -8,7 +8,6 @@
             "borderColor": "red",
             "height": "3rem",
             "width": "2.5rem",
-            "marginRight": "0.3em",
             "border": "1px solid",
             "borderBottom": "4px solid red",
             "borderRadius": "0.375rem",
@@ -17,7 +16,7 @@
             "fontSize": "1.875rem",
             "fontWeight": "100",
             "textAlign": "center",
-            "marginBottom": "1rem"
+            "margin":"5px"
         },
         "styleloadBgColor" : "flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0",
         "buttonStyleConfirmationMaterialTailwind": {
@@ -35,7 +34,6 @@
             "borderColor": "#44b44c",
             "height": "3rem",
             "width": "2.5rem",
-            "marginRight": "0.3em",
             "border": "1px solid",
             "borderBottom": "4px solid #045cac",
             "borderRadius": "0.375rem",
@@ -44,7 +42,7 @@
             "fontSize": "1.875rem",
             "fontWeight": "100",
             "textAlign": "center",
-            "marginBottom": "1rem"
+            "margin":"5px"
         },
         "styleloadBgColor" : "flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0"
     },

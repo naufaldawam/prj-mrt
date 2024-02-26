@@ -78,8 +78,8 @@ const ConfirmationPin = () => {
           </div>
           <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
           <h4>{getMessageHeaderConfirmationPin()}</h4>
-          <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg bg-opacity-0">
-            <div className="p-4 items-center justify-center">
+          <div className="w-full py-2 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg bg-opacity-0">
+            <div className="items-center justify-center">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="phoneNumber"
