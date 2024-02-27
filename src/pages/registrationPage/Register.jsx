@@ -1,19 +1,18 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   LoadLogo,
   getButtonStyle,
   getChannelID,
   handleButtonGoToPageCreatePin,
-  setCookie
+  setCookie,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const Registration = () => {
-  const local_host = process.env.LOCAL_HOST;
   let { idreg, channel, url, stannum } = useParams();
-  
+
   url = "/create-pin/" + getChannelID();
   // console.log(channel);
   channel = getChannelID();
@@ -34,7 +33,7 @@ const Registration = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      // [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value,
       [e.target.phoneNumber]: e.target.value,
       [e.target.fullName]: e.target.value,
       [e.target.dateOfBirth]: e.target.value,
@@ -55,23 +54,23 @@ const Registration = () => {
     channelId: getChannelID(), //sesData.channelId, // "MARTIPAY"
   };
 
-  // console.log("pParams : ", pParams.channelId);
-  DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-    console.log("getinquiryDataByIdRequest : ", res);
-    if (res.resultMessages == "Success") {
-      console.log("ini file res regis: " + res.result);
-      if (res.result.username !== null || res.result.username !== "" || res.result.username !== '') {
-        // window.location.href = "/";
+  const loadDataInquiry = () => { 
+    DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+      console.log("getinquiryDataByIdRequest : ", res);
+      if (res.resultMessages == "Success") {
+        console.log("ini file res regis: " + res.result);
+        if (
+          res.result.username !== null &&
+          res.result.username !== "" &&
+          res.result.username !== ''
+        ) {
+          window.location.href = "/";
+        }else{
+          setFormData(res.result);
+        }
       }
-        setFormData({
-          [e.target.phoneNumber]: res.result.phoneNumber,
-          [e.target.fullName]: res.result.fullName,
-          [e.target.dateOfBirth]: res.result.dateOfBirth,
-          [e.target.placeOfBirth]: res.result.placeOfBirth,
-          [e.target.email]: res.result.email
-        });
-    }
-  });
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,6 +78,10 @@ const Registration = () => {
     setCookie(formData);
     handleButtonGoToPageCreatePin(url + "/" + params.idreg);
   };
+
+  useEffect(() => { 
+    loadDataInquiry(); 
+  }, []) 
 
   return (
     <div>

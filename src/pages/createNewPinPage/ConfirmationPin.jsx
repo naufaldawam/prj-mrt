@@ -52,7 +52,7 @@ const ConfirmationPin = () => {
             if (res.resultMessages == "Success") {
               window.location.href = "/success-pin";
             } else {
-              alert("Connection error...!");
+              alert(res.messages);
             }
             setIsLoading(false);
           })

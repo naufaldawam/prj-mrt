@@ -23,6 +23,7 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
   return (
     <PinInput
       length={6}
+      autoFocus={true}
       initialValue=""
       secret={true}
       onChange={onChange}
@@ -35,7 +36,6 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       secretDelay={secretDelay}
-      autoFocus={true}
     />
   );
 };

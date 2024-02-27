@@ -30,7 +30,7 @@ const APIServices = {
           );
         return response;
       } catch (err) {
-        console.error(err);
+        console.error("err : ", err.message);
         throw err;
       }
   },
@@ -47,7 +47,7 @@ const APIServices = {
           );
         return response;
       } catch (err) {
-        console.error(err);
+        console.error("err : ", err.message);
         throw err;
       }
   },
@@ -64,7 +64,7 @@ const APIServices = {
           );
         return response;
       } catch (err) {
-        console.error(err);
+        console.error("err : ", err.message);
         throw err;
       }
 
@@ -82,7 +82,7 @@ const APIServices = {
           );
         return response.data;
       } catch (err) {
-        console.error(err);
+        console.error("err : ", err.message);
         throw err;
       }
 
@@ -98,7 +98,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -114,7 +114,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -130,7 +130,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -145,7 +145,7 @@ const APIServices = {
         ,});
       return response;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -161,7 +161,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -177,7 +177,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -193,7 +193,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -209,7 +209,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -226,7 +226,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -243,7 +243,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -259,7 +259,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -274,7 +274,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
@@ -291,7 +291,7 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      console.error(err);
+      console.error("err : ", err.message);
       throw err;
     }
   },
