@@ -30,15 +30,14 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
       secret={true}
       onChange={onChange}
       value={value}
-      type="numeric"
-      inputMode="number"
+      type="number"
+      inputMode="numeric"
       inputStyle={getStyledPinInput()}
       inputFocusStyle={{}}
       onComplete={() => {}}
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       secretDelay={secretDelay}
-      // keyboardType={Device.isAndroid ? "numeric" : "number-pad"}
     />
   );
 };

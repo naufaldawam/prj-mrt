@@ -106,11 +106,13 @@ const CreatePin = () => {
                           outline: "none",
                           width: "230px",
                         }}
+                        type="number"
+                        inputMode="numeric"
                         value={value}
                         onChange={setValue}
                       />
                     </div>
-                    <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-1">
+                    <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-10">
                       {BtnSendWithStyle(handleOTPButtonClick)}
                     </div>
                   </div>
