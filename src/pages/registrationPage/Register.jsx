@@ -34,7 +34,7 @@ const Registration = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      // [e.target.name]: e.target.value,
       [e.target.phoneNumber]: e.target.value,
       [e.target.fullName]: e.target.value,
       [e.target.dateOfBirth]: e.target.value,
@@ -57,12 +57,19 @@ const Registration = () => {
 
   // console.log("pParams : ", pParams.channelId);
   DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-    // console.log("getinquiryDataByIdRequest : ", res);
+    console.log("getinquiryDataByIdRequest : ", res);
     if (res.resultMessages == "Success") {
       console.log("ini file res regis: " + res.result);
-      if (res.result.username !== null && res.result.username !== "" && res.result.username !== '') {
-        window.location.href = "/";
+      if (res.result.username !== null || res.result.username !== "" || res.result.username !== '') {
+        // window.location.href = "/";
       }
+        setFormData({
+          [e.target.phoneNumber]: res.result.phoneNumber,
+          [e.target.fullName]: res.result.fullName,
+          [e.target.dateOfBirth]: res.result.dateOfBirth,
+          [e.target.placeOfBirth]: res.result.placeOfBirth,
+          [e.target.email]: res.result.email
+        });
     }
   });
 
