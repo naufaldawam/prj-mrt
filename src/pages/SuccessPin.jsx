@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import ImageSuccesPeople from "../assets/icons/success-image.png";
 import AnimationSuccess from "../components/lottieFiles/AnimationSuccess.json";
 import { LoadBgColor, LoadLogo, getCookie } from "../constantFile/I_Constant";
+import { Typography } from "@material-tailwind/react";
 
 const SuccessPin = () => {
   const apiUrl = process.env.API_JAVA_URL;

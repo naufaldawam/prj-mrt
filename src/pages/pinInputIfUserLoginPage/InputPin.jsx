@@ -16,7 +16,7 @@ import {
   getHeaderMessageInputPinLogin,
   getMessageHeaderPinAccess,
   getMessageInputPinAccess,
-  setCookie,
+  setCookie
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -96,7 +96,7 @@ function PinInputPage() {
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-        <h4>{getHeaderMessageInputPinLogin()}</h4>
+        <h4 className="text-xl pt-4 text-center text-gray-600">{getHeaderMessageInputPinLogin()}</h4>
         <div className="w-full py-2 mt-4 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
             <div className="text-center">

@@ -15,10 +15,12 @@ import logoiconbdki from "../assets/icons/shield-bdki.png";
 import logoiconmartipay from "../assets/icons/shield-martipay.png";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
 import AnimationLoader from "../components/lottieFiles/AnimationLoader2.json";
+
 const domain = process.env.LOCAL_HOST;
 
 export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
   const PinInput = PinInputTemplate;
+  const location = useLocation();
   // console.log(value);
   return (
     <PinInput
@@ -36,6 +38,7 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       secretDelay={secretDelay}
+      // keyboardType={Device.isAndroid ? "numeric" : "number-pad"}
     />
   );
 };
@@ -80,7 +83,6 @@ export const BtnSendWithStyle = ({ onClick }) => {
 };
 
 export const getbtnSendStyle = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
 
@@ -90,10 +92,9 @@ export const getbtnSendStyle = () => {
 };
 
 export const getChannelID = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const path = pathName.split("/");
-  
+
   // console.log("path[2] : ", path[2]);
   return path[2];
 };
@@ -117,15 +118,15 @@ export const ButtonWithStyle = ({ onClick, disabled }) => {
 //========================================================================================================= start //
 export const handleButtonGoToPageRegister = (urlvalidation) => {
   // console.log(domain+urlvalidation);
-  window.location.href = domain+urlvalidation; // "/register/bdki";
+  window.location.href = domain + urlvalidation; // "/register/bdki";
 };
 export const handleButtonGoToPageCreatePin = (urlvalidation) => {
   // console.log(domain+urlvalidation);
-  window.location.href = domain+urlvalidation; // "/create-pin/bdki";
+  window.location.href = domain + urlvalidation; // "/create-pin/bdki";
 };
 export const handleButtonGoToPageLoginInputPin = (urlvalidation) => {
   // console.log(domain+urlvalidation);
-  window.location.href = domain+urlvalidation; // "/login/bdki";
+  window.location.href = domain + urlvalidation; // "/login/bdki";
 };
 export const handleButtonGoToPageHome = () => {
   window.location.href = "/";
@@ -160,7 +161,6 @@ export const DescriptionSuccess = "Top Up JakOne Berhasil !"; //profile imagae
 import themeStyling from "../components/configuration_css/Config.json";
 
 export const getButtonStyle = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
   // console.log(lastSegment[2]);
@@ -170,7 +170,6 @@ export const getButtonStyle = () => {
 };
 
 export const getButtonStyleConfirmation = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
 
@@ -181,10 +180,9 @@ export const getButtonStyleConfirmation = () => {
 
 export const getStyledPinInput = () => {
   // this code for customize your button || example : classname={getStyledPinInput()}
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/"); // .pop();
-  
+
   return lastSegment[2] === "bdki"
     ? themeStyling.bdki.pinInputStyle
     : themeStyling.martipay.pinInputStyle;
@@ -339,7 +337,6 @@ export const changeLanguageAndRenderButton = ({ country, i18n }) => {
 
 // ini testing mas ozy
 export const setButtonYellow = () => {
-  const location = useLocation();
   const pathName = location.pathname;
 
   return pathName.includes("/home/bdki")
@@ -634,7 +631,11 @@ export const LoaderPageWithLottie = () => {
   return (
     <div
       style={{
-        position: "fixed", top: "40%", left: "50%", transform: "translate(-50%, -50%)",opacity: 0.7,
+        position: "fixed",
+        top: "40%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        opacity: 0.7,
       }}
     >
       <div className="centered-container">
@@ -651,27 +652,28 @@ export const LoaderPageWithLottie = () => {
 };
 
 export const LoadLogo = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
   // console.log("LoadImage : ", lastSegment[2]);
-  return lastSegment[2] === "bdki"
-    ? <img className="" width={200} src={logobdki} alt="My Image" />
-    : <img className="" width={200} src={logomartipay} alt="My Image" />;
+  return lastSegment[2] === "bdki" ? (
+    <img className="" width={200} src={logobdki} alt="My Image" />
+  ) : (
+    <img className="" width={200} src={logomartipay} alt="My Image" />
+  );
 };
 
 export const LoadIconShield = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
   // console.log("LoadImage : ", lastSegment[2]);
-  return lastSegment[2] === "bdki"
-    ? <img className="" width={200} src={logoiconbdki} alt="My Image" />
-    : <img className="" width={200} src={logoiconmartipay} alt="My Image" />;
+  return lastSegment[2] === "bdki" ? (
+    <img className="" width={200} src={logoiconbdki} alt="My Image" />
+  ) : (
+    <img className="" width={200} src={logoiconmartipay} alt="My Image" />
+  );
 };
 
 export const LoadBgColor = () => {
-  const location = useLocation();
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
   // console.log("LoadImage : ", lastSegment[2]);
@@ -701,7 +703,7 @@ const KeyEnkrip = "my32digitkey12345678901234567890";
 export const FunctionEncrypt = (inputData) => {
   const iv = CryptoJS.enc.Utf8.parse(IvEnkrip);
   const key = CryptoJS.enc.Utf8.parse(KeyEnkrip);
-  const encrypt = CryptoJS.AES.encrypt(inputData, key,{iv: iv}).toString();
+  const encrypt = CryptoJS.AES.encrypt(inputData, key, { iv: iv }).toString();
   return encrypt;
 };
 
@@ -731,19 +733,24 @@ export const FunctionDecryptBase64 = (textEncryptBase64) => {
   const iv = CryptoJS.enc.Utf8.parse(IvEnkrip);
   // const salt = CryptoJS.enc.Utf8.parse(SaltEnkrip);
   const key = CryptoJS.enc.Utf8.parse(KeyEnkrip);
-  const decryptEncryptWithBase64 = CryptoJS.AES.decrypt(encrypt, key, { iv: iv }).toString(CryptoJS.enc.Utf8);
+  const decryptEncryptWithBase64 = CryptoJS.AES.decrypt(encrypt, key, {
+    iv: iv,
+  }).toString(CryptoJS.enc.Utf8);
 
   return decryptEncryptWithBase64;
 };
 // ============== Setup Cookies =============//
 export const setCookie = (value) => {
   const expirationTime = 60000; // newDate(newDate().getTime() + 60000);
-  Cookies.set('data', JSON.stringify(value), { expires: expirationTime, secure: true }); // , { expires: 7, secure: true }
+  Cookies.set("data", JSON.stringify(value), {
+    expires: expirationTime,
+    secure: true,
+  }); // , { expires: 7, secure: true }
 };
 
 export const getCookie = () => {
   const data = Cookies.get("data"); // Get the value of the cookie
-//   alert(`User Token: ${data || "Not found"}`);
+  //   alert(`User Token: ${data || "Not found"}`);
   return data;
 };
 
@@ -752,3 +759,17 @@ export const deleteCookie = () => {
 };
 
 // ============== End Setup Cookies =============//
+// Footer
+export const setFooter = () => {
+  const pathName = location.pathname;
+  const path = pathName.split("/");
+
+  return path[2] === "bdki" ? (
+    <div></div>
+  ) : (
+    <footer className="... sticky bottom-0 w-full bg-white p-5 text-center flex justify-center items-center">
+    <p className="font-sans text-gray-600">&copy; Powered by</p>
+      <img className="float-end" width={90} src={logobdki} alt="My Image" />
+    </footer>
+  );
+};

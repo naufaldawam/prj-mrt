@@ -86,7 +86,7 @@ function AccordionCustomIcon() {
                   />
                 </svg>
               </a>
-              <b>Top up</b>
+              <h2 className="text-xl my-2 text-center text-gray-600">Top up</h2>
             </div>
           </nav>
           <div className="m-5">

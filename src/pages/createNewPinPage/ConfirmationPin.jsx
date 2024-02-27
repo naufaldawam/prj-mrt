@@ -1,6 +1,7 @@
 import { decode as base64_decode, encode as base64_encode } from "base-64";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import {
   FunctionDecryptAES,
   FunctionEncrypt,
@@ -11,7 +12,7 @@ import {
   PinInputWithStyle,
   getChannelID,
   getCookie,
-  getMessageHeaderConfirmationPin,
+  getMessageHeaderConfirmationPin
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -77,7 +78,7 @@ const ConfirmationPin = () => {
             </a>
           </div>
           <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-          <h4>{getMessageHeaderConfirmationPin()}</h4>
+          <h4 className="text-xl pt-4 text-center text-gray-600">{getMessageHeaderConfirmationPin()}</h4>
           <div className="w-full py-2 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg bg-opacity-0">
             <div className="items-center justify-center">
               <label

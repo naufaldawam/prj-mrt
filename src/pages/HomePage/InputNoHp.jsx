@@ -9,7 +9,7 @@ import {
   PhoneInputWithStyle,
   PinInputWithStyle,
   getButtonStyle,
-  getChannelID,
+  getChannelID
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -83,7 +83,7 @@ const CreatePin = () => {
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
         <div className="max-w-lg mx-auto bg-white overflow-hidden">
           <div className="p-4">
-            <h2 className="text-xl font-semibold my-2 text-center">Welcome</h2>
+            <h2 className="text-xl my-2 text-center text-gray-600">Welcome</h2>
             <p className="my-4">
               Experience a new way of transaction with {getChannelID()}
             </p>

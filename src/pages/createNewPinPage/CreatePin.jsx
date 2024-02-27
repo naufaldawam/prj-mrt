@@ -61,7 +61,7 @@ const CreatePin = () => {
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-        <h4>{getMessageHeaderCreatePin()}</h4>
+        <h4 className="text-xl pt-4 text-center text-gray-600">{getMessageHeaderCreatePin()}</h4>
         <div className="w-full py-2 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg  bg-opacity-0">
           <div className="items-center justify-center">
             <div className="flex flex-wrap flex-col items-center">
