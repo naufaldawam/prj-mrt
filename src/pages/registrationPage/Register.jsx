@@ -59,7 +59,8 @@ const Registration = () => {
   DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
     // console.log("getinquiryDataByIdRequest : ", res);
     if (res.resultMessages == "Success") {
-      if (res.result.username !== null) {
+      console.log("ini file res regis: " + res.result);
+      if (res.result.username !== null && res.result.username !== "" && res.result.username !== '') {
         window.location.href = "/";
       }
     }
