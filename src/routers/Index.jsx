@@ -67,6 +67,14 @@ export const router = createBrowserRouter([
         element: <SuccessPin />,
       },
       {
+        path: "Success-pin/martipay/:idreg",
+        element: <SuccessPin />,
+      },
+      {
+        path: "Success-pin/bdki/:idreg",
+        element: <SuccessPin />,
+      },
+      {
         path: "postRequestPayment/bdki/:idreg",
         element: <PostRequestPayment />,
       },

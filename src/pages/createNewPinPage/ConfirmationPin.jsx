@@ -9,20 +9,21 @@ import {
   LoadLogo,
   LoaderPageWithLottie,
   PinInputWithStyle,
+  getChannelID,
   getCookie,
-  getMessageHeaderConfirmationPin
+  getMessageHeaderConfirmationPin,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const ConfirmationPin = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [pin, setPin] = useState("");
-  let { idreg, id } = useParams();
+  let { idreg, id, url } = useParams();
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
   const _getCookie = JSON.parse(getCookie());
-
+  url = "/success-pin/" + getChannelID() + "/" + params.idreg;
   const modalclose = () => {
     window.location.reload();
   };
@@ -32,8 +33,7 @@ const ConfirmationPin = () => {
       .then((res) => {
         return res;
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 
   const handlePinComplete = (value) => {
@@ -50,7 +50,7 @@ const ConfirmationPin = () => {
         DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
           .then((res) => {
             if (res.resultMessages == "Success") {
-              window.location.href = "/success-pin";
+              window.location.href = url;
             } else {
               alert(res.messages);
             }
@@ -69,7 +69,7 @@ const ConfirmationPin = () => {
   return (
     <>
       <div>
-    {isLoading ? <LoaderPageWithLottie /> : ConfirmationPin}
+        {isLoading ? <LoaderPageWithLottie /> : ConfirmationPin}
         <div className={LoadBgColor()}>
           <div>
             <a href="/">
