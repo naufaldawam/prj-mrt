@@ -18,18 +18,18 @@ function PinInputPage() {
   let { idreg, dataRespont } = useParams();
 
   const handlePinChange = (value) => {
-    console.log(value);
-    console.log(pin.length);
+    // console.log(value);
+    // console.log(pin.length);
     setPin(value);
     if (pin.length === 5) {
-      console.log("id : ", idreg);
+      // console.log("id : ", idreg);
       const pabParams = {
         keyReference: params.idreg, 
         pin: base64_encode(FunctionEncrypt(pin)),
         requestDate: moment().format("YYYY-MM-DD"),
         requestTime: moment().format("hh:mm:ss"),
       };
-      console.log("postRequestPayment : ", pabParams);
+      // console.log("postRequestPayment : ", pabParams);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
         if (res.resultMessages == "Success") {
           window.location.href = "/success-pin";
@@ -47,7 +47,7 @@ function PinInputPage() {
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-        <h4>Enter your {getChannelID()} PIN</h4>
+        <h4 className="text-xl pt-4 text-center text-gray-600">Enter your {getChannelID()} PIN</h4>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
             <div className="text-center p-4">
