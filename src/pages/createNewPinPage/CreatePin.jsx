@@ -26,23 +26,17 @@ const CreatePin = () => {
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, // 
   };
   // console.log(pParams);
-  DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-    // console.log("getinquiryDataByIdRequest : ", res);
-    if (res.resultMessages == "Success") {
-      // console.log("res.result : ", res.result);
-      // Cookies.set('data', JSON.stringify(res.result)); // , { expires: 7 }
-      // setCookie(JSON.stringify(res.result));
-      // setCookie(res.result);
-      const _getCookie = JSON.parse(getCookie());
-      // console.log("_getCookie : ", _getCookie);
-    }
-  });
 
   const handlePinChange = (value) => {
     // console.log(value);
     // console.log(pin.length);
     setPin(value);
     if (pin.length === 5) {
+      DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+        if (res.resultMessages == "Success") {
+          const _getCookie = JSON.parse(getCookie());
+        }
+      });
       id = value;
       // console.log("id : ", idreg);
       url = "/confirmation-pin/"+pParams.channelId+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id));
