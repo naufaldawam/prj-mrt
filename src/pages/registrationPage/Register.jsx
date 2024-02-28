@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   LoadLogo,
+  LoaderPageWithLottie,
   getButtonStyle,
   getChannelID,
   handleButtonGoToPageCreatePin,
-  setCookie
+  setCookie,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -18,7 +19,7 @@ const Registration = () => {
   const [tfdateOfBirth, settfdateOfBirth] = useState(false);
   const [tfplaceOfBirth, settfplaceOfBirth] = useState(false);
   const [tfemail, settfemail] = useState(false);
-  const [btnDesable, setbtnDesable] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   url = "/create-pin/" + getChannelID();
   // console.log(channel);
@@ -63,9 +64,9 @@ const Registration = () => {
 
   const loadDataInquiry = () => {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      console.log("getinquiryDataByIdRequest : ", res);
+      // console.log("getinquiryDataByIdRequest : ", res);
       if (res.resultMessages == "Success") {
-        console.log("ini file res regis: " + res.result);
+        // console.log("ini file res regis: " + res.result);
         if (
           res.result.username !== null &&
           res.result.username !== "" &&
@@ -73,10 +74,17 @@ const Registration = () => {
         ) {
           window.location.href = "/";
         } else {
-          res.result.phoneNumber ? settfphoneNumber(true) : settfphoneNumber(false);
+          setIsLoading(false);
+          res.result.phoneNumber
+            ? settfphoneNumber(true)
+            : settfphoneNumber(false);
           res.result.fullName ? settffullName(true) : settffullName(false);
-          res.result.dateOfBirth ? settfdateOfBirth(true) : settfdateOfBirth(false);
-          res.result.placeOfBirth ? settfplaceOfBirth(true) : settfplaceOfBirth(false);
+          res.result.dateOfBirth
+            ? settfdateOfBirth(true)
+            : settfdateOfBirth(false);
+          res.result.placeOfBirth
+            ? settfplaceOfBirth(true)
+            : settfplaceOfBirth(false);
           res.result.email ? settfemail(true) : settfemail(false);
           setFormData(res.result);
         }
@@ -86,6 +94,7 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(e.currrentTarget.value);
 
     console.log("formData : ", formData);
     setCookie(formData);
@@ -93,12 +102,14 @@ const Registration = () => {
   };
 
   useEffect(() => {
+    // setIsLoading(true);
     loadDataInquiry();
   }, []);
 
   return (
-    <div>
+    <>
       <Card color="transparent" shadow={false}>
+        {isLoading ? <LoaderPageWithLottie /> : Registration}
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
           <div>
             <a href="/">
@@ -106,7 +117,9 @@ const Registration = () => {
             </a>
           </div>
           <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-          <h4 className="text-xl pt-4 text-center text-gray-600">Registration form</h4>
+          <h4 className="text-xl pt-4 text-center text-gray-600">
+            Registration form
+          </h4>
           <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
             <form id="frmReg" onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -209,7 +222,7 @@ const Registration = () => {
                   // onClick={}
                   disabled={false}
                   // className="mt-6 block w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  type="primary" htmlType="submit"
+                  type="submit"
                   data-ripple-light="true"
                   className={getButtonStyle()}
                 >
@@ -220,7 +233,7 @@ const Registration = () => {
           </div>
         </div>
       </Card>
-    </div>
+    </>
   );
 };
 
