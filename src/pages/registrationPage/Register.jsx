@@ -13,6 +13,11 @@ import DataEndPoint from "../../services/APIServices";
 
 const Registration = () => {
   let { idreg, channel, url, stannum } = useParams();
+  const [tfphoneNumber, settfphoneNumber] = useState(false);
+  const [tffullName, settffullName] = useState(false);
+  const [tfdateOfBirth, settfdateOfBirth] = useState(false);
+  const [tfplaceOfBirth, settfplaceOfBirth] = useState(false);
+  const [tfemail, settfemail] = useState(false);
 
   url = "/create-pin/" + getChannelID();
   // console.log(channel);
@@ -67,6 +72,11 @@ const Registration = () => {
         ) {
           window.location.href = "/";
         } else {
+          res.result.phoneNumber ? settfphoneNumber(true) : settfphoneNumber(false);
+          res.result.fullName ? settffullName(true) : settffullName(false);
+          res.result.dateOfBirth ? settfdateOfBirth(true) : settfdateOfBirth(false);
+          res.result.placeOfBirth ? settfplaceOfBirth(true) : settfplaceOfBirth(false);
+          res.result.email ? settfemail(true) : settfemail(false);
           setFormData(res.result);
         }
       }
@@ -113,6 +123,7 @@ const Registration = () => {
                   value={formData.phoneNumber}
                   onChange={handleChange}
                   required
+                  readOnly={tfphoneNumber}
                 />
               </div>
               <div className="mb-4">
@@ -131,6 +142,7 @@ const Registration = () => {
                   value={formData.fullName}
                   onChange={handleChange}
                   required
+                  readOnly={tffullName}
                 />
               </div>
               <div className="mb-4">
@@ -149,6 +161,7 @@ const Registration = () => {
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                   required
+                  readOnly={tfdateOfBirth}
                 />
               </div>
               <div className="mb-4">
@@ -167,6 +180,7 @@ const Registration = () => {
                   value={formData.placeOfBirth}
                   onChange={handleChange}
                   required
+                  readOnly={tfplaceOfBirth}
                 />
               </div>
               <div className="mb-4">
@@ -185,6 +199,7 @@ const Registration = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  readOnly={tfemail}
                 />
               </div>
               <div className="flex items-center justify-between">
