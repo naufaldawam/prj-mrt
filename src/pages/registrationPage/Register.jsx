@@ -18,6 +18,7 @@ const Registration = () => {
   const [tfdateOfBirth, settfdateOfBirth] = useState(false);
   const [tfplaceOfBirth, settfplaceOfBirth] = useState(false);
   const [tfemail, settfemail] = useState(false);
+  const [btnDesable, setbtnDesable] = useState(true);
 
   url = "/create-pin/" + getChannelID();
   // console.log(channel);
@@ -85,7 +86,8 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    console.log("formData : ", formData);
     setCookie(formData);
     handleButtonGoToPageCreatePin(url + "/" + params.idreg);
   };
@@ -106,7 +108,7 @@ const Registration = () => {
           <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
           <h4 className="text-xl pt-4 text-center text-gray-600">Registration form</h4>
           <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
-            <form>
+            <form id="frmReg" onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -204,10 +206,10 @@ const Registration = () => {
               </div>
               <div className="flex items-center justify-between">
                 <button
-                  onClick={handleSubmit}
+                  // onClick={}
                   disabled={false}
                   // className="mt-6 block w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  type="button"
+                  type="primary" htmlType="submit"
                   data-ripple-light="true"
                   className={getButtonStyle()}
                 >
