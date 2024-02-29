@@ -64,7 +64,7 @@ function PinInputPage() {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("BtnPostAccountBinding : ", pabParams, base64_encode(FunctionEncrypt(pin)));
+    console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
     DataEndPoint.getPostAccountBinding(pabParams).then((res) => {
       console.log("res : ", res);
       if (res.resultMessages == "Success") {
@@ -103,7 +103,7 @@ function PinInputPage() {
               {PinInputWithStyle({
                 secretDelay: 0,
                 value: "",
-                // onChange: handlePinChange,
+                onChange: handlePinChange,
               })}
             </div>
           </div>
