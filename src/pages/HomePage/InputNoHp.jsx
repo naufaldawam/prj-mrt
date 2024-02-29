@@ -1,7 +1,8 @@
+import moment from "moment";
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
+import { useParams } from "react-router-dom";
 import {
-  BtnSendWithStyle,
   FontAwesomeIconCheckeCircle,
   LoadBgColor,
   LoadLogo,
@@ -9,33 +10,40 @@ import {
   PhoneInputWithStyle,
   PinInputWithStyle,
   getButtonStyle,
-  getChannelID
+  getChannelID,
+  getbtnSendStyle,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
-const CreatePin = () => {
+const InputNoHp = () => {
   const [value, setValue] = useState();
   const [otpvalue, setOtpValue] = useState();
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const handleOTPButtonClick = () => {
-    const RequestOtpParam = {
-      phoneNumber: value ? value : null,
-      datetimerequest: "15-11-2021 10:00:21",
-      channelid: getChannelID(), // "MARTIPAY",
-      flag: "1",
-    };
 
+  let { stannum } = useParams();
+  stannum = Math.floor(Math.random() * 999999) + 100000;
+
+  const requestOTP = () => {
+    // alert("value : " + value);
+    const RequestOtpParam = {
+      accountNumber: value,
+      channelId: getChannelID(),
+      stan: stannum,
+      requestDate: moment().format("YYYY-MM-DD"),
+      requestTime: moment().format("hh:mm:ss"),
+    };
+    console.log("RequestOtpParam : ", RequestOtpParam);
     // contoh menggunakan API services
     DataEndPoint.getRequestOtp(RequestOtpParam)
       .then((res) => {
-        // console.log(res.data.response.data);
-        if (res.data.response.data == "success") {
+        console.log(res.response.data);
+        if (res.response.data == "success") {
           setIsActive(true);
           setShowOTPInput(true);
-        } else if (res.data.resultMessages == "Failed") {
+        } else if (res.resultMessages == "Failed") {
           setShowOTPInput(false);
-        } else if (res.data.resultMessages == "Error") {
+        } else if (res.resultMessages == "Error") {
           alert("Server error...!");
         }
       })
@@ -112,8 +120,15 @@ const CreatePin = () => {
                         onChange={setValue}
                       />
                     </div>
-                    <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-10">
-                      {BtnSendWithStyle(handleOTPButtonClick)}
+                    <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-0">
+                      <button
+                        onClick={requestOTP}
+                        className={getbtnSendStyle()}
+                        type="button"
+                        data-ripple-light="true"
+                      >
+                        Konfirmasi
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -157,4 +172,4 @@ const CreatePin = () => {
   );
 };
 
-export default CreatePin;
+export default InputNoHp;

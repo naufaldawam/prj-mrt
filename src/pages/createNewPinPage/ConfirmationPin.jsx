@@ -47,7 +47,7 @@ const ConfirmationPin = () => {
           pin: base64_encode(FunctionEncrypt(value)),
         };
         let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
-        console.log(pPostRegistrationAccount);
+        console.log("Object.assign(_getCookie, jsonPin) : ", pPostRegistrationAccount);
         DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
           .then((res) => {
             if (res.resultMessages == "Success") {

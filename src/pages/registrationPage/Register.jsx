@@ -47,7 +47,7 @@ const Registration = () => {
       [e.target.dateOfBirth]: e.target.value,
       [e.target.placeOfBirth]: e.target.value,
       [e.target.email]: e.target.value,
-      channelId: channel,
+      channelId: channel.toUpperCase(),
       stan: stannum,
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
@@ -94,9 +94,6 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.currrentTarget.value);
-
-    console.log("formData : ", formData);
     setCookie(formData);
     handleButtonGoToPageCreatePin(url + "/" + params.idreg);
   };
@@ -109,8 +106,8 @@ const Registration = () => {
   return (
     <>
       <Card color="transparent" shadow={false}>
-        {isLoading ? <LoaderPageWithLottie /> : Registration}
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+        {isLoading ? <LoaderPageWithLottie /> : Registration}
           <div>
             <a href="/">
               <h3 className="text-4xl font-bold text-red-600">{LoadLogo()}</h3>

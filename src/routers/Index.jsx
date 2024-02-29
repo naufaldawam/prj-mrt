@@ -23,11 +23,11 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { // Contoh : http://localhost:9999/home/bdki
-        path: "/home/bdki",
+        path: "/requestotp/bdki/:idreg",
         element: <InputNoHp />,
       },
       { // Contoh : http://localhost:9999/home/martipay
-        path: "/home/martipay",
+        path: "/requestotp/martipay/:idreg",
         element: <InputNoHp />,
       },
       { // Contoh : http://localhost:9999/login/bdki/RVI0cnEvNVF4c2xTWjVta1BSUTFqZz09

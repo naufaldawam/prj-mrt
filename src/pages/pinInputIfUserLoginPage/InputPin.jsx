@@ -23,13 +23,13 @@ import DataEndPoint from "../../services/APIServices";
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
-  let { id, nama, dataRespont } = useParams();
+  let { id, nama, dataRespont, url } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // var _getCookie = '';
-  // console.log("Input Pin : ", _getCookie.result);
 
   const params = useParams();
+  url = "/requestotp/" + getChannelID() + "/" + params.id;
+  
   const pParams = {
     idRequest: params.id, // value ? value : null,
     requestDate: moment().format("YYYY-MM-DD"),
@@ -64,8 +64,9 @@ function PinInputPage() {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("BtnPostAccountBinding : ", pabParams);
+    console.log("BtnPostAccountBinding : ", pabParams, base64_encode(FunctionEncrypt(pin)));
     DataEndPoint.getPostAccountBinding(pabParams).then((res) => {
+      console.log("res : ", res);
       if (res.resultMessages == "Success") {
         setIsLoading(false);
         setIsActive(false);
@@ -80,7 +81,6 @@ function PinInputPage() {
 
   const handlePinChange = (value) => {
     setPin(value);
-    // console.log("id : ", value);
   };
   const modalclose = () => {
     window.location.reload();
@@ -121,7 +121,7 @@ function PinInputPage() {
               <span>
                 <a
                   className="text-red-600 hover:underline"
-                  href={"/home/" + getChannelID()}
+                  href={url}
                 >
                   Forget PIN
                 </a>
@@ -220,7 +220,8 @@ function PinInputPage() {
                     onClick={modalclose}
                     data-modal-hide="popup-modal"
                     type="button"
-                    className="py-2.5 px-5 ms-3 text-sm font-medium text-black-900 focus:outline-none bg-white rounded-lg border border-yellow-200 hover:bg-yellow-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-yellow-100 dark:focus:ring-yellow-700 dark:bg-yellow-800 dark:text-yellow-400 dark:border-yellow-600 dark:hover:text-white dark:hover:bg-yellow-700"
+                    // className="py-2.5 px-5 ms-3 text-sm font-medium text-black-900 focus:outline-none bg-white rounded-lg border border-yellow-200 hover:bg-yellow-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-yellow-100 dark:focus:ring-yellow-700 dark:bg-yellow-800 dark:text-yellow-400 dark:border-yellow-600 dark:hover:text-white dark:hover:bg-yellow-700"
+                    className="bg-orange-500 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-lg"
                   >
                     Close
                   </button>
