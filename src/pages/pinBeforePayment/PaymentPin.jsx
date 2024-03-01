@@ -18,8 +18,8 @@ function PinInputPage() {
   let { idreg, dataRespont } = useParams();
 
   const handlePinChange = (value) => {
-    console.log(value);
-    console.log(value.length);
+    // console.log(value);
+    // console.log(value.length);
     setPin(value);
     if (value.length === 6) {
       // console.log("id : ", idreg);
@@ -31,7 +31,7 @@ function PinInputPage() {
       };
       // console.log("postRequestPayment : ", pabParams);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.responseCode == "00") {
           window.location.href = "/success-pin";
         }

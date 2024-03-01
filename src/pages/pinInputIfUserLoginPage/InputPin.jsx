@@ -22,7 +22,7 @@ import DataEndPoint from "../../services/APIServices";
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
-  let { id, nama, dataRespont, phone, url } = useParams();
+  let { id, nama, dataResponse, phone, url } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,8 +42,8 @@ function PinInputPage() {
         setCookie(res.result);
         // console.log(res);
         params.phone = res.result.phoneNumber;
-        dataRespont = res;
-        // console.log(url);
+        params.dataResponse = res;
+        // console.log(params.dataResponse);
   
         if (res.result.username === null || res.result.fullname === null) {
           window.location.href = "/";
@@ -54,14 +54,13 @@ function PinInputPage() {
   }
 
   const BtnPostAccountBinding = () => {
-    setIsActive(true);
-    setIsLoading(true);
+    // console.log("dataResponse : ", params.dataResponse);
     const pabParams = {
       idRequest: params.id, // value ? value : null,
-      phoneNumber: dataRespont.result.phoneNumber,
+      phoneNumber: params.dataResponse.result.phoneNumber,
       pin: base64_encode(FunctionEncrypt(pin)),
-      channelId: dataRespont.result.channelId,
-      stan: dataRespont.result.stan,
+      channelId: params.dataResponse.result.channelId,
+      stan: params.dataResponse.result.stan,
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
@@ -71,13 +70,16 @@ function PinInputPage() {
       if (res.resultMessages == "Success") {
         setIsLoading(false);
         setIsActive(false);
-        window.location.href = "/success-pin";
+        window.location.href = "/success-pin/" + params.dataResponse.result.channelId + "/" + params.id;
       } else {
         setIsActive(false);
         setIsLoading(false);
         setShowModal(true);
       }
     });
+    
+    setIsActive(true);
+    setIsLoading(true);
   };
 
   const handlePinChange = (value) => {
@@ -137,7 +139,7 @@ function PinInputPage() {
                 /> */}
 
                 {/* <div> */}
-                  <p className="text-center text-xl bold font-medium">{phone}</p>
+                  <p className="text-center text-xl bold font-medium">{params.phone}</p>
                 {/* </div> */}
               </div>
             </div>
