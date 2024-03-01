@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../components/ErrorPage";
 import InputNoHp from "../pages/HomePage/InputNoHp";
+import SuccessPayment from "../pages/SuccessPayment";
 import SuccessPin from "../pages/SuccessPin";
 import Topup from "../pages/accordionTopupPage/TopUp";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
@@ -87,6 +88,14 @@ export const router = createBrowserRouter([
       { // Contoh : http://localhost:9999/Success-pin/martipay/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
         path: "Success-pin/martipay/:idreg",
         element: <SuccessPin />,
+      },
+      { // Contoh : http://localhost:9999/Success-pin/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
+        path: "success-payment/bdki",
+        element: <SuccessPayment />,
+      },
+      { // Contoh : http://localhost:9999/Success-pin/martipay/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
+        path: "success-payment/martipay",
+        element: <SuccessPayment />,
       },
       { // Contoh : http://localhost:9999/postRequestPayment/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
         path: "postRequestPayment/bdki/:idreg",
