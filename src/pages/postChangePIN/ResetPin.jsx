@@ -1,5 +1,4 @@
 import { encode as base64_encode } from "base-64";
-import moment from "moment";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -9,37 +8,36 @@ import {
   LoadLogo,
   PinInputWithStyle,
   getChannelID,
-  getCookie,
   getMessageHeaderCreatePin
 } from "../../constantFile/I_Constant";
-import DataEndPoint from "../../services/APIServices";
 
 const ResetPin = () => {
   const [pin, setPin] = useState("");
-  let { idreg, id, acnum, url } = useParams();
+  let { idreg, id, acnum, phone, url } = useParams();
 
   const params = useParams();
-  const pParams = {
-    idRequest: params.idreg, // value ? value : null,
-    requestDate: moment().format("YYYY-MM-DD"),
-    requestTime: moment().format("hh:mm:ss"),
-    channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
-  };
-  // console.log(pParams);
+  // const pParams = {
+  //   idRequest: params.idreg, // value ? value : null,
+  //   requestDate: moment().format("YYYY-MM-DD"),
+  //   requestTime: moment().format("hh:mm:ss"),
+  //   channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
+  // };
+  // console.log(FunctionDecryptAES(base64_decode(params.phone)));
+  // console.log(phone);
 
   const handlePinChange = (value) => {
     // console.log(value);
-    // console.log(pin.length);
+    // console.log(value.length);
     setPin(value);
-    if (pin.length === 5) {
-      DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-        if (res.resultMessages == "Success") {
-          const _getCookie = JSON.parse(getCookie());
-        }
-      });
+    if (value.length === 6) {
+      // DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+      //   if (res.resultMessages == "Success") {
+      //     const _getCookie = JSON.parse(getCookie());
+      //   }
+      // });
       id = value;
       // console.log("id : ", idreg);
-      url = "/confirmation-reset-pin/"+pParams.channelId+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id))+"/"+base64_encode(FunctionEncrypt(acnum));
+      url = "/confirmation-reset-pin/"+getChannelID()+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id))+"/"+base64_encode(FunctionEncrypt(phone));
       // console.log("Channel : ", url);
       window.location.href = url;
     }

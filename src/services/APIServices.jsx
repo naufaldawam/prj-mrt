@@ -248,7 +248,7 @@ const APIServices = {
     }
   },
   getPostAccountBinding: async (postAccountBinding) => {
-    console.log("API : ", postAccountBinding);
+    // console.log("API : ", postAccountBinding);
     try {
       let response = await axios.post(apiUrl + `/paymentIntegration/postAccountBinding`,
           postAccountBinding,
@@ -264,9 +264,24 @@ const APIServices = {
     }
   },
   getPostRequestPayment: async (postRequestPayment) => {
-    console.log("API : ", postRequestPayment);
+    // console.log("API : ", postRequestPayment);
     try {
       let response = await axios.post(apiUrl + `/paymentIntegration/postRequestPayment`,postRequestPayment,
+          {
+              method: 'POST',
+              config
+          ,}
+      );
+      return response.data;
+    } catch (err) {
+      // console.error("err : ", err.message);
+      throw err;
+    }
+  },
+  getPostChangePIN: async (postChangePIN) => {
+    // console.log("API : ", postChangePIN);
+    try {
+      let response = await axios.post(apiUrl + `/paymentIntegration/postChangePIN`,postChangePIN,
           {
               method: 'POST',
               config

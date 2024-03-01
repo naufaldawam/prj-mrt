@@ -22,12 +22,12 @@ import DataEndPoint from "../../services/APIServices";
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
-  let { id, nama, dataRespont, url } = useParams();
+  let { id, nama, dataRespont, phone, url } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
-  url = "/requestotp/" + getChannelID() + "/" + params.id;
+  url = "/requestotp/" + getChannelID() + "/" + params.id; //  + "/" + base64_encode(FunctionEncrypt(params.phone));
   
   const pParams = {
     idRequest: params.id, // value ? value : null,
@@ -35,15 +35,15 @@ function PinInputPage() {
     requestTime: moment().format("hh:mm:ss"),
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
   };
-  console.log("pin : ", pin);
+  
   if(pin === ''){
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
       if (res.resultMessages == "Success") {
         setCookie(res.result);
-        // console.log(res.result);
-        params.nama = res.result.phoneNumber;
+        // console.log(res);
+        params.phone = res.result.phoneNumber;
         dataRespont = res;
-        // console.log("params.nama : ", params.nama);
+        // console.log(url);
   
         if (res.result.username === null || res.result.fullname === null) {
           window.location.href = "/";
@@ -65,9 +65,9 @@ function PinInputPage() {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
+    // console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
     DataEndPoint.getPostAccountBinding(pabParams).then((res) => {
-      console.log("res : ", res);
+      // console.log("res : ", res);
       if (res.resultMessages == "Success") {
         setIsLoading(false);
         setIsActive(false);
@@ -86,7 +86,7 @@ function PinInputPage() {
   const modalclose = () => {
     window.location.reload();
   };
-
+  
   return (
     <>
       {isLoading ? <LoaderPageWithLottie /> : PinInputPage}
@@ -137,7 +137,7 @@ function PinInputPage() {
                 /> */}
 
                 {/* <div> */}
-                  <p className="text-center text-xl bold font-medium">{nama}</p>
+                  <p className="text-center text-xl bold font-medium">{phone}</p>
                 {/* </div> */}
               </div>
             </div>

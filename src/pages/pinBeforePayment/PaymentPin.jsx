@@ -32,7 +32,7 @@ function PinInputPage() {
       // console.log("postRequestPayment : ", pabParams);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
         console.log(res);
-        if (res.resultMessages == "Success") {
+        if (res.responseCode == "Success") {
           window.location.href = "/success-pin";
         }
       });

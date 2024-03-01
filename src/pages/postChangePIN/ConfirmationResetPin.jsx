@@ -19,16 +19,20 @@ import DataEndPoint from "../../services/APIServices";
 const ConfirmationResetPin = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [pin, setPin] = useState("");
-  let { idreg, id, url } = useParams();
+  let { idreg, id, phone, url } = useParams();
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  
+  let { stannum } = useParams();
+  stannum = Math.floor(Math.random() * 999999) + 100000;
 
   const _getCookie = JSON.parse(getCookie());
-  url = "/success-pin/" + getChannelID() + "/" + params.idreg;
+  url = "/login/" + getChannelID() + "/" + params.idreg;
   const modalclose = () => {
     window.location.reload();
   };
-
+  // console.log(params.phone);
+  // console.log("phone enc : ", FunctionDecryptAES(base64_decode(FunctionDecryptAES(base64_decode(params.phone)))));
   const enkripPIN = (pin) => {
     DataEndPoint.getEnkripAes(pin)
       .then((res) => {
@@ -43,12 +47,17 @@ const ConfirmationResetPin = () => {
       if (paramsid === value) {
         setIsLoading(true);
         const jsonPin = {
-          idRequest: params.idreg,
+          accountNumber: FunctionDecryptAES(base64_decode(FunctionDecryptAES(base64_decode(params.phone)))),
+          channelId: getChannelID(),
+          stan: stannum,
           pin: base64_encode(FunctionEncrypt(value)),
+          requestDate: moment().format("YYYY-MM-DD"),
+          requestTime: moment().format("hh:mm:ss"),
         };
-        let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
-        console.log("Object.assign(_getCookie, jsonPin) : ", pPostRegistrationAccount);
-        DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
+        // console.log(jsonPin);
+        // let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
+        // console.log("Object.assign(_getCookie, jsonPin) : ", jsonPin);
+        DataEndPoint.getPostChangePIN(jsonPin)
           .then((res) => {
             if (res.resultMessages == "Success") {
               window.location.href = url;
@@ -70,7 +79,7 @@ const ConfirmationResetPin = () => {
   return (
     <>
       <div>
-        {isLoading ? <LoaderPageWithLottie /> : ConfirmationPin}
+        {isLoading ? <LoaderPageWithLottie /> : ConfirmationResetPin}
         <div className={LoadBgColor()}>
           <div>
             <a href="/">

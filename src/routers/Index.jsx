@@ -65,11 +65,11 @@ export const router = createBrowserRouter([
         element: <ConfirmationPin />,
       },
       { // Contoh : http://localhost:9999/reset-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
-        path: "reset-pin/bdki/:idreg",
+        path: "reset-pin/bdki/:idreg/:phone",
         element: <PostResetePin />,
       },
       { // Contoh : http://localhost:9999/reset-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
-        path: "reset-pin/martipay/:idreg",
+        path: "reset-pin/martipay/:idreg/:phone",
         element: <PostResetePin />,
       },
       { // Contoh : http://localhost:9999/confirmation-reset-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09

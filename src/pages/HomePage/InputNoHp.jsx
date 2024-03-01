@@ -1,9 +1,11 @@
+import { encode as base64_encode } from "base-64";
 import moment from "moment";
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useParams } from "react-router-dom";
 import {
   FontAwesomeIconCheckeCircle,
+  FunctionEncrypt,
   LoadBgColor,
   LoadLogo,
   ModalTermsAndCondition,
@@ -73,7 +75,7 @@ const InputNoHp = () => {
   }
 
   const requestOTP = () => {
-    handleStart();
+    // handleStart();
     // alert("value : " + value);
     const RequestOtpParam = {
       accountNumber: value,
@@ -82,11 +84,11 @@ const InputNoHp = () => {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("RequestOtpParam : ", RequestOtpParam);
+    // console.log("RequestOtpParam : ", RequestOtpParam);
     // contoh menggunakan API services
     DataEndPoint.getRequestOtp(RequestOtpParam)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.resultMessages == "Success") {
           setIsActive(true);
           setShowOTPInput(true);
@@ -97,12 +99,14 @@ const InputNoHp = () => {
         }
       })
       .catch(() => {
-        console.log("error");
+        // console.log("error");
       });
   };
 
   const btnConfirmOTP = () => {
-    // alert(otpvalue);
+    
+    // window.location.href = url + "/" + base64_encode(FunctionEncrypt(value));
+    // console.log(url);
     const ConfirmOTPParam = {
       accountNumber: value,
       otp: otpvalue,
@@ -118,7 +122,7 @@ const InputNoHp = () => {
         console.log(res.resultMessages);
         // console.log(res.data.resultMessages);
         if (res.resultMessages == "Success") {
-          window.location.href = url;
+          window.location.href = url + "/" + base64_encode(FunctionEncrypt(value));
         } else if (res.resultMessages == "Failed") {
           alert("Failed respon...!");
         } else if (res.resultMessages == "Error") {
@@ -186,14 +190,14 @@ const InputNoHp = () => {
 
               {showOTPInput && (
                 <div className="flex flex-wrap items-center">
-                  {seconds > 0 || minutes > 0 ? (
+                  {/* {seconds > 0 || minutes > 0 ? (
                     <p>
                       Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
                       {seconds < 10 ? `0${seconds}` : seconds}
                     </p>
                   ) : (
                     <p>Didn't recieve code?</p>
-                  )}
+                  )} */}
                   <p className="mt-8 pb-4">
                     Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
                   </p>
