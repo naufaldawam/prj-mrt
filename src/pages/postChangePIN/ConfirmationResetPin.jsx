@@ -16,7 +16,7 @@ import {
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
-const ConfirmationPin = () => {
+const ConfirmationResetPin = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [pin, setPin] = useState("");
   let { idreg, id, url } = useParams();
@@ -144,4 +144,4 @@ const ConfirmationPin = () => {
   );
 };
 
-export default ConfirmationPin;
+export default ConfirmationResetPin;

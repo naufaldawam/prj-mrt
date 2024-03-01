@@ -14,16 +14,16 @@ import {
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
-const CreatePin = () => {
+const ResetPin = () => {
   const [pin, setPin] = useState("");
-  let { idreg, id, url } = useParams();
+  let { idreg, id, acnum, url } = useParams();
 
   const params = useParams();
   const pParams = {
     idRequest: params.idreg, // value ? value : null,
     requestDate: moment().format("YYYY-MM-DD"),
     requestTime: moment().format("hh:mm:ss"),
-    channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, // 
+    channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
   };
   // console.log(pParams);
 
@@ -39,7 +39,7 @@ const CreatePin = () => {
       });
       id = value;
       // console.log("id : ", idreg);
-      url = "/confirmation-pin/"+pParams.channelId+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id));
+      url = "/confirmation-reset-pin/"+pParams.channelId+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id))+"/"+base64_encode(FunctionEncrypt(acnum));
       // console.log("Channel : ", url);
       window.location.href = url;
     }
@@ -73,4 +73,4 @@ const CreatePin = () => {
   );
 };
 
-export default CreatePin;
+export default ResetPin;

@@ -10,6 +10,8 @@ import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
 import Load404 from "../pages/pageStart/load404";
 import PostRequestPayment from "../pages/pinBeforePayment/PaymentPin";
 import InputPinLogin from "../pages/pinInputIfUserLoginPage/InputPin";
+import PostConfirmationResetPin from "../pages/postChangePIN/ConfirmationResetPin";
+import PostResetePin from "../pages/postChangePIN/ResetPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
 
@@ -62,25 +64,22 @@ export const router = createBrowserRouter([
         path: "confirmation-pin/martipay/:idreg/:id",
         element: <ConfirmationPin />,
       },
-
-      
-      { // Contoh : http://localhost:9999/create-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
+      { // Contoh : http://localhost:9999/reset-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
         path: "reset-pin/bdki/:idreg",
-        element: <PostCreatePin />,
+        element: <PostResetePin />,
       },
       { // Contoh : http://localhost:9999/reset-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
         path: "reset-pin/martipay/:idreg",
-        element: <PostCreatePin />,
+        element: <PostResetePin />,
       },
-      { // Contoh : http://localhost:9999/confirmation-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
-        path: "confirmation-reset-pin/bdki/:idreg/:id",
-        element: <PostConfirmationPin />,
+      { // Contoh : http://localhost:9999/confirmation-reset-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
+        path: "confirmation-reset-pin/bdki/:idreg/:id/:phone",
+        element: <PostConfirmationResetPin />,
       },
-      { // Contoh : http://localhost:9999/confirmation-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
-        path: "confirmation-reset-pin/martipay/:idreg/:id",
-        element: <PostConfirmationPin />,
+      { // Contoh : http://localhost:9999/confirmation-reset-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
+        path: "confirmation-reset-pin/martipay/:idreg/:id/:phone",
+        element: <PostConfirmationResetPin />,
       },
-
       { // Contoh : http://localhost:9999/Success-pin/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
         path: "Success-pin/bdki/:idreg",
         element: <SuccessPin />,
