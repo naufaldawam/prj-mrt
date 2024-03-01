@@ -35,7 +35,7 @@ function PaymentPin() {
       };
       // console.log("postRequestPayment : ", pabParams);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.responseCode == "00") {
             setIsLoading(false);
             window.location.href = "/Success-payment/" + getChannelID();
