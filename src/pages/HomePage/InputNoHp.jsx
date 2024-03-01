@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useParams } from "react-router-dom";
@@ -6,12 +7,11 @@ import {
   LoadBgColor,
   LoadLogo,
   ModalTermsAndCondition,
+  OtpInputWithStyle,
   PhoneInputWithStyle,
-  PinInputWithStyle,
   getButtonStyle,
   getChannelID,
-  getbtnSendStyle,
-  handleButtonGoToPageRegister
+  getbtnSendStyle
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -21,42 +21,59 @@ const InputNoHp = () => {
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [counter, setCounter] = useState();
+  const [minutes, setMinutes] = useState();
+  const [seconds, setSeconds] = useState(5);
+  let { idreg, id, url } = useParams();
+  const params = useParams();
+  url = "/reset-pin/" + getChannelID() + "/" + params.idreg;
 
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
-  // const [timeLeft, setTimeLeft] = useState(5); // seconds (5 hours)
-
-  // const hours = Math.floor(timeLeft / 3600)
-  //   .toString()
-  //   .padStart(2, "0");
-  // const minutes = Math.floor((timeLeft % 3600) / 60)
-  //   .toString()
-  //   .padStart(2, "0");
-  // const seconds = (timeLeft % 60).toString().padStart(2, "0");
-
-  // const handleStart = () => {
-  //   const timer = setInterval(() => {
-  //     let prevTime = prevTime - 1;
-  //     setTimeLeft(prevTime);
-  //     if (timeLeft === 0) {
-  //       clearInterval(timer);
-  //       // countdown finished
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (seconds > 0) {
+  //       setSeconds(seconds - 1);
   //     }
-  //     console.log(pt)
-  //   }, 1000);
-    
-  //   return () => {
-  //     clearInterval(seconds);
-  //   };
-  // };
 
-  // const handleReset = () => {
-  //   setTimeLeft(60); // Reset time to 5 hours
-  // };
+  //     if (seconds === 0) {
+  //       if (minutes === 0) {
+  //         clearInterval(interval);
+  //       } else {
+  //         setSeconds(59);
+  //         setMinutes(minutes - 1);
+  //       }
+  //     }
+  //   }, 1000);
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [seconds]);
+
+  const handleStart = () => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }
 
   const requestOTP = () => {
-    // handleStart();
+    handleStart();
     // alert("value : " + value);
     const RequestOtpParam = {
       accountNumber: value,
@@ -87,23 +104,24 @@ const InputNoHp = () => {
   const btnConfirmOTP = () => {
     // alert(otpvalue);
     const ConfirmOTPParam = {
-      token: otpvalue ? otpvalue : null,
-      nohp: value ? value : null,
-      datetimerequest: "15-11-2021 10:00:21",
-      channelid: "MARTIPAY",
+      accountNumber: value,
+      otp: otpvalue,
+      channelId: getChannelID(),
+      stan: stannum,
+      requestDate: moment().format("YYYY-MM-DD"),
+      requestTime: moment().format("hh:mm:ss"),
     };
 
     // // contoh menggunakan API services
     DataEndPoint.getValidationOtp(ConfirmOTPParam)
       .then((res) => {
-        // console.log(res);
+        console.log(res.resultMessages);
         // console.log(res.data.resultMessages);
-        if (res.data.resultMessages == "Success") {
-          // console.log("Masuk :" + res.data.resultMessages);
-          handleButtonGoToPageRegister();
-        } else if (res.data.resultMessages == "Failed") {
+        if (res.resultMessages == "Success") {
+          window.location.href = url;
+        } else if (res.resultMessages == "Failed") {
           alert("Failed respon...!");
-        } else if (res.data.resultMessages == "Error") {
+        } else if (res.resultMessages == "Error") {
           alert("Server error...!");
         }
       })
@@ -111,7 +129,7 @@ const InputNoHp = () => {
         console.log("error");
       });
   };
-// <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
+  // <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
   return (
     <div>
       <div className={LoadBgColor()}>
@@ -159,7 +177,7 @@ const InputNoHp = () => {
                         type="button"
                         data-ripple-light="true"
                       >
-                      Konfirmasi
+                        Konfirmasi
                       </button>
                     </div>
                   </div>
@@ -168,12 +186,19 @@ const InputNoHp = () => {
 
               {showOTPInput && (
                 <div className="flex flex-wrap items-center">
-                 
+                  {seconds > 0 || minutes > 0 ? (
+                    <p>
+                      Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+                      {seconds < 10 ? `0${seconds}` : seconds}
+                    </p>
+                  ) : (
+                    <p>Didn't recieve code?</p>
+                  )}
                   <p className="mt-8 pb-4">
                     Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
                   </p>
                   <div className="flex flex-wrap items-center">
-                    {PinInputWithStyle({
+                    {OtpInputWithStyle({
                       secretDelay: 0,
                       value: otpvalue,
                       onChange: setOtpValue,

@@ -62,6 +62,25 @@ export const router = createBrowserRouter([
         path: "confirmation-pin/martipay/:idreg/:id",
         element: <ConfirmationPin />,
       },
+
+      
+      { // Contoh : http://localhost:9999/create-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
+        path: "reset-pin/bdki/:idreg",
+        element: <PostCreatePin />,
+      },
+      { // Contoh : http://localhost:9999/reset-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
+        path: "reset-pin/martipay/:idreg",
+        element: <PostCreatePin />,
+      },
+      { // Contoh : http://localhost:9999/confirmation-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
+        path: "confirmation-reset-pin/bdki/:idreg/:id",
+        element: <PostConfirmationPin />,
+      },
+      { // Contoh : http://localhost:9999/confirmation-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
+        path: "confirmation-reset-pin/martipay/:idreg/:id",
+        element: <PostConfirmationPin />,
+      },
+
       { // Contoh : http://localhost:9999/Success-pin/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
         path: "Success-pin/bdki/:idreg",
         element: <SuccessPin />,

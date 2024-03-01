@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   FunctionEncrypt,
-  ImagePin,
   LoadBgColor,
   LoadLogo,
   LoaderPageWithLottie,
@@ -36,21 +35,23 @@ function PinInputPage() {
     requestTime: moment().format("hh:mm:ss"),
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
   };
-  // console.log(pParams);
-  DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-    if (res.resultMessages == "Success") {
-      setCookie(res.result);
-      // console.log(res.result);
-      params.nama = res.result.fullName;
-      dataRespont = res;
-      // console.log("params.nama : ", params.nama);
-
-      if (res.result.username === null || res.result.fullname === null) {
-        window.location.href = "/";
-        // console.log("404");
+  console.log("pin : ", pin);
+  if(pin === ''){
+    DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+      if (res.resultMessages == "Success") {
+        setCookie(res.result);
+        // console.log(res.result);
+        params.nama = res.result.phoneNumber;
+        dataRespont = res;
+        // console.log("params.nama : ", params.nama);
+  
+        if (res.result.username === null || res.result.fullname === null) {
+          window.location.href = "/";
+          // console.log("404");
+        }
       }
-    }
-  });
+    });
+  }
 
   const BtnPostAccountBinding = () => {
     setIsActive(true);
@@ -110,12 +111,6 @@ function PinInputPage() {
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
-            {/* <div className="text-center p-2">
-              {PinInputWithStyle({
-                secretDelay: 0,
-                value: "",
-                onChange: handlePinChange,
-              })} */}
             <div className="mt-4 text-grey-600">
               Reset your PIN when you aren't signed.{" "}
               <span>
@@ -135,15 +130,15 @@ function PinInputPage() {
 
             <div className="my-2">
               <div className="flex items-center">
-                <img
+                {/* <img
                   src={ImagePin}
                   alt="Profile"
                   className="w-10 h-10 rounded-full mr-2"
-                />
+                /> */}
 
-                <div>
-                  <p className="text-xl bold font-medium">{params.nama}</p>
-                </div>
+                {/* <div> */}
+                  <p className="text-center text-xl bold font-medium">{nama}</p>
+                {/* </div> */}
               </div>
             </div>
             <div className=" text-justify">

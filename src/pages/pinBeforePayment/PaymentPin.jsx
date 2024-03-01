@@ -18,19 +18,20 @@ function PinInputPage() {
   let { idreg, dataRespont } = useParams();
 
   const handlePinChange = (value) => {
-    // console.log(value);
-    // console.log(pin.length);
+    console.log(value);
+    console.log(value.length);
     setPin(value);
-    if (pin.length === 5) {
+    if (value.length === 6) {
       // console.log("id : ", idreg);
       const pabParams = {
         keyReference: params.idreg, 
-        pin: base64_encode(FunctionEncrypt(pin)),
+        pin: base64_encode(FunctionEncrypt(value)),
         requestDate: moment().format("YYYY-MM-DD"),
         requestTime: moment().format("hh:mm:ss"),
       };
       // console.log("postRequestPayment : ", pabParams);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
+        console.log(res);
         if (res.resultMessages == "Success") {
           window.location.href = "/success-pin";
         }

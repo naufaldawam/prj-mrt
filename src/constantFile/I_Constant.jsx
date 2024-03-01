@@ -42,6 +42,31 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
   );
 };
 
+
+export const OtpInputWithStyle = ({ secretDelay, value, onChange }) => {
+  const PinInput = PinInputTemplate;
+  const location = useLocation();
+  // console.log(value);
+  return (
+    <PinInput
+      length={6}
+      autoFocus={true}
+      initialValue=""
+      secret={false}
+      onChange={onChange}
+      value={value}
+      type="number"
+      inputMode="numeric"
+      inputStyle={getStyledPinInput()}
+      inputFocusStyle={{}}
+      onComplete={() => {}}
+      autoSelect={true}
+      regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+      secretDelay={secretDelay}
+    />
+  );
+};
+
 export const ModalTermsAndCondition = ModalTermsAndConditionTemplate;
 export const FontAwesomeIconCheckeCircle = (
   <FontAwesomeIcon icon={faCheckCircle} />
