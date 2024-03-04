@@ -1,7 +1,6 @@
 import Lottie from "lottie-react";
 import React from "react";
 import { useParams } from "react-router-dom";
-import ImageSuccesPeople from "../assets/icons/success-image.png";
 import AnimationSuccess from "../components/lottieFiles/AnimationSuccess.json";
 import { LoadBgColor, LoadLogo, getCookie } from "../constantFile/I_Constant";
 
@@ -27,7 +26,7 @@ const SuccessPin = () => {
         <div className="p-4 items-center justify-center">
           <div className="flex items-center justify-center my-4">
             {/* <img className="" width={60} src={ImageSucces} alt="My Image" /> */}
-            <div className="">
+            {/* <div className="">
               <Lottie
                 animationData={AnimationSuccess}
                 loop={true}
@@ -37,7 +36,7 @@ const SuccessPin = () => {
                   height: "150px",
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <h6 className="text-xl my-2 text-center">CONGRATULATION</h6>
           <strong>
@@ -46,12 +45,21 @@ const SuccessPin = () => {
             </h2>
           </strong>
           <div className="flex items-center justify-center my-4">
-            <img
+            {/* <img
               className=""
               width={200}
               src={ImageSuccesPeople}
               alt="My Image"
-            />
+            /> */}
+            <Lottie
+                animationData={AnimationSuccess}
+                loop={true}
+                autoplay={true}
+                style={{
+                  width: "350px",
+                  height: "350px",
+                }}
+              />
           </div>
           <p className="text-center">
             <b>Registration Successful !</b>

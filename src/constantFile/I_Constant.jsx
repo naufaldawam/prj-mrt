@@ -72,7 +72,7 @@ export const FontAwesomeIconCheckeCircle = (
   <FontAwesomeIcon icon={faCheckCircle} />
 );
 
-export const PhoneInputWithStyle = ({ value, onChange }) => {
+export const PhoneInputWithStyle = ({ value, onChange, inputProps }) => {
   // const [value, setValue] = useState(); //to handle change
   // console.log("value fom phone input with style at phone input with style constant", value);
   const PhoneInputTemplate = PhoneInput;
@@ -89,6 +89,11 @@ export const PhoneInputWithStyle = ({ value, onChange }) => {
       }}
       value={value}
       onChange={onChange}
+      inputProps={
+        {
+          readOnly:inputProps
+        }
+      }
     />
   );
 };

@@ -1,6 +1,5 @@
 import Lottie from "lottie-react";
 import React from "react";
-import ImageSuccesPeople from "../assets/icons/success-image.png";
 import AnimationSuccess from "../components/lottieFiles/AnimationSuccess.json";
 import { LoadBgColor, LoadLogo } from "../constantFile/I_Constant";
 
@@ -18,7 +17,7 @@ const SuccessPayment = () => {
         <div className="p-4 items-center justify-center">
           <div className="flex items-center justify-center my-4">
             {/* <img className="" width={60} src={ImageSucces} alt="My Image" /> */}
-            <div className="">
+            {/* <div className="">
               <Lottie
                 animationData={AnimationSuccess}
                 loop={true}
@@ -28,7 +27,7 @@ const SuccessPayment = () => {
                   height: "150px",
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <h6 className="text-xl my-2 text-center">PAYMENT SUCCESS</h6>
           <strong>
@@ -36,12 +35,21 @@ const SuccessPayment = () => {
             </h2>
           </strong>
           <div className="flex items-center justify-center my-4">
-            <img
+            {/* <img
               className=""
               width={200}
               src={ImageSuccesPeople}
               alt="My Image"
-            />
+            /> */}
+            <Lottie
+                animationData={AnimationSuccess}
+                loop={true}
+                autoplay={true}
+                style={{
+                  width: "350px",
+                  height: "350px",
+                }}
+              />
           </div>
           <p className="text-center">
             <b>Registration Successful !</b>

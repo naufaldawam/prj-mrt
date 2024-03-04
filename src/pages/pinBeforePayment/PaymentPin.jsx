@@ -34,6 +34,7 @@ function PaymentPin() {
         requestTime: moment().format("hh:mm:ss"),
       };
       // console.log("postRequestPayment : ", pabParams);
+      // console.log("postRequestPayment : ", idreg);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
         // console.log(res);
         if (res.responseCode == "00") {

@@ -10,6 +10,7 @@ import {
   PinInputWithStyle,
   getButtonStyle,
   getChannelID,
+  getCookie,
   getDescriptionMessageInputPinAccess,
   getDescriptionTermsAndCondition,
   getHeaderMessageInputPinLogin,
@@ -27,7 +28,9 @@ function PinInputPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
-  url = "/requestotp/" + getChannelID() + "/" + params.id; //  + "/" + base64_encode(FunctionEncrypt(params.phone));
+  const _getCookie = JSON.parse(getCookie());
+  console.log(_getCookie);
+  url = "/requestotp/" + getChannelID() + "/" + params.id; // + "/" + base64_encode(FunctionEncrypt(_getCookie.phoneNumber));
   
   const pParams = {
     idRequest: params.id, // value ? value : null,
@@ -43,8 +46,8 @@ function PinInputPage() {
         // console.log(res);
         params.phone = res.result.phoneNumber;
         params.dataResponse = res;
-        // console.log(params.dataResponse);
-  
+        // console.log(params.dataResponse); 
+        
         if (res.result.username === null || res.result.fullname === null) {
           window.location.href = "/";
           // console.log("404");

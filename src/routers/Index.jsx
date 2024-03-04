@@ -6,7 +6,7 @@ import SuccessPin from "../pages/SuccessPin";
 import Topup from "../pages/accordionTopupPage/TopUp";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
 import CreatePin from "../pages/createNewPinPage/CreatePin";
-import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
+// import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
 import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
 import Load404 from "../pages/pageStart/load404";
 import PostRequestPayment from "../pages/pinBeforePayment/PaymentPin";
@@ -121,10 +121,10 @@ export const router = createBrowserRouter([
         path: "loader",
         element: <LoaderPageWithLottie />,
       },
-      {
-        path: "encdec",
-        element: <ExampleEncDec />,
-      },
+      // {
+      //   path: "encdec",
+      //   element: <ExampleEncDec />,
+      // },
     ],
   },
   {

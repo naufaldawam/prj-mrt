@@ -1,6 +1,6 @@
 import { encode as base64_encode } from "base-64";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useParams } from "react-router-dom";
 import {
@@ -13,7 +13,8 @@ import {
   PhoneInputWithStyle,
   getButtonStyle,
   getChannelID,
-  getbtnSendStyle
+  getCookie,
+  getbtnSendStyle,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -26,32 +27,12 @@ const InputNoHp = () => {
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState(5);
   let { idreg, id, url } = useParams();
+  const [tfphoneNumber, settfphoneNumber] = useState(true);
   const params = useParams();
   url = "/reset-pin/" + getChannelID() + "/" + params.idreg;
 
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (seconds > 0) {
-  //       setSeconds(seconds - 1);
-  //     }
-
-  //     if (seconds === 0) {
-  //       if (minutes === 0) {
-  //         clearInterval(interval);
-  //       } else {
-  //         setSeconds(59);
-  //         setMinutes(minutes - 1);
-  //       }
-  //     }
-  //   }, 1000);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [seconds]);
 
   const handleStart = () => {
     const interval = setInterval(() => {
@@ -63,7 +44,7 @@ const InputNoHp = () => {
         if (minutes === 0) {
           clearInterval(interval);
         } else {
-          setSeconds(59);
+          setSeconds(0);
           setMinutes(minutes - 1);
         }
       }
@@ -72,7 +53,14 @@ const InputNoHp = () => {
     return () => {
       clearInterval(interval);
     };
-  }
+  };
+  handleStart();
+  const _getCookie = JSON.parse(getCookie());
+  // console.log(_getCookie);
+
+  const [formData, setFormData] = useState({
+    phoneNumber: "",
+  });
 
   const requestOTP = () => {
     // handleStart();
@@ -104,7 +92,6 @@ const InputNoHp = () => {
   };
 
   const btnConfirmOTP = () => {
-    
     // window.location.href = url + "/" + base64_encode(FunctionEncrypt(value));
     // console.log(url);
     const ConfirmOTPParam = {
@@ -119,10 +106,11 @@ const InputNoHp = () => {
     // // contoh menggunakan API services
     DataEndPoint.getValidationOtp(ConfirmOTPParam)
       .then((res) => {
-        console.log(res.resultMessages);
+        // console.log(res.resultMessages);
         // console.log(res.data.resultMessages);
         if (res.resultMessages == "Success") {
-          window.location.href = url + "/" + base64_encode(FunctionEncrypt(value));
+          window.location.href =
+            url + "/" + base64_encode(FunctionEncrypt(value));
         } else if (res.resultMessages == "Failed") {
           alert("Failed respon...!");
         } else if (res.resultMessages == "Error") {
@@ -133,6 +121,23 @@ const InputNoHp = () => {
         console.log("error");
       });
   };
+
+  const loadDataInquiry = () => {
+    const data = {
+      phoneNumber: _getCookie.phoneNumber,
+    };
+    _getCookie.phoneNumber
+            ? settfphoneNumber(true)
+            : settfphoneNumber(false);
+    // console.log("data : ", data);
+    // console.log("tfphoneNumber : ", tfphoneNumber);
+    setFormData(data);
+  };
+
+  useEffect(() => {
+    loadDataInquiry();
+  }, []);
+
   // <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
   return (
     <div>
@@ -170,8 +175,14 @@ const InputNoHp = () => {
                         }}
                         type="number"
                         inputMode="numeric"
-                        value={value}
+                        value={formData.phoneNumber}
                         onChange={setValue}
+                        required
+                        inputProps={
+                          {
+                            readOnly:value
+                          }
+                        }
                       />
                     </div>
                     <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-0">
@@ -190,14 +201,6 @@ const InputNoHp = () => {
 
               {showOTPInput && (
                 <div className="flex flex-wrap items-center">
-                  {/* {seconds > 0 || minutes > 0 ? (
-                    <p>
-                      Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
-                      {seconds < 10 ? `0${seconds}` : seconds}
-                    </p>
-                  ) : (
-                    <p>Didn't recieve code?</p>
-                  )} */}
                   <p className="mt-8 pb-4">
                     Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
                   </p>
@@ -217,6 +220,14 @@ const InputNoHp = () => {
                     >
                       Konfirmasi
                     </button>
+                  {/* {seconds > 0 || minutes > 0 ? (
+                    <p>
+                      Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+                      {seconds < 10 ? `0${seconds}` : seconds}
+                    </p>
+                  ) : (
+                    <p>Didn't recieve code?</p>
+                  )} */}
                   </div>
                 </div>
               )}
