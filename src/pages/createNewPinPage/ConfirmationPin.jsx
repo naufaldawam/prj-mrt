@@ -19,12 +19,14 @@ import DataEndPoint from "../../services/APIServices";
 const ConfirmationPin = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [pin, setPin] = useState("");
-  let { idreg, id, url } = useParams();
+  let { idreg, id, url, urlExpired } = useParams();
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
   const _getCookie = JSON.parse(getCookie());
   url = "/success-pin/" + getChannelID() + "/" + params.idreg;
+  urlExpired = "/expired-pin/" + getChannelID();
+
   const modalclose = () => {
     window.location.reload();
   };
@@ -47,19 +49,23 @@ const ConfirmationPin = () => {
           pin: base64_encode(FunctionEncrypt(value)),
         };
         let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
-        console.log("Object.assign(_getCookie, jsonPin) : ", pPostRegistrationAccount);
+        // console.log("Object.assign(_getCookie, jsonPin) : ", pPostRegistrationAccount);
         DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
           .then((res) => {
-            if (res.resultMessages == "Success") {
+            console.log(res);
+            if (res.responseCode == "00") {
               window.location.href = url;
             } else {
-              alert(res.messages);
+              window.location.href = urlExpired;
+              alert(res.resultMessages);
             }
             setIsLoading(false);
           })
           .catch((err) => {
+            console.log(err);
             setIsLoading(false);
-            alert("Connection error...!");
+            alert(err.message);
+            // window.location.reload();
           });
       } else {
         setShowModal(true);

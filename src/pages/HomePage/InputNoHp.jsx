@@ -10,7 +10,6 @@ import {
   LoadLogo,
   ModalTermsAndCondition,
   OtpInputWithStyle,
-  PhoneInputWithStyle,
   getButtonStyle,
   getChannelID,
   getCookie,
@@ -21,9 +20,9 @@ import DataEndPoint from "../../services/APIServices";
 const InputNoHp = () => {
   const [value, setValue] = useState();
   const [otpvalue, setOtpValue] = useState();
-  const [showOTPInput, setShowOTPInput] = useState(false);
+  const [showOTPInput, setShowOTPInput] = useState(true);
   const [isActive, setIsActive] = useState(false);
-  const [counter, setCounter] = useState();
+  const [counter, setCounter] = useState(10);
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState(5);
   let { idreg, id, url } = useParams();
@@ -34,27 +33,6 @@ const InputNoHp = () => {
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
-  const handleStart = () => {
-    const interval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      }
-
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(interval);
-        } else {
-          setSeconds(0);
-          setMinutes(minutes - 1);
-        }
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  };
-  handleStart();
   const _getCookie = JSON.parse(getCookie());
   // console.log(_getCookie);
 
@@ -82,12 +60,13 @@ const InputNoHp = () => {
           setShowOTPInput(true);
         } else if (res.data.resultMessages == "Failed") {
           setShowOTPInput(false);
-        } else if (res.data.resultMessages == "Error") {
-          alert("Server error...!");
         }
+        //  else if (res.data.resultMessages == "Error") {
+        //   alert("Server error...!");
+        // }
       })
-      .catch(() => {
-        // console.log("error");
+      .catch((err) => {
+        alert(err.message);
       });
   };
 
@@ -117,8 +96,8 @@ const InputNoHp = () => {
           alert("Server error...!");
         }
       })
-      .catch(() => {
-        console.log("error");
+      .catch((err) => {
+        alert(err.message);
       });
   };
 
@@ -126,9 +105,7 @@ const InputNoHp = () => {
     const data = {
       phoneNumber: _getCookie.phoneNumber,
     };
-    _getCookie.phoneNumber
-            ? settfphoneNumber(true)
-            : settfphoneNumber(false);
+    _getCookie.phoneNumber ? settfphoneNumber(true) : settfphoneNumber(false);
     setFormData(data);
     setValue(data.phoneNumber);
   };
@@ -136,6 +113,24 @@ const InputNoHp = () => {
   useEffect(() => {
     loadDataInquiry();
   }, []);
+
+  // useEffect(() => {
+  //   const timer =
+  //     counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+  //   return () => clearInterval(timer);
+  // }, [counter]);
+
+  React.useEffect(() => {
+    const timer = counter > 0 &&
+      setInterval(() => {
+        console.log(counter);
+        setCounter(counter - 1);
+        if (counter === 0) {
+          setIsActive(true);
+        }
+      }, 1000);
+      return () => clearInterval(timer);
+  }, [counter]);
 
   // <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
   return (
@@ -161,9 +156,18 @@ const InputNoHp = () => {
                 </label>
                 <div className="border-solid border border-gray-500 rounded py-1">
                   <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-
                     <div className="col-span-2">
-                      <input type="text" value={formData.phoneNumber} style={{border:"none",borderColor:"transparent", outline:"none", padding:"1rem", fontWeight:"bold", }}/>
+                      <input
+                        type="text"
+                        value={formData.phoneNumber}
+                        style={{
+                          border: "none",
+                          borderColor: "transparent",
+                          outline: "none",
+                          padding: "1rem",
+                          fontWeight: "bold",
+                        }}
+                      />
                     </div>
 
                     <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-0">
@@ -171,12 +175,12 @@ const InputNoHp = () => {
                         onClick={requestOTP}
                         className={getbtnSendStyle()}
                         type="button"
+                        disabled="true"
                         data-ripple-light="true"
                       >
                         Kirim OTP
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -194,21 +198,13 @@ const InputNoHp = () => {
                     })}
                     <button
                       onClick={btnConfirmOTP}
-                      disabled={!isActive}
                       type="button"
                       data-ripple-light="true"
                       className={getButtonStyle()}
                     >
                       Konfirmasi
                     </button>
-                  {/* {seconds > 0 || minutes > 0 ? (
-                    <p>
-                      Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
-                      {seconds < 10 ? `0${seconds}` : seconds}
-                    </p>
-                  ) : (
-                    <p>Didn't recieve code?</p>
-                  )} */}
+                    <p>Time Remaining: {counter}</p>
                   </div>
                 </div>
               )}

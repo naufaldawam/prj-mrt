@@ -24,6 +24,7 @@ const ConfirmationResetPin = () => {
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);  
   const [msg, setMsg] = useState('');
+  const [btnCaption, setBtnCaption] = useState('');
   
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
@@ -60,7 +61,7 @@ const ConfirmationResetPin = () => {
           requestDate: moment().format("YYYY-MM-DD"),
           requestTime: moment().format("hh:mm:ss"),
         };
-        console.log(jsonPin);
+        // console.log(jsonPin);
         // let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
         // console.log("Object.assign(_getCookie, jsonPin) : ", jsonPin);
         DataEndPoint.getPostChangePin(jsonPin)
@@ -68,6 +69,7 @@ const ConfirmationResetPin = () => {
             console.log(res);
             if (res.responseCode == "00") {
               setMsg(res.resultMessages); // window.location.href = url;
+              setBtnCaption(`Continue`)
               setShowModal(true);
             } else {
               alert(res.resultMessages);
@@ -76,7 +78,7 @@ const ConfirmationResetPin = () => {
           })
           .catch((err) => {
             setIsLoading(false);
-            console.log(err);
+            // console.log(err);
             alert(err.message);
           });
       } else {
@@ -149,7 +151,7 @@ const ConfirmationResetPin = () => {
                     type="button"
                     onClick={modalclose}
                   >
-                    Close
+                    {btnCaption ? btnCaption : `Close`}
                   </button>
                 </div>
               </div>
