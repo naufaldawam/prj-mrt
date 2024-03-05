@@ -1,4 +1,5 @@
 import { decode as base64_decode, encode as base64_encode } from "base-64";
+import moment from "moment";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -21,7 +22,8 @@ const ConfirmationResetPin = () => {
   const [pin, setPin] = useState("");
   let { idreg, id, phone, url } = useParams();
   const params = useParams();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);  
+  const [msg, setMsg] = useState('');
   
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
@@ -29,7 +31,11 @@ const ConfirmationResetPin = () => {
   const _getCookie = JSON.parse(getCookie());
   url = "/login/" + getChannelID() + "/" + params.idreg;
   const modalclose = () => {
-    window.location.reload();
+    if(msg !== ''){
+      window.location.href = url;
+    }else{
+      window.location.reload();
+    }
   };
   // console.log(params.phone);
   // console.log("phone enc : ", FunctionDecryptAES(base64_decode(FunctionDecryptAES(base64_decode(params.phone)))));
@@ -54,21 +60,24 @@ const ConfirmationResetPin = () => {
           requestDate: moment().format("YYYY-MM-DD"),
           requestTime: moment().format("hh:mm:ss"),
         };
-        // console.log(jsonPin);
+        console.log(jsonPin);
         // let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
         // console.log("Object.assign(_getCookie, jsonPin) : ", jsonPin);
-        DataEndPoint.getPostChangePIN(jsonPin)
+        DataEndPoint.getPostChangePin(jsonPin)
           .then((res) => {
-            if (res.resultMessages == "Success") {
-              window.location.href = url;
+            console.log(res);
+            if (res.responseCode == "00") {
+              setMsg(res.resultMessages); // window.location.href = url;
+              setShowModal(true);
             } else {
-              alert(res.messages);
+              alert(res.resultMessages);
             }
             setIsLoading(false);
           })
           .catch((err) => {
             setIsLoading(false);
-            alert("Connection error...!");
+            console.log(err);
+            alert(err.message);
           });
       } else {
         setShowModal(true);
@@ -116,7 +125,7 @@ const ConfirmationResetPin = () => {
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                {/* <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <h3 className="text-3xl font-semibold">Syarat & Ketentuan</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -126,11 +135,11 @@ const ConfirmationResetPin = () => {
                       ×
                     </span>
                   </button>
-                </div>
+                </div> */}
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    Confimation PIN is not match...!
+                  <p className="my-1 text-blueGray-500 text-lg leading-relaxed">
+                    {msg ? msg : `Confimation PIN is not match...!`}
                   </p>
                 </div>
                 {/*footer*/}

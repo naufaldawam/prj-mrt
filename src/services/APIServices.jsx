@@ -278,10 +278,10 @@ const APIServices = {
       throw err;
     }
   },
-  getPostChangePIN: async (postChangePIN) => {
+  getPostChangePin: async (postChangePIN) => {
     // console.log("API : ", postChangePIN);
     try {
-      let response = await axios.post(apiUrl + `/paymentIntegration/postChangePIN`,postChangePIN,
+      let response = await axios.post(apiUrl + `/paymentIntegration/postChangePin`,postChangePIN,
           {
               method: 'POST',
               config
