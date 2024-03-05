@@ -1,6 +1,6 @@
 import { encode as base64_encode } from "base-64";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   FunctionEncrypt,
@@ -23,34 +23,31 @@ import DataEndPoint from "../../services/APIServices";
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
-  let { id, nama, dataResponse, phone, url } = useParams();
+  const [phones, setPhones] = useState("");
+  let { id, nama, dataResponse, url } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
-  const _getCookie = JSON.parse(getCookie());
-  console.log(_getCookie);
+  // const _getCookie = JSON.parse(getCookie());
+  // console.log(_getCookie);
   url = "/requestotp/" + getChannelID() + "/" + params.id; // + "/" + base64_encode(FunctionEncrypt(_getCookie.phoneNumber));
-  
+
   const pParams = {
     idRequest: params.id, // value ? value : null,
     requestDate: moment().format("YYYY-MM-DD"),
     requestTime: moment().format("hh:mm:ss"),
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
   };
-  
-  if(pin === ''){
+
+  if (pin === '') {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
       if (res.resultMessages == "Success") {
         setCookie(res.result);
-        // console.log(res);
-        params.phone = res.result.phoneNumber;
         params.dataResponse = res;
-        // console.log(params.dataResponse); 
-        
+        setPhones(res.result.phoneNumber);
         if (res.result.username === null || res.result.fullname === null) {
           window.location.href = "/";
-          // console.log("404");
         }
       }
     });
@@ -80,7 +77,7 @@ function PinInputPage() {
         setShowModal(true);
       }
     });
-    
+
     setIsActive(true);
     setIsLoading(true);
   };
@@ -91,7 +88,7 @@ function PinInputPage() {
   const modalclose = () => {
     window.location.reload();
   };
-  
+
   return (
     <>
       {isLoading ? <LoaderPageWithLottie /> : PinInputPage}
@@ -127,23 +124,16 @@ function PinInputPage() {
                 </a>
               </span>
             </div>
-            {/* </div> */}
           </div>
           <form>
             <hr />
             {getMessageHeaderPinAccess()}
 
             <div className="my-2">
-              <div className="flex items-center">
-                {/* <img
-                  src={ImagePin}
-                  alt="Profile"
-                  className="w-10 h-10 rounded-full mr-2"
-                /> */}
+              <div className="font-extrabold text-xl">
+ 
+                <p className="text-center">{phones}</p>
 
-                {/* <div> */}
-                  <p className="text-center text-xl bold font-medium">{params.phone}</p>
-                {/* </div> */}
               </div>
             </div>
             <div className=" text-justify">

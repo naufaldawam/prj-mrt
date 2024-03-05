@@ -129,9 +129,8 @@ const InputNoHp = () => {
     _getCookie.phoneNumber
             ? settfphoneNumber(true)
             : settfphoneNumber(false);
-    // console.log("data : ", data);
-    // console.log("tfphoneNumber : ", tfphoneNumber);
     setFormData(data);
+    setValue(data.phoneNumber);
   };
 
   useEffect(() => {
@@ -162,29 +161,11 @@ const InputNoHp = () => {
                 </label>
                 <div className="border-solid border border-gray-500 rounded py-1">
                   <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+
                     <div className="col-span-2">
-                      <PhoneInputWithStyle
-                        country="id"
-                        placeholder="input nomor anda"
-                        masks={{ id: ".... .... ...." }}
-                        inputStyle={{
-                          border: "none",
-                          boxShadow: "none",
-                          outline: "none",
-                          width: "230px",
-                        }}
-                        type="number"
-                        inputMode="numeric"
-                        value={formData.phoneNumber}
-                        onChange={setValue}
-                        required
-                        inputProps={
-                          {
-                            readOnly:value
-                          }
-                        }
-                      />
+                      <input type="text" value={formData.phoneNumber} style={{border:"none",borderColor:"transparent", outline:"none", padding:"1rem", fontWeight:"bold", }}/>
                     </div>
+
                     <div className="flex items-center  sm:ml-0 md:ml-0 lg:ml-2 xl:ml-2 z-0">
                       <button
                         onClick={requestOTP}
@@ -192,9 +173,10 @@ const InputNoHp = () => {
                         type="button"
                         data-ripple-light="true"
                       >
-                        Konfirmasi
+                        Kirim OTP
                       </button>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -204,7 +186,7 @@ const InputNoHp = () => {
                   <p className="mt-8 pb-4">
                     Enter 6 digit OTP code {FontAwesomeIconCheckeCircle}
                   </p>
-                  <div className="flex flex-wrap items-center">
+                  <div className="flex flex-wrap items-center justify-center">
                     {OtpInputWithStyle({
                       secretDelay: 0,
                       value: otpvalue,
@@ -213,7 +195,6 @@ const InputNoHp = () => {
                     <button
                       onClick={btnConfirmOTP}
                       disabled={!isActive}
-                      // className="mt-6 block w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                       type="button"
                       data-ripple-light="true"
                       className={getButtonStyle()}

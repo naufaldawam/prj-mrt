@@ -34,7 +34,7 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
       inputMode="numeric"
       inputStyle={getStyledPinInput()}
       inputFocusStyle={{}}
-      onComplete={() => {}}
+      onComplete={() => { }}
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       secretDelay={secretDelay}
@@ -55,14 +55,16 @@ export const OtpInputWithStyle = ({ secretDelay, value, onChange }) => {
       secret={false}
       onChange={onChange}
       value={value}
-      type="number"
+      type="text"
       inputMode="numeric"
       inputStyle={getStyledPinInput()}
       inputFocusStyle={{}}
-      onComplete={() => {}}
+      onComplete={() => { }}
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       secretDelay={secretDelay}
+      outline="none"
+      
     />
   );
 };
@@ -72,7 +74,7 @@ export const FontAwesomeIconCheckeCircle = (
   <FontAwesomeIcon icon={faCheckCircle} />
 );
 
-export const PhoneInputWithStyle = ({ value, onChange, inputProps }) => {
+export const PhoneInputWithStyle = ({ value, onChange, inputProps, country, disableDropdown }) => {
   // const [value, setValue] = useState(); //to handle change
   // console.log("value fom phone input with style at phone input with style constant", value);
   const PhoneInputTemplate = PhoneInput;
@@ -91,9 +93,15 @@ export const PhoneInputWithStyle = ({ value, onChange, inputProps }) => {
       onChange={onChange}
       inputProps={
         {
-          readOnly:inputProps
+          readOnly: inputProps
         }
       }
+      disableCountryCode={
+        {
+          readOnly: country
+        }
+      }
+      disableDropdown={true}
     />
   );
 };
@@ -192,7 +200,6 @@ import themeStyling from "../components/configuration_css/Config.json";
 export const getButtonStyle = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  // console.log(lastSegment[2]);
   return lastSegment[2] === "bdki"
     ? themeStyling.bdki.buttonStyle
     : themeStyling.martipay.buttonStyle;
@@ -797,7 +804,7 @@ export const setFooter = () => {
     <div></div>
   ) : (
     <footer className="... sticky bottom-0 w-full bg-white p-5 text-center flex justify-center items-center">
-    <p className="font-sans text-gray-600">&copy; Powered by</p>
+      <p className="font-sans text-gray-600">&copy; Powered by</p>
       <img className="float-end" width={90} src={logobdki} alt="My Image" />
     </footer>
   );
