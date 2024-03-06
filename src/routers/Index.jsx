@@ -7,7 +7,7 @@ import Topup from "../pages/accordionTopupPage/TopUp";
 import ConfirmationPin from "../pages/createNewPinPage/ConfirmationPin";
 import CreatePin from "../pages/createNewPinPage/CreatePin";
 // import ExampleEncDec from "../pages/exampleEncDecBisaHapusNantiKalauUdhGkButuh/ExampleEncDec";
-import ExpiredPin from "../pages/Expired";
+import ExpiredPage from "../components/ExpiredPage";
 import LoaderPageWithLottie from "../pages/loaderPage/LoaderPageWithLottie";
 import Load404 from "../pages/pageStart/load404";
 import PostRequestPayment from "../pages/pinBeforePayment/PaymentPin";
@@ -124,11 +124,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "expired-pin/bdki",
-        element: <ExpiredPin />,
+        element: <ExpiredPage />,
       },
       {
         path: "expired-pin/martipay",
-        element: <ExpiredPin />,
+        element: <ExpiredPage />,
       },
     ],
   },

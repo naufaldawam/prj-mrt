@@ -241,6 +241,7 @@ const APIServices = {
               config
           ,}
       );
+      // console.log("response :" + response);
       return response.data;
     } catch (err) {
       // console.error("err : ", err.message);
