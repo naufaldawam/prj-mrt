@@ -1,10 +1,11 @@
 import Lottie from "lottie-react";
 import React from "react";
 import { useParams } from "react-router-dom";
-import timeisup from "../components/lottieFiles/timeisup.json";
+import timeisup from "./lottieFiles/timeisup.json";
+import xpire from "./lottieFiles/xpire.json";
 import { LoadBgColor, LoadLogo, getCookie } from "../constantFile/I_Constant";
 
-const SuccessPin = () => {
+const ExpiredPage = () => {
   const apiUrl = process.env.API_JAVA_URL;
   // console.log(apiUrl)
 
@@ -12,6 +13,7 @@ const SuccessPin = () => {
   // console.log("_getCookie : ", _getCookie);
   let { idreg, id } = useParams();
   const params = useParams();
+  const nameProfile = "Hello " + _getCookie.fullName.toUpperCase();
 
   return (
     <div>
@@ -25,20 +27,20 @@ const SuccessPin = () => {
         <div className="max-w-md mx-auto my-2 bg-white rounded-md overflow-hidden shadow-sm">
           <div className="p-4 items-center justify-center">
             <div className="flex items-center justify-center my-4"></div>
-            <h6 className="text-xl my-2 text-center">PAGE EXPIRED</h6>
             <strong>
               <h2 className="text-xl font-semibold my-2 text-center ">
-                {_getCookie.fullName.toUpperCase()}
+                  {nameProfile}
               </h2>
             </strong>
+            <h6 className="text-xl my-2 text-center">Link Anda Sudah Tidak Valid</h6>
             <div className="flex items-center justify-center my-4">
               <Lottie
-                animationData={timeisup}
-                loop={true}
+                animationData={xpire}
+                loop={false}
                 autoplay={true}
                 style={{
-                  width: "350px",
-                  height: "350px",
+                  width: "250px",
+                  height: "250px",
                 }}
               />
             </div>
@@ -48,4 +50,4 @@ const SuccessPin = () => {
     </div>
   );
 };
-export default SuccessPin;
+export default ExpiredPage;

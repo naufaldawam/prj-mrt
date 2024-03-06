@@ -1,8 +1,10 @@
-import { encode as base64_encode } from "base-64";
+import { encode as base64_encode, decode as base64_decode } from "base-64";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  FunctionDecryptAES,
+  FunctionDecryptBase64,
   FunctionEncrypt,
   LoadBgColor,
   LoadIconShield,
@@ -22,12 +24,20 @@ function PaymentPin() {
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
+  const getBlockPayment = () => {
+    const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg))
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[2]);
+    // console.log(getValueIdReg);
+    return getDate;
+  };
+
   const handlePinChange = (value) => {
     setPin(value);
     if (value.length === 6) {
       setIsLoading(true);
       const pabParams = {
-        keyReference: params.idreg, 
+        keyReference: params.idreg,
         stan: stannum,
         pin: base64_encode(FunctionEncrypt(value)),
         requestDate: moment().format("YYYY-MM-DD"),
@@ -36,11 +46,13 @@ function PaymentPin() {
       // console.log("postRequestPayment : ", pabParams);
       // console.log("postRequestPayment : ", idreg);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
-        // console.log(res);
-        if (res.responseCode == "00") {
-            setIsLoading(false);
-            window.location.href = "/Success-payment/" + getChannelID();
-        }else{
+        console.log(res);
+        if (res.responseCode == "00" || res.resultMessage == "Success") {
+          setIsLoading(false);
+          window.location.href = "/Success-payment/" + getChannelID();
+        } else if (res.responseCode == "06" || res.resultMessage == "Expired") {
+          window.location.href = urlExpired;
+        } else {
           // console.log(res.resultMessage);
           params.msg = res.resultMessage;
           setIsLoading(false);
@@ -54,9 +66,20 @@ function PaymentPin() {
     window.location.reload();
   };
 
+  useEffect(() => {
+    getBlockPayment();
+    const urlExpired = "/expired-pin/" + getChannelID();
+    const getDateFromBlockPayment = getBlockPayment();
+    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+    if (date > getDateFromBlockPayment) {
+      window.location.replace(urlExpired);
+    }
+
+  });
+
   return (
     <>
-    {isLoading ? <LoaderPageWithLottie /> : PaymentPin}
+      {isLoading ? <LoaderPageWithLottie /> : PaymentPin}
       <div className={LoadBgColor()}>
         <div>
           <a href="/">

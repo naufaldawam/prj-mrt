@@ -1,8 +1,9 @@
-import { encode as base64_encode } from "base-64";
+import { encode as base64_encode, decode as base64_decode } from "base-64";
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
+  FunctionDecryptAES,
   FunctionEncrypt,
   LoadBgColor,
   LoadLogo,
@@ -24,7 +25,7 @@ function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
   const [phones, setPhones] = useState("");
-  let { id, nama, dataResponse, url } = useParams();
+  let { id, nama, dataResponse, url, urlExpired } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +33,14 @@ function PinInputPage() {
   // const _getCookie = JSON.parse(getCookie());
   // console.log(_getCookie);
   url = "/requestotp/" + getChannelID() + "/" + params.id; // + "/" + base64_encode(FunctionEncrypt(_getCookie.phoneNumber));
+  urlExpired = "/expired-pin/" + getChannelID();
+
+  const getBlockPayment = () => {
+    const getValueIdReg = FunctionDecryptAES(base64_decode(params.id))
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[1]);
+    return getDate;
+  };
 
   const pParams = {
     idRequest: params.id, // value ? value : null,
@@ -71,7 +80,11 @@ function PinInputPage() {
         setIsLoading(false);
         setIsActive(false);
         window.location.href = "/success-pin/" + params.dataResponse.result.channelId + "/" + params.id;
-      } else {
+      } else if (res.resultMessages == "Expired" || res.errorCode == "06") {
+        window.location.replace = urlExpired;
+      }
+
+      else {
         setIsActive(false);
         setIsLoading(false);
         setShowModal(true);
@@ -88,6 +101,16 @@ function PinInputPage() {
   const modalclose = () => {
     window.location.reload();
   };
+
+  useEffect(()=>{
+    getBlockPayment();
+    const urlExpired = "/expired-pin/" + getChannelID();
+    const getDateFromBlockPayment = getBlockPayment();
+    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+    if (date > getDateFromBlockPayment) {
+      window.location.replace(urlExpired);
+    }
+  });
 
   return (
     <>
@@ -131,7 +154,7 @@ function PinInputPage() {
 
             <div className="my-2">
               <div className="font-extrabold text-xl">
- 
+
                 <p className="text-center">{phones}</p>
 
               </div>

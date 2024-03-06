@@ -85,7 +85,7 @@ const Registration = () => {
           res.result.placeOfBirth
             ? settfplaceOfBirth(true)
             : settfplaceOfBirth(false);
-          res.result.email ? settfemail(true) : settfemail(false);
+          res.result.email ? settfemail(false) : settfemail(false);
           setFormData(res.result);
         }
       }
