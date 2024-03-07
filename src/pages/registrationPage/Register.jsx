@@ -34,7 +34,7 @@ const Registration = () => {
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
   
-  const getBlockPayment = () => {
+  const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[1]);
@@ -82,7 +82,7 @@ const Registration = () => {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
       if (res.resultMessages == "Success") {
         // console.log("ini file res regis: " + res.result);
-        console.log("cek :" + res.result.dateOfBirth);
+        // console.log("cek :" + res.result.dateOfBirth);
         if (
           res.result.username !== null &&
           res.result.username !== "" &&
@@ -102,9 +102,9 @@ const Registration = () => {
             : settfplaceOfBirth(false);
           res.result.email ? settfemail(false) : settfemail(false);
           setFormData(res.result);
-          console.log("isian email :" + tfemail);
-          console.log("isian tanggal lahir :" + tfdateOfBirth);
-          console.log("isian tempat lahir :" + tfplaceOfBirth);
+          // console.log("isian email :" + tfemail);
+          // console.log("isian tanggal lahir :" + tfdateOfBirth);
+          // console.log("isian tempat lahir :" + tfplaceOfBirth);
           setDisableFormInputDateOfBirth(true)
             setDisableFormInputEmail(true)
             setDisableFormInputPlaceOfBirth(true)
@@ -150,7 +150,7 @@ const Registration = () => {
 
   useEffect(() => {
     loadDataInquiry();
-    getBlockPayment();
+    getTimeExpired();
     // console.log("email :" + pParams.email);
     // if (formData.email == null){
     //   setDisableInputEmail(false);
@@ -160,12 +160,12 @@ const Registration = () => {
     //   console.log("email kedaftar: " + true);
     // };
     const urlExpired = "/expired-link/" + getChannelID();
-    const getDateFromBlockPayment = getBlockPayment();
+    const getDateFromBlockPayment = getTimeExpired();
     const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
     if (date > getDateFromBlockPayment) {
       window.location.replace(urlExpired);
     }
-  }, []);
+  });
 
   return (
     <>
