@@ -130,6 +130,15 @@ export const router = createBrowserRouter([
         path: "expired-pin/martipay",
         element: <ExpiredPage />,
       },
+      {
+        path: "expired-link/bdki",
+        element: <ExpiredPage />,
+      },
+      {
+        path: "expired-link/martipay",
+        element: <ExpiredPage />,
+      },
+      
     ],
   },
   {

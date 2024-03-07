@@ -28,7 +28,7 @@ function PaymentPin() {
     const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[2]);
-    // console.log(getValueIdReg);
+    console.log(getValueIdReg);
     return getDate;
   };
 
