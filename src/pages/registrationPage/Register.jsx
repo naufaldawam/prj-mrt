@@ -1,4 +1,5 @@
 import { Card } from "@material-tailwind/react";
+import { decode as base64_decode } from "base-64";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -9,22 +10,37 @@ import {
   getChannelID,
   handleButtonGoToPageCreatePin,
   setCookie,
+  FunctionDecryptAES,
+  getCookie
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 const Registration = () => {
-  let { idreg, channel, url, stannum } = useParams();
+  let { idreg, channel, url, stannum, urlExpired } = useParams();
   const [tfphoneNumber, settfphoneNumber] = useState(false);
   const [tffullName, settffullName] = useState(false);
   const [tfdateOfBirth, settfdateOfBirth] = useState(false);
   const [tfplaceOfBirth, settfplaceOfBirth] = useState(false);
   const [tfemail, settfemail] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [disableFormInputEmail, setDisableFormInputEmail] = useState(true);
+  const [disableFormInputDateOfBirth, setDisableFormInputDateOfBirth] = useState(true);
+  const [disableFormInputPlaceOfBirth, setDisableFormInputPlaceOfBirth] = useState(true);
 
   url = "/create-pin/" + getChannelID();
+  urlExpired = "/expire-link/" + getChannelID(); 
   // console.log(channel);
   channel = getChannelID();
   stannum = Math.floor(Math.random() * 999999) + 100000;
+
+  
+  const getBlockPayment = () => {
+    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[1]);
+    // console.log("Bangke :" + getValueIdReg);
+    return getDate;
+  };
 
   const [formData, setFormData] = useState({
     phoneNumber: "",
@@ -64,15 +80,14 @@ const Registration = () => {
 
   const loadDataInquiry = () => {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      // console.log("getinquiryDataByIdRequest : ", res);
       if (res.resultMessages == "Success") {
         // console.log("ini file res regis: " + res.result);
+        console.log("cek :" + res.result.dateOfBirth);
         if (
           res.result.username !== null &&
           res.result.username !== "" &&
           res.result.username !== ""
         ) {
-          window.location.href = "/";
         } else {
           setIsLoading(false);
           res.result.phoneNumber
@@ -87,6 +102,41 @@ const Registration = () => {
             : settfplaceOfBirth(false);
           res.result.email ? settfemail(false) : settfemail(false);
           setFormData(res.result);
+          console.log("isian email :" + tfemail);
+          console.log("isian tanggal lahir :" + tfdateOfBirth);
+          console.log("isian tempat lahir :" + tfplaceOfBirth);
+          setDisableFormInputDateOfBirth(true)
+            setDisableFormInputEmail(true)
+            setDisableFormInputPlaceOfBirth(true)
+          
+          if(res.result.email == ""){
+            setDisableFormInputEmail(false);
+          } 
+          if (res.result.dateOfBirth == ""){
+            setDisableFormInputDateOfBirth(false)
+          } 
+          if(res.result.placeOfBirth == ""){
+            setDisableFormInputPlaceOfBirth(false)
+          }
+          // if (res.result.email == "" && res.result.dateOfBirth == "" && res.result.placeOfBirth == ""){
+          //   setDisableFormInputDateOfBirth(false)
+          //   setDisableFormInputEmail(false)
+          //   setDisableFormInputPlaceOfBirth(false)
+           
+          // }
+          // else{
+          //   setDisableFormInputDateOfBirth(true)
+          //   setDisableFormInputEmail(true)
+          //   setDisableFormInputPlaceOfBirth(true)
+          // }
+
+          // if(res.result.email == "" || res.result.dateOfBirth == "" || res.result.placeOfBirth == ""){
+          //   setDisableFormInput(false);
+          //   console.log(false);
+          // }else if(res.result.email == ""){
+          //   setDisableFormInput(true);
+          //   console.log(true);
+          // }
         }
       }
     });
@@ -99,8 +149,22 @@ const Registration = () => {
   };
 
   useEffect(() => {
-    // setIsLoading(true);
     loadDataInquiry();
+    getBlockPayment();
+    // console.log("email :" + pParams.email);
+    // if (formData.email == null){
+    //   setDisableInputEmail(false);
+    //   console.log("email kedaftar: " + false);
+    // }else{
+    //   setDisableInputEmail(true);
+    //   console.log("email kedaftar: " + true);
+    // };
+    const urlExpired = "/expired-link/" + getChannelID();
+    const getDateFromBlockPayment = getBlockPayment();
+    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+    if (date > getDateFromBlockPayment) {
+      window.location.replace(urlExpired);
+    }
   }, []);
 
   return (
@@ -136,6 +200,7 @@ const Registration = () => {
                   onChange={handleChange}
                   required
                   readOnly={tfphoneNumber}
+                  disabled={true}
                 />
               </div>
               <div className="mb-4">
@@ -155,6 +220,7 @@ const Registration = () => {
                   onChange={handleChange}
                   required
                   readOnly={tffullName}
+                  disabled={true}
                 />
               </div>
               <div className="mb-4">
@@ -174,6 +240,7 @@ const Registration = () => {
                   onChange={handleChange}
                   required
                   readOnly={tfdateOfBirth}
+                  disabled={disableFormInputDateOfBirth}
                 />
               </div>
               <div className="mb-4">
@@ -193,6 +260,7 @@ const Registration = () => {
                   onChange={handleChange}
                   required
                   readOnly={tfplaceOfBirth}
+                  disabled={disableFormInputPlaceOfBirth}
                 />
               </div>
               <div className="mb-4">
@@ -212,6 +280,7 @@ const Registration = () => {
                   onChange={handleChange}
                   required
                   readOnly={tfemail}
+                  disabled={disableFormInputEmail}
                 />
               </div>
               <div className="flex items-center justify-between">
