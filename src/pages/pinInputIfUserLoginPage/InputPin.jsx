@@ -1,6 +1,6 @@
-import { encode as base64_encode, decode as base64_decode } from "base-64";
+import { decode as base64_decode, encode as base64_encode } from "base-64";
 import moment from "moment";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   FunctionDecryptAES,
@@ -11,7 +11,6 @@ import {
   PinInputWithStyle,
   getButtonStyle,
   getChannelID,
-  getCookie,
   getDescriptionMessageInputPinAccess,
   getDescriptionTermsAndCondition,
   getHeaderMessageInputPinLogin,
@@ -25,6 +24,7 @@ function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
   const [phones, setPhones] = useState("");
+  const [msg, setMsg] = useState("");
   let { id, nama, dataResponse, url, urlExpired } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +49,7 @@ function PinInputPage() {
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
   };
 
+  console.log(pin);
   if (pin === '') {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
       if (res.resultMessages == "Success") {
@@ -63,7 +64,7 @@ function PinInputPage() {
   }
 
   const BtnPostAccountBinding = () => {
-    // console.log("dataResponse : ", params.dataResponse);
+    console.log("dataResponse : ", params.dataResponse);
     const pabParams = {
       idRequest: params.id, // value ? value : null,
       phoneNumber: params.dataResponse.result.phoneNumber,
@@ -73,22 +74,24 @@ function PinInputPage() {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    // console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
+    console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
     DataEndPoint.getPostAccountBinding(pabParams).then((res) => {
-      // console.log("res : ", res);
-      if (res.resultMessages == "Success") {
+      console.log("getPostAccountBinding : ", res);
+      if (res.responseCode == "00") {
         setIsLoading(false);
         setIsActive(false);
         window.location.href = "/success-pin/" + params.dataResponse.result.channelId + "/" + params.id;
-      } else if (res.resultMessages == "Expired" || res.errorCode == "06") {
+      } else if (res.resultMessages == "Expired" || res.responseCode == "06") {
         window.location.replace = urlExpired;
-      }
-
-      else {
+      } else {
+        
+        console.log(res.resultMessages);
         setIsActive(false);
         setIsLoading(false);
         setShowModal(true);
       }
+      setPin('');
+      setMsg(res.resultMessages);
     });
 
     setIsActive(true);
@@ -226,7 +229,7 @@ function PinInputPage() {
                     />
                   </svg>
                   <h3 className="mb-5 text-lg font-normal text-black-500 dark:text-black-400">
-                    Invalid PIN
+                    {msg}
                   </h3>
 
                   <button

@@ -1,21 +1,39 @@
-import { encode as base64_encode, decode as base64_decode } from "base-64";
+import { decode as base64_decode, encode as base64_encode } from "base-64";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   FunctionDecryptAES,
-  FunctionDecryptBase64,
   FunctionEncrypt,
   LoadBgColor,
   LoadIconShield,
   LoadLogo,
   LoaderPageWithLottie,
   PinInputWithStyle,
-  getChannelID
+  getChannelID,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
 function PaymentPin() {
+  let { idreg, msg } = useParams();
+  
+  const params = useParams();
+  const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg));
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[2]);
+
+    const urlExpired = "/expired-pin/" + getChannelID();
+    const getDateFromBlockPayment = getDate;
+    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+    if (date > getDateFromBlockPayment) {
+      window.location.replace(urlExpired);
+    }else{
+      return loadfirst90();
+    }
+};
+
+
+function loadfirst90() {
   const [showModal, setShowModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [pin, setPin] = useState("");
@@ -24,13 +42,18 @@ function PaymentPin() {
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
-  const getBlockPayment = () => {
-    const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg))
-    const getValue = getValueIdReg.split("||");
-    const getDate = Date.parse(getValue[2]);
-    // console.log(getValueIdReg);
-    return getDate;
-  };
+  // const getBlockPayment = () => {
+  //   const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg));
+  //   const getValue = getValueIdReg.split("||");
+  //   const getDate = Date.parse(getValue[2]);
+
+  //   const urlExpired = "/expired-pin/" + getChannelID();
+  //   const getDateFromBlockPayment = getDate;
+  //   const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+  //   if (date > getDateFromBlockPayment) {
+  //     window.location.replace(urlExpired);
+  //   }
+  // };
 
   const handlePinChange = (value) => {
     setPin(value);
@@ -66,16 +89,7 @@ function PaymentPin() {
     window.location.reload();
   };
 
-  useEffect(() => {
-    getBlockPayment();
-    const urlExpired = "/expired-pin/" + getChannelID();
-    const getDateFromBlockPayment = getBlockPayment();
-    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-    if (date > getDateFromBlockPayment) {
-      window.location.replace(urlExpired);
-    }
-
-  });
+  // getBlockPayment();
 
   return (
     <>
@@ -87,7 +101,9 @@ function PaymentPin() {
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-        <h4 className="text-xl pt-4 text-center text-gray-600">Enter your {getChannelID()} PIN</h4>
+        <h4 className="text-xl pt-4 text-center text-gray-600">
+          Enter your {getChannelID()} PIN
+        </h4>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white sm:max-w-lg sm:rounded-lg">
           <div className="flex flex-wrap flex-col items-center">
             <div className="text-center p-4">

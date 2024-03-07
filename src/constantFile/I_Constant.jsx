@@ -9,8 +9,8 @@ import Cookies from "js-cookie";
 import Lottie from "lottie-react";
 import PhoneInput from "react-phone-input-2";
 import PinInputTemplate from "react-pin-input";
-import logobdki from "../assets/icons/JakOne-Pay.png";
 import logomartipay from "../assets/icons/Logo-MRT-Jakarta.png";
+import logobdki from "../assets/icons/logo_bank_dki.png";
 import logoiconbdki from "../assets/icons/shield-bdki.png";
 import logoiconmartipay from "../assets/icons/shield-martipay.png";
 import ModalTermsAndConditionTemplate from "../components/ModalSyaratKetentuan";
@@ -804,7 +804,7 @@ export const setFooter = () => {
     <div></div>
   ) : (
     <footer className="... sticky bottom-0 w-full bg-white p-5 text-center flex justify-center items-center">
-      <p className="font-sans text-gray-600">&copy; Powered by</p>
+      <p className="font-sans text-gray-600">&copy; Powered by </p>&nbsp;
       <img className="float-end" width={90} src={logobdki} alt="My Image" />
     </footer>
   );

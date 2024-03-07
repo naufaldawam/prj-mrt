@@ -1,19 +1,17 @@
 import Lottie from "lottie-react";
 import React from "react";
-import { useParams } from "react-router-dom";
-import timeisup from "./lottieFiles/timeisup.json";
+import { LoadBgColor, LoadLogo } from "../constantFile/I_Constant";
 import xpire from "./lottieFiles/xpire.json";
-import { LoadBgColor, LoadLogo, getCookie } from "../constantFile/I_Constant";
 
 const ExpiredPage = () => {
-  const apiUrl = process.env.API_JAVA_URL;
+  // const apiUrl = process.env.API_JAVA_URL;
   // console.log(apiUrl)
 
-  const _getCookie = JSON.parse(getCookie());
+  // const _getCookie = JSON.parse(getCookie());
   // console.log("_getCookie : ", _getCookie);
-  let { idreg, id } = useParams();
-  const params = useParams();
-  const nameProfile = "Hello " + _getCookie.fullName.toUpperCase();
+  // let { idreg, id } = useParams();
+  // const params = useParams();
+  // const nameProfile = "Hello " + _getCookie.fullName.toUpperCase();
 
   return (
     <div>
@@ -29,10 +27,12 @@ const ExpiredPage = () => {
             <div className="flex items-center justify-center my-4"></div>
             <strong>
               <h2 className="text-xl font-semibold my-2 text-center ">
-                  {nameProfile}
+                {/* {nameProfile} */}
               </h2>
             </strong>
-            <h6 className="text-xl my-2 text-center">Link Anda Sudah Tidak Valid</h6>
+            <h6 className="text-xl my-2 text-center">
+              Link Anda Sudah Tidak Valid
+            </h6>
             <div className="flex items-center justify-center my-4">
               <Lottie
                 animationData={xpire}
