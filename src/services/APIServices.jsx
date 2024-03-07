@@ -294,6 +294,21 @@ const APIServices = {
       throw err;
     }
   },
+  getCheckEmail: async (CheckEmail) => {
+    // console.log("API : ", postChangePIN);
+    try {
+      let response = await axios.post(apiUrl + `/paymentIntegration/CheckEmail`,CheckEmail,
+          {
+              method: 'POST',
+              config
+          ,}
+      );
+      return response.data;
+    } catch (err) {
+      // console.error("err : ", err.message);
+      throw err;
+    }
+  },
   getEnkripAes: async (enkripAes) => {
     try {
       let response = await axios.post(

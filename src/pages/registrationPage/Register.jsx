@@ -101,6 +101,22 @@ const Registration = () => {
             ? settfplaceOfBirth(true)
             : settfplaceOfBirth(false);
           res.result.email ? settfemail(false) : settfemail(false);
+
+            const mailParams = {
+              checkBalance: false,
+              checkUser: false,
+              emailAddress: res.result.email,
+              phoneNumber: res.result.phoneNumber,
+              requestDate: moment().format("YYYY-MM-DD"),
+              requestTime: moment().format("hh:mm:ss"),
+              channelId: getChannelID(),
+            };
+            DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+              if (res.responseCode == "00") {
+                // tinggal lanjutin disini untuk triger enable/desable email
+              }
+            });
+
           setFormData(res.result);
           // console.log("isian email :" + tfemail);
           // console.log("isian tanggal lahir :" + tfdateOfBirth);
