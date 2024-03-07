@@ -1,9 +1,10 @@
-import { encode as base64_encode } from "base-64";
+import { encode as base64_encode , decode as base64_decode} from "base-64";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useParams } from "react-router-dom";
 import {
+  FunctionDecryptAES,
   FontAwesomeIconCheckeCircle,
   FunctionEncrypt,
   LoadBgColor,
@@ -20,7 +21,7 @@ import DataEndPoint from "../../services/APIServices";
 const InputNoHp = () => {
   const [value, setValue] = useState();
   const [otpvalue, setOtpValue] = useState();
-  const [showOTPInput, setShowOTPInput] = useState(true);
+  const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [counter, setCounter] = useState(10);
   const [minutes, setMinutes] = useState();
@@ -30,17 +31,25 @@ const InputNoHp = () => {
   const params = useParams();
   url = "/reset-pin/" + getChannelID() + "/" + params.idreg;
 
+  const getTimeExpired = () => {
+    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[1]);
+    // console.log("Bangke :" + getValueIdReg);
+    return getDate;
+  };
+
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
   const _getCookie = JSON.parse(getCookie());
-  // console.log(_getCookie);
 
   const [formData, setFormData] = useState({
     phoneNumber: "",
   });
 
   const requestOTP = () => {
+    // console.log("ini di klik")
     // handleStart();
     // alert("value : " + value);
     const RequestOtpParam = {
@@ -54,7 +63,7 @@ const InputNoHp = () => {
     // contoh menggunakan API services
     DataEndPoint.getRequestOtp(RequestOtpParam)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (res.data.resultMessages == "Success") {
           setIsActive(true);
           setShowOTPInput(true);
@@ -112,7 +121,16 @@ const InputNoHp = () => {
 
   useEffect(() => {
     loadDataInquiry();
-  }, []);
+    getTimeExpired();
+
+    const urlExpired = "/expired-link/" + getChannelID();
+    const getDateFromBlockPayment = getTimeExpired();
+    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+    if (date > getDateFromBlockPayment) {
+      window.location.replace(urlExpired);
+    }
+    console.log(false)
+  }, [getTimeExpired()]);
 
   // useEffect(() => {
   //   const timer =
@@ -175,8 +193,8 @@ const InputNoHp = () => {
                         onClick={requestOTP}
                         className={getbtnSendStyle()}
                         type="button"
-                        disabled="true"
-                        data-ripple-light="true"
+                        // disabled={true}
+                        data-ripple-light={true}
                       >
                         Kirim OTP
                       </button>

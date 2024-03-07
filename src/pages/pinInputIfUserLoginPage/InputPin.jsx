@@ -35,7 +35,7 @@ function PinInputPage() {
   url = "/requestotp/" + getChannelID() + "/" + params.id; // + "/" + base64_encode(FunctionEncrypt(_getCookie.phoneNumber));
   urlExpired = "/expired-pin/" + getChannelID();
 
-  const getBlockPayment = () => {
+  const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(params.id))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[1]);
@@ -106,9 +106,9 @@ function PinInputPage() {
   };
 
   useEffect(()=>{
-    getBlockPayment();
+    getTimeExpired();
     const urlExpired = "/expired-pin/" + getChannelID();
-    const getDateFromBlockPayment = getBlockPayment();
+    const getDateFromBlockPayment = getTimeExpired();
     const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
     if (date > getDateFromBlockPayment) {
       window.location.replace(urlExpired);

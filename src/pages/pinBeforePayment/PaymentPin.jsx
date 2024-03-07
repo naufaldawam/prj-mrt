@@ -42,6 +42,13 @@ function loadfirst90() {
   let { stannum } = useParams();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
+  const getBlockPayment = () => {
+    const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg))
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[2]);
+    console.log(getValueIdReg);
+    return getDate;
+  };
   // const getBlockPayment = () => {
   //   const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg));
   //   const getValue = getValueIdReg.split("||");
