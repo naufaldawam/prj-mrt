@@ -24,7 +24,8 @@ import DataEndPoint from "../../services/APIServices";
 function PinInputPage() {
   const [isActive, setIsActive] = useState(false);
   const [pin, setPin] = useState("");
-  const [phones, setPhones] = useState("");
+  const [phones, setPhones] = useState("");  
+  const [msg, setMsg] = useState("");
   let { id, nama, dataResponse, url, urlExpired } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +36,7 @@ function PinInputPage() {
   url = "/requestotp/" + getChannelID() + "/" + params.id; // + "/" + base64_encode(FunctionEncrypt(_getCookie.phoneNumber));
   urlExpired = "/expired-pin/" + getChannelID();
 
-  const getBlockPayment = () => {
+  const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(params.id))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[1]);
@@ -103,9 +104,9 @@ function PinInputPage() {
   };
 
   useEffect(()=>{
-    getBlockPayment();
+    getTimeExpired();
     const urlExpired = "/expired-pin/" + getChannelID();
-    const getDateFromBlockPayment = getBlockPayment();
+    const getDateFromBlockPayment = getTimeExpired();
     const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
     if (date > getDateFromBlockPayment) {
       window.location.replace(urlExpired);
@@ -226,7 +227,7 @@ function PinInputPage() {
                     />
                   </svg>
                   <h3 className="mb-5 text-lg font-normal text-black-500 dark:text-black-400">
-                    Invalid PIN
+                    {msg}
                   </h3>
 
                   <button
