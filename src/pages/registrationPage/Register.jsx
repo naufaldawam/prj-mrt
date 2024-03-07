@@ -96,7 +96,7 @@ const Registration = () => {
               requestTime: moment().format("hh:mm:ss"),
               channelId: getChannelID(),
             };
-            DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
+            DataEndPoint.getCheckEmail(mailParams).then((res) => {
               if (res.responseCode == "00") {
                 // tinggal lanjutin disini untuk triger enable/desable email
               }
