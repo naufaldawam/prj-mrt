@@ -1,4 +1,4 @@
-import { encode as base64_encode , decode as base64_decode} from "base-64";
+import { encode as base64_encode, decode as base64_decode } from "base-64";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import "react-phone-input-2/lib/bootstrap.css";
@@ -29,6 +29,9 @@ const InputNoHp = () => {
   let { idreg, id, url } = useParams();
   const [tfphoneNumber, settfphoneNumber] = useState(true);
   const params = useParams();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [buttonText, setButtonText] = useState("Kirim OTP");
+
   url = "/reset-pin/" + getChannelID() + "/" + params.idreg;
 
   const getTimeExpired = () => {
@@ -48,8 +51,46 @@ const InputNoHp = () => {
     phoneNumber: "",
   });
 
+  const loadDataInquiry = () => {
+    const data = {
+      phoneNumber: _getCookie.phoneNumber,
+    };
+    _getCookie.phoneNumber ? settfphoneNumber(true) : settfphoneNumber(false);
+    setFormData(data);
+    setValue(data.phoneNumber);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      loadDataInquiry();
+      getTimeExpired();
+      const timer =
+        counter > 0 &&
+        setInterval(() => {
+          setCounter(counter - 1);
+          if (counter == 0) {
+            setIsButtonDisabled(false);
+            setButtonText("Kirim OTP kembali");
+          }
+        }, 1000);
+      clearInterval(timer);
+      const urlExpired = "/expired-link/" + getChannelID();
+      const getDateFromBlockPayment = getTimeExpired();
+      const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+      console.log("cuks" + getDateFromBlockPayment)
+      if (date > getDateFromBlockPayment) {
+        window.location.replace(urlExpired);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const requestOTP = () => {
-    // console.log("ini di klik")
+    console.log("ini di klik")
+    setIsButtonDisabled(true);
+    setCounter(120);
+    setButtonText("tunggu")
     // handleStart();
     // alert("value : " + value);
     const RequestOtpParam = {
@@ -110,28 +151,6 @@ const InputNoHp = () => {
       });
   };
 
-  const loadDataInquiry = () => {
-    const data = {
-      phoneNumber: _getCookie.phoneNumber,
-    };
-    _getCookie.phoneNumber ? settfphoneNumber(true) : settfphoneNumber(false);
-    setFormData(data);
-    setValue(data.phoneNumber);
-  };
-
-  useEffect(() => {
-    loadDataInquiry();
-    getTimeExpired();
-
-    const urlExpired = "/expired-link/" + getChannelID();
-    const getDateFromBlockPayment = getTimeExpired();
-    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-    if (date > getDateFromBlockPayment) {
-      window.location.replace(urlExpired);
-    }
-    console.log(false)
-  }, [getTimeExpired()]);
-
   // useEffect(() => {
   //   const timer =
   //     counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
@@ -147,7 +166,7 @@ const InputNoHp = () => {
           setIsActive(true);
         }
       }, 1000);
-      return () => clearInterval(timer);
+    return () => clearInterval(timer);
   }, [counter]);
 
   // <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
@@ -193,11 +212,17 @@ const InputNoHp = () => {
                         onClick={requestOTP}
                         className={getbtnSendStyle()}
                         type="button"
-                        // disabled={true}
+                        disabled={isButtonDisabled}
                         data-ripple-light={true}
                       >
-                        Kirim OTP
+                        {buttonText}
+                        {isButtonDisabled && (
+                          <p className="ml-2 text-sm text-white-500">
+                            {Math.floor(counter / 60)}:{counter % 60 < 10 ? `0${counter % 60}` : counter % 60}
+                          </p>
+                        )}
                       </button>
+
                     </div>
                   </div>
                 </div>

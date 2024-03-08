@@ -92,16 +92,20 @@ const ConfirmationPin = () => {
     }
   };
 
-
   useEffect(() => {
-    getBlockPayment();
-    const urlExpired = "/expired-pin/" + getChannelID();
-    const getDateFromBlockPayment = getBlockPayment();
-    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-    if (date > getDateFromBlockPayment) {
-      window.location.replace(urlExpired);
-    } 
-  });
+    const fetchData = async () => {
+        getTimeExpired();
+        const urlExpired = "/expired-link/" + getChannelID();
+        const getDateFromBlockPayment = getTimeExpired();
+        const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+        console.log("cuks" + getDateFromBlockPayment)
+        if (date > getDateFromBlockPayment) {
+            window.location.replace(urlExpired);
+        }
+    };
+
+    fetchData();
+}, []);
 
   return (
     <>
