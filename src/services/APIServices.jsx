@@ -297,7 +297,7 @@ const APIServices = {
   getCheckEmail: async (CheckEmail) => {
     // console.log("API : ", postChangePIN);
     try {
-      let response = await axios.post(apiUrl + `/paymentIntegration/CheckEmail`,CheckEmail,
+      let response = await axios.post(apiUrl + `/paymentIntegration/checkEmail`,CheckEmail,
           {
               method: 'POST',
               config

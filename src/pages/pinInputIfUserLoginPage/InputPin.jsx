@@ -105,15 +105,20 @@ function PinInputPage() {
     window.location.reload();
   };
 
-  useEffect(()=>{
-    getTimeExpired();
-    const urlExpired = "/expired-pin/" + getChannelID();
-    const getDateFromBlockPayment = getTimeExpired();
-    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-    if (date > getDateFromBlockPayment) {
-      window.location.replace(urlExpired);
-    }
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+        getTimeExpired();
+        const urlExpired = "/expired-link/" + getChannelID();
+        const getDateFromBlockPayment = getTimeExpired();
+        const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+        console.log("cuks" + getDateFromBlockPayment)
+        if (date > getDateFromBlockPayment) {
+            window.location.replace(urlExpired);
+        }
+    };
+
+    fetchData();
+}, []);
 
   return (
     <>
