@@ -52,7 +52,7 @@ const APIServices = {
       }
   },
   getRequestOtp: async (phonePrams) => { // Mengambil data dengan memvalidasi OTP via SMS
-    console.log(phonePrams);
+    // console.log(phonePrams);
     try {
         let response = await axios.post(
             apiUrl + `/paymentIntegration/requestOtp`,

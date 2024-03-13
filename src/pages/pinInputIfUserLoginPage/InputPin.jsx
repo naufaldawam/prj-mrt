@@ -49,7 +49,7 @@ function PinInputPage() {
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
   };
 
-  console.log(pin);
+  // console.log(pin);
   if (pin === '') {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
       if (res.resultMessages == "Success") {
@@ -64,7 +64,7 @@ function PinInputPage() {
   }
 
   const BtnPostAccountBinding = () => {
-    console.log("dataResponse : ", params.dataResponse);
+    // console.log("dataResponse : ", params.dataResponse);
     const pabParams = {
       idRequest: params.id, // value ? value : null,
       phoneNumber: params.dataResponse.result.phoneNumber,
@@ -74,18 +74,18 @@ function PinInputPage() {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
+    // console.log("BtnPostAccountBinding : ", pabParams,pin, base64_encode(FunctionEncrypt(pin)), FunctionEncrypt(pin));
     DataEndPoint.getPostAccountBinding(pabParams).then((res) => {
-      console.log("getPostAccountBinding : ", res);
+      // console.log("getPostAccountBinding : ", res);
       if (res.responseCode == "00") {
         setIsLoading(false);
         setIsActive(false);
-        window.location.href = "/success-pin/" + params.dataResponse.result.channelId + "/" + params.id;
+        window.location.href = "/success-login/" + params.dataResponse.result.channelId + "/" + params.id;
       } else if (res.resultMessages == "Expired" || res.responseCode == "06") {
         window.location.replace = urlExpired;
       } else {
         
-        console.log(res.resultMessages);
+        // console.log(res.resultMessages);
         setIsActive(false);
         setIsLoading(false);
         setShowModal(true);
@@ -111,7 +111,7 @@ function PinInputPage() {
         const urlExpired = "/expired-link/" + getChannelID();
         const getDateFromBlockPayment = getTimeExpired();
         const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-        console.log("cuks" + getDateFromBlockPayment)
+        // console.log("cuks" + getDateFromBlockPayment)
         if (date > getDateFromBlockPayment) {
             window.location.replace(urlExpired);
         }

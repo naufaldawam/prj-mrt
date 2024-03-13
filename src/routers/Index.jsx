@@ -16,6 +16,8 @@ import PostConfirmationResetPin from "../pages/postChangePIN/ConfirmationResetPi
 import PostResetePin from "../pages/postChangePIN/ResetPin";
 import Register from "../pages/registrationPage/Register";
 import SuccesPageWithLottie from "../pages/successPage/SuccessPageWithLottie";
+import SuccessPinLogin from "../pages/SuccessPinLogin";
+
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,10 @@ export const router = createBrowserRouter([
       { // Contoh : http://localhost:9999/home/bdki
         path: "/requestotp/bdki/:idreg",
         element: <InputNoHp />,
+      },
+      {
+        path: "/success-login/:channel/:idreg",
+        element: <SuccessPinLogin/>
       },
       { // Contoh : http://localhost:9999/home/martipay
         path: "/requestotp/martipay/:idreg",

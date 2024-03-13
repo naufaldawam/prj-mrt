@@ -34,10 +34,10 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
       inputMode="numeric"
       inputStyle={getStyledPinInput()}
       inputFocusStyle={{}}
-      onComplete={() => { }}
+      // onComplete={() => { }}
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-      secretDelay={secretDelay}
+      // secretDelay={secretDelay}
     />
   );
 };
@@ -59,10 +59,10 @@ export const OtpInputWithStyle = ({ secretDelay, value, onChange }) => {
       inputMode="numeric"
       inputStyle={getStyledPinInput()}
       inputFocusStyle={{}}
-      onComplete={() => { }}
+      // onComplete={() => { }}
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-      secretDelay={secretDelay}
+      // secretDelay={secretDelay}
       outline="none"
       
     />

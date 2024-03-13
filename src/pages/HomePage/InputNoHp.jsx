@@ -21,7 +21,7 @@ import DataEndPoint from "../../services/APIServices";
 const InputNoHp = () => {
   const [value, setValue] = useState();
   const [otpvalue, setOtpValue] = useState();
-  const [showOTPInput, setShowOTPInput] = useState(false);
+  const [showOTPInput, setShowOTPInput] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const [counter, setCounter] = useState(10);
   const [minutes, setMinutes] = useState();
@@ -31,6 +31,8 @@ const InputNoHp = () => {
   const params = useParams();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Kirim OTP");
+  const [showModalError, setShowModalError] = useState(false);
+  const [msg, setMsg] = useState();
 
   url = "/reset-pin/" + getChannelID() + "/" + params.idreg;
 
@@ -77,7 +79,7 @@ const InputNoHp = () => {
       const urlExpired = "/expired-link/" + getChannelID();
       const getDateFromBlockPayment = getTimeExpired();
       const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-      console.log("cuks" + getDateFromBlockPayment)
+      // console.log("cuks" + getDateFromBlockPayment)
       if (date > getDateFromBlockPayment) {
         window.location.replace(urlExpired);
       }
@@ -87,7 +89,7 @@ const InputNoHp = () => {
   }, []);
 
   const requestOTP = () => {
-    console.log("ini di klik")
+    // console.log("ini di klik")
     setIsButtonDisabled(true);
     setCounter(120);
     setButtonText("tunggu")
@@ -120,6 +122,10 @@ const InputNoHp = () => {
       });
   };
 
+  const modalclose = () => {
+    setShowModalError(false);
+  }
+
   const btnConfirmOTP = () => {
     // window.location.href = url + "/" + base64_encode(FunctionEncrypt(value));
     // console.log(url);
@@ -135,15 +141,28 @@ const InputNoHp = () => {
     // // contoh menggunakan API services
     DataEndPoint.getValidationOtp(ConfirmOTPParam)
       .then((res) => {
-        // console.log(res.resultMessages);
-        // console.log(res.data.resultMessages);
-        if (res.resultMessages == "Success") {
-          window.location.href =
-            url + "/" + base64_encode(FunctionEncrypt(value));
-        } else if (res.resultMessages == "Failed") {
-          alert("Failed respon...!");
-        } else if (res.resultMessages == "Error") {
-          alert("Server error...!");
+        // messageModal = res.result.toString().toLowerCase();
+        // console.log("ini responsenya data :" + res.result);
+        // console.log("ini tidak didalam data :" + res.data.resultMessages);
+        // if (res.resultMessages == "Success") {
+        //   // window.location.href =
+        //   //   url + "/" + base64_encode(FunctionEncrypt(value));
+        // }
+        // if (res.data == "otp not valid") {
+        //   alert("OTP Tidak valid");
+        // } else if (res.data == "success") {
+        //   alert("berhasil");
+        // }else {
+        //   alert("INTERNAL SERVER ERRO");
+        // }
+        // const tempData = res.result;
+        if (res.result.toString().toLowerCase() == "success") {
+          // alert("success")
+          window.location.href = url + "/" + base64_encode(FunctionEncrypt(value))
+        } else {
+          setMsg(res.result.toString().toUpperCase());
+          // alert(res.result.toString().toLowerCase());
+          setShowModalError(true)
         }
       })
       .catch((err) => {
@@ -151,23 +170,23 @@ const InputNoHp = () => {
       });
   };
 
-  // useEffect(() => {
-  //   const timer =
-  //     counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
-  //   return () => clearInterval(timer);
-  // }, [counter]);
-
-  React.useEffect(() => {
-    const timer = counter > 0 &&
-      setInterval(() => {
-        console.log(counter);
-        setCounter(counter - 1);
-        if (counter === 0) {
-          setIsActive(true);
-        }
-      }, 1000);
+  useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
     return () => clearInterval(timer);
   }, [counter]);
+
+  // React.useEffect(() => {
+  //   const timer = counter > 0 &&
+  //     setInterval(() => {
+  //       // console.log(counter);
+  //       setCounter(counter - 1);
+  //       if (counter === 0) {
+  //         setIsActive(true);
+  //       }
+  //     }, 1000);
+  //   return () => clearInterval(timer);
+  // }, [counter]);
 
   // <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
   return (
@@ -247,11 +266,36 @@ const InputNoHp = () => {
                     >
                       Konfirmasi
                     </button>
-                    <p>Time Remaining: {counter}</p>
+                    {/* <p>Time Remaining: {counter}</p> */}
                   </div>
                 </div>
               )}
             </div>
+            {showModalError ? (
+              <>
+                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                  <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                      <div className="relative p-6 flex-auto">
+                        <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
+                          {msg}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                        <button
+                          className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
+                          type="button"
+                          onClick={modalclose}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              </>
+            ) : null}
 
             <div className="mt-20">
               Seluruh transaksi baik dan aman. Dengan melanjutkan proses ini,
