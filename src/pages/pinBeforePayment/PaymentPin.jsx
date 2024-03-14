@@ -16,20 +16,20 @@ import DataEndPoint from "../../services/APIServices";
 
 function PaymentPin() {
   let { idreg, msg } = useParams();
-  
+
   const params = useParams();
   const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg));
-    const getValue = getValueIdReg.split("||");
-    const getDate = Date.parse(getValue[2]);
+  const getValue = getValueIdReg.split("||");
+  const getDate = Date.parse(getValue[2]);
 
-    const urlExpired = "/expired-pin/" + getChannelID();
-    const getDateFromBlockPayment = getDate;
-    const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-    if (date > getDateFromBlockPayment) {
-      window.location.replace(urlExpired);
-    }else{
-      return loadfirst90();
-    }
+  const urlExpired = "/expired-pin/" + getChannelID();
+  const getDateFromBlockPayment = getDate;
+  const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+  if (date > getDateFromBlockPayment) {
+    window.location.replace(urlExpired);
+  } else {
+    return loadfirst90();
+  }
 };
 
 
@@ -46,7 +46,6 @@ function loadfirst90() {
     const getValueIdReg = FunctionDecryptAES(base64_decode(params.idreg))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[2]);
-    console.log(getValueIdReg);
     return getDate;
   };
   // const getBlockPayment = () => {
@@ -73,17 +72,13 @@ function loadfirst90() {
         requestDate: moment().format("YYYY-MM-DD"),
         requestTime: moment().format("hh:mm:ss"),
       };
-      // console.log("postRequestPayment : ", pabParams);
-      // console.log("postRequestPayment : ", idreg);
       DataEndPoint.getPostRequestPayment(pabParams).then((res) => {
-        console.log(res);
         if (res.responseCode == "00" || res.resultMessage == "Success") {
           setIsLoading(false);
           window.location.href = "/Success-payment/" + getChannelID();
         } else if (res.responseCode == "06" || res.resultMessage == "Expired") {
           window.location.href = urlExpired;
         } else {
-          // console.log(res.resultMessage);
           params.msg = res.resultMessage;
           setIsLoading(false);
           setShowModal(true);
@@ -95,8 +90,6 @@ function loadfirst90() {
   const modalclose = () => {
     window.location.reload();
   };
-
-  // getBlockPayment();
 
   return (
     <>

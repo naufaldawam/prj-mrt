@@ -48,15 +48,11 @@ const StartPage = () => {
               const resParams = res.data;
               if (resParams.resultMessages == "Success") {
                 setCookie(resParams);
-                // Cookies.set("linkParam : ", JSON.stringify(aiRestParams));
-                // var json_string = Cookies.get("linkParam");
-                // var array = JSON.parse(json_string);
                 handleButtonGoToPageLoginInputPin(
                   resParams.result.urlValidation
                 );
                 setIsLoading(false);
               } else if (resParams.resultMessages == "Failed") {
-                // console.log("URL : ", resParams.result.urlValidation);
                 handleButtonGoToPageRegister(resParams.result.urlValidation);
                 setIsLoading(false);
               } else if (resParams.resultMessages == "Error") {
@@ -65,17 +61,14 @@ const StartPage = () => {
               }
             })
             .catch((err) => {
-              console.log("error : " + err);
               setIsLoading(false);
             });
         } else {
-          // handleButtonGoToPageRegister(`/register/martipay/0`);
           setIsLoading(false);
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log("error : " + err);
       });
   };
 
@@ -92,7 +85,6 @@ const StartPage = () => {
         const resParams = res.data.response.result
           ? res.data.response.result
           : res.data.response;
-        console.log(res.data.response.message);
         if (res.data.response.message == "Success") {
           const aiRestParams = {
             phoneNumber: resParams.accountNumber,
@@ -105,19 +97,13 @@ const StartPage = () => {
             requestDate: "2024-01-30",
             requestTime: "14:56:27",
           };
-          console.log(aiRestParams);
           DataEndPoint.getRequestLinkRegistration(aiRestParams)
             .then((res) => {
               const resParams = res.data;
-              console.log(resParams.resultMessages);
               if (resParams.resultMessages == "Success") {
                 setCookie(resParams);
 
                 const _getCookie = getCookie();
-                console.log("d Pin : ", Cookies.get("data"));
-                // Cookies.set("linkParam : ", aiRestParams);
-                // var json_string = Cookies.get("linkParam");
-                // var array = JSON.parse(json_string);
                 handleButtonGoToPageLoginInputPin(
                   resParams.result.urlValidation
                 );
@@ -131,17 +117,14 @@ const StartPage = () => {
               }
             })
             .catch((err) => {
-              console.log("error : " + err);
               setIsLoading(false);
             });
         } else {
-          // handleButtonGoToPageRegister(local_host+`/register/martipay/0`);
           setIsLoading(false);
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log("error : " + err);
       });
   };
 

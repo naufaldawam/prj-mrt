@@ -4,15 +4,6 @@ import { LoadBgColor, LoadLogo } from "../constantFile/I_Constant";
 import xpire from "./lottieFiles/xpire.json";
 
 const ExpiredPage = () => {
-  // const apiUrl = process.env.API_JAVA_URL;
-  // console.log(apiUrl)
-
-  // const _getCookie = JSON.parse(getCookie());
-  // console.log("_getCookie : ", _getCookie);
-  // let { idreg, id } = useParams();
-  // const params = useParams();
-  // const nameProfile = "Hello " + _getCookie.fullName.toUpperCase();
-
   return (
     <div>
       <div className={LoadBgColor()}>
@@ -27,7 +18,6 @@ const ExpiredPage = () => {
             <div className="flex items-center justify-center my-4"></div>
             <strong>
               <h2 className="text-xl font-semibold my-2 text-center ">
-                {/* {nameProfile} */}
               </h2>
             </strong>
             <h6 className="text-xl my-2 text-center">

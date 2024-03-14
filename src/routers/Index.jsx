@@ -28,100 +28,60 @@ export const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
     children: [
-      { // Contoh : http://localhost:9999/home/bdki
-        path: "/requestotp/bdki/:idreg",
-        element: <InputNoHp />,
+      {
+        path: "/success-login/:channel/",
+        element: <SuccessPinLogin/>
       },
       {
         path: "/success-login/:channel/:idreg",
         element: <SuccessPinLogin/>
       },
-      { // Contoh : http://localhost:9999/home/martipay
-        path: "/requestotp/martipay/:idreg",
+      { // Contoh : http://localhost:9999/home/bdki
+        path: "/requestotp/:channel/:idreg",
         element: <InputNoHp />,
       },
       { // Contoh : http://localhost:9999/login/bdki/RVI0cnEvNVF4c2xTWjVta1BSUTFqZz09
-        path: "login/bdki/:id",
-        element: <InputPinLogin />,
-      },
-      { // Contoh : http://localhost:9999/login/martipay/RVI0cnEvNVF4c2xTWjVta1BSUTFqZz09
-        path: "login/martipay/:id",
+        path: "login/:channel/:id",
         element: <InputPinLogin />,
       },
       { // Contoh : http://localhost:9999/register/bdki/RVI0cnEvNVF4c2xTWjVta1BSUTFqZz09
-        path: "register/bdki/:idreg",
-        element: <Register />,
-      },
-      { // Contoh : http://localhost:9999/register/martipay/RVI0cnEvNVF4c2xTWjVta1BSUTFqZz09
-        path: "register/martipay/:idreg",
+        path: "register/:channel/:idreg",
         element: <Register />,
       },
       { // Contoh : http://localhost:9999/create-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
-        path: "create-pin/bdki/:idreg",
-        element: <CreatePin />,
-      },
-      { // Contoh : http://localhost:9999/create-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
-        path: "create-pin/martipay/:idreg",
+        path: "create-pin/:channel/:idreg",
         element: <CreatePin />,
       },
       { // Contoh : http://localhost:9999/confirmation-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
-        path: "confirmation-pin/bdki/:idreg/:id",
-        element: <ConfirmationPin />,
-      },
-      { // Contoh : http://localhost:9999/confirmation-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
-        path: "confirmation-pin/martipay/:idreg/:id",
+        path: "confirmation-pin/:channel/:idreg/:id",
         element: <ConfirmationPin />,
       },
       { // Contoh : http://localhost:9999/reset-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
-        path: "reset-pin/bdki/:idreg/:phone",
-        element: <PostResetePin />,
-      },
-      { // Contoh : http://localhost:9999/reset-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09
-        path: "reset-pin/martipay/:idreg/:phone",
+        path: "reset-pin/:channel/:idreg/:phone",
         element: <PostResetePin />,
       },
       { // Contoh : http://localhost:9999/confirmation-reset-pin/bdki/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
-        path: "confirmation-reset-pin/bdki/:idreg/:id/:phone",
-        element: <PostConfirmationResetPin />,
-      },
-      { // Contoh : http://localhost:9999/confirmation-reset-pin/martipay/bDc4OEs2S1ZFNnBKNDIvRGFvejllQT09/SFJsa0VyVlk1SksvdW5uWmlyWXA0QT09
-        path: "confirmation-reset-pin/martipay/:idreg/:id/:phone",
+        path: "confirmation-reset-pin/:channel/:idreg/:id/:phone",
         element: <PostConfirmationResetPin />,
       },
       { // Contoh : http://localhost:9999/Success-pin/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
-        path: "Success-pin/bdki/:idreg",
-        element: <SuccessPin />,
-      },
-      { // Contoh : http://localhost:9999/Success-pin/martipay/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
-        path: "Success-pin/martipay/:idreg",
+        path: "success-pin/:channel/:idreg",
         element: <SuccessPin />,
       },
       { // Contoh : http://localhost:9999/Success-pin/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
-        path: "success-payment/bdki",
-        element: <SuccessPayment />,
-      },
-      { // Contoh : http://localhost:9999/Success-pin/martipay/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
-        path: "success-payment/martipay",
+        path: "success-payment/:channel",
         element: <SuccessPayment />,
       },
       { // Contoh : http://localhost:9999/postRequestPayment/bdki/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
-        path: "postRequestPayment/bdki/:idreg",
-        element: <PostRequestPayment />,
-      },
-      { // Contoh : http://localhost:9999/postRequestPayment/martipay/T0s0elZmQ0VRQWRRYVN4dUpFakZqUT09
-        path: "postRequestPayment/martipay/:idreg",
+        path: "postRequestPayment/:channel/:idreg",
         element: <PostRequestPayment />,
       },
       { // Contoh : http://localhost:9999/top-up/bdki
-        path: "top-up/bdki",
-        element: <Topup />,
-      },
-      { // Contoh : http://localhost:9999/top-up/martipay
-        path: "top-up/martipay",
+        path: "top-up/:channel",
         element: <Topup />,
       },
       {
-        path: "success",
+        path: "success/:channel",
         element: <SuccesPageWithLottie />,
       },
       {
@@ -129,22 +89,13 @@ export const router = createBrowserRouter([
         element: <LoaderPageWithLottie />,
       },
       {
-        path: "expired-pin/bdki",
+        path: "expired-pin/:channel",
         element: <ExpiredPage />,
       },
       {
-        path: "expired-pin/martipay",
+        path: "expired-link/:channel",
         element: <ExpiredPage />,
       },
-      {
-        path: "expired-link/bdki",
-        element: <ExpiredPage />,
-      },
-      {
-        path: "expired-link/martipay",
-        element: <ExpiredPage />,
-      },
-      
     ],
   },
   {

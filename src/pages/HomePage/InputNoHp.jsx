@@ -21,7 +21,7 @@ import DataEndPoint from "../../services/APIServices";
 const InputNoHp = () => {
   const [value, setValue] = useState();
   const [otpvalue, setOtpValue] = useState();
-  const [showOTPInput, setShowOTPInput] = useState(true);
+  const [showOTPInput, setShowOTPInput] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [counter, setCounter] = useState(10);
   const [minutes, setMinutes] = useState();
@@ -40,7 +40,6 @@ const InputNoHp = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[1]);
-    // console.log("Bangke :" + getValueIdReg);
     return getDate;
   };
 
@@ -79,7 +78,6 @@ const InputNoHp = () => {
       const urlExpired = "/expired-link/" + getChannelID();
       const getDateFromBlockPayment = getTimeExpired();
       const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-      // console.log("cuks" + getDateFromBlockPayment)
       if (date > getDateFromBlockPayment) {
         window.location.replace(urlExpired);
       }
@@ -89,12 +87,9 @@ const InputNoHp = () => {
   }, []);
 
   const requestOTP = () => {
-    // console.log("ini di klik")
     setIsButtonDisabled(true);
     setCounter(120);
     setButtonText("tunggu")
-    // handleStart();
-    // alert("value : " + value);
     const RequestOtpParam = {
       accountNumber: value,
       channelId: getChannelID(),
@@ -102,24 +97,22 @@ const InputNoHp = () => {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     };
-    // console.log("RequestOtpParam : ", RequestOtpParam);
+
     // contoh menggunakan API services
     DataEndPoint.getRequestOtp(RequestOtpParam)
       .then((res) => {
-        console.log(res);
         if (res.data.resultMessages == "Success") {
           setIsActive(true);
           setShowOTPInput(true);
         } else if (res.data.resultMessages == "Failed") {
           setShowOTPInput(false);
         }
-        //  else if (res.data.resultMessages == "Error") {
-        //   alert("Server error...!");
-        // }
       })
       .catch((err) => {
         alert(err.message);
       });
+
+    
   };
 
   const modalclose = () => {
@@ -127,8 +120,6 @@ const InputNoHp = () => {
   }
 
   const btnConfirmOTP = () => {
-    // window.location.href = url + "/" + base64_encode(FunctionEncrypt(value));
-    // console.log(url);
     const ConfirmOTPParam = {
       accountNumber: value,
       otp: otpvalue,
@@ -141,27 +132,10 @@ const InputNoHp = () => {
     // // contoh menggunakan API services
     DataEndPoint.getValidationOtp(ConfirmOTPParam)
       .then((res) => {
-        // messageModal = res.result.toString().toLowerCase();
-        // console.log("ini responsenya data :" + res.result);
-        // console.log("ini tidak didalam data :" + res.data.resultMessages);
-        // if (res.resultMessages == "Success") {
-        //   // window.location.href =
-        //   //   url + "/" + base64_encode(FunctionEncrypt(value));
-        // }
-        // if (res.data == "otp not valid") {
-        //   alert("OTP Tidak valid");
-        // } else if (res.data == "success") {
-        //   alert("berhasil");
-        // }else {
-        //   alert("INTERNAL SERVER ERRO");
-        // }
-        // const tempData = res.result;
         if (res.result.toString().toLowerCase() == "success") {
-          // alert("success")
           window.location.href = url + "/" + base64_encode(FunctionEncrypt(value))
         } else {
           setMsg(res.result.toString().toUpperCase());
-          // alert(res.result.toString().toLowerCase());
           setShowModalError(true)
         }
       })
@@ -173,22 +147,13 @@ const InputNoHp = () => {
   useEffect(() => {
     const timer =
       counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+      if(counter == 0){
+        setButtonText("kirim Ulang")
+        setIsButtonDisabled(false)
+      }
     return () => clearInterval(timer);
   }, [counter]);
 
-  // React.useEffect(() => {
-  //   const timer = counter > 0 &&
-  //     setInterval(() => {
-  //       // console.log(counter);
-  //       setCounter(counter - 1);
-  //       if (counter === 0) {
-  //         setIsActive(true);
-  //       }
-  //     }, 1000);
-  //   return () => clearInterval(timer);
-  // }, [counter]);
-
-  // <span className="time">{hours}</span> : <span className="time">{minutes}</span> : <span className="time">{seconds}</span>
   return (
     <div>
       <div className={LoadBgColor()}>

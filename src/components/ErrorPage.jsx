@@ -4,7 +4,6 @@ import Error404 from "../assets/icons/expression_failed.png";
 
 function ErrorPage() {
   const { error, isError, message } = useRouteError();
-  // console.log("error : " , isError);
   if (isError) {
     return (
       <div>
@@ -20,12 +19,6 @@ function ErrorPage() {
             <div className="pt-20 flex justify-center">
               <img className="" width={200} src={Error404} alt="error page" />
             </div>
-
-            {/* <div className="flex justify-center pt-5 items-center ">
-            <h1>
-              <b>Start testing registration</b>
-            </h1>
-          </div> */}
           </div>
         </div>
       </div>

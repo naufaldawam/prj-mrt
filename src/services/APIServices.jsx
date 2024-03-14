@@ -9,17 +9,10 @@ const config = {
         'accept': 'application/json, text/plain, */*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        // 'Authorization': `Bearer ${token}`,
     }
 };
-// console.log(config);
-// Contoh hasil API
-// bisa lihat di file InputNoHp.jsx
-// apiUrl = `http://api.thecatapi.com/v1/images/Rl39SPjDO`;  + otpPrams.id
-
 const APIServices = {
   getAccountInformation: async (setParam) => { // DIWA
-    // console.log(apiDiwaUrl + ' - ' + setParam);
     try {
         let response = await axios.post(apiUrl+`/paymentIntegration/accountInformation`,
             setParam,
@@ -30,12 +23,10 @@ const APIServices = {
           );
         return response;
       } catch (err) {
-        // console.error("err : ", err.message);
         throw err;
       }
   },
   getRequestLinkRegistration: async (phonePrams) => {
-    // console.log(phonePrams);
     try {
         let response = await axios.post(
             apiUrl + `/paymentIntegration/requestLinkRegistration`,
@@ -47,12 +38,10 @@ const APIServices = {
           );
         return response;
       } catch (err) {
-        // console.error("err : ", err.message);
         throw err;
       }
   },
   getRequestOtp: async (phonePrams) => { // Mengambil data dengan memvalidasi OTP via SMS
-    // console.log(phonePrams);
     try {
         let response = await axios.post(
             apiUrl + `/paymentIntegration/requestOtp`,
@@ -64,13 +53,11 @@ const APIServices = {
           );
         return response;
       } catch (err) {
-        // console.error("err : ", err.message);
         throw err;
       }
 
   },
   getValidationOtp: async (otpPrams) => {
-    // console.log(otpPrams);
     try {
         let response = await axios.post(
             apiUrl + `/paymentIntegration/validationOtp`,
@@ -82,7 +69,6 @@ const APIServices = {
           );
         return response.data;
       } catch (err) {
-        // console.error("err : ", err.message);
         throw err;
       }
 
@@ -98,7 +84,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -114,7 +99,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -130,7 +114,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -145,7 +128,6 @@ const APIServices = {
         ,});
       return response;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -161,7 +143,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -177,7 +158,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -193,7 +173,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -209,7 +188,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -226,7 +204,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -241,15 +218,12 @@ const APIServices = {
               config
           ,}
       );
-      // console.log("response :" + response);
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
   getPostAccountBinding: async (postAccountBinding) => {
-    // console.log("API : ", postAccountBinding);
     try {
       let response = await axios.post(apiUrl + `/paymentIntegration/postAccountBinding`,
           postAccountBinding,
@@ -260,12 +234,10 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
   getPostRequestPayment: async (postRequestPayment) => {
-    // console.log("API : ", postRequestPayment);
     try {
       let response = await axios.post(apiUrl + `/paymentIntegration/postRequestPayment`,postRequestPayment,
           {
@@ -275,12 +247,10 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
   getPostChangePin: async (postChangePIN) => {
-    // console.log("API : ", postChangePIN);
     try {
       let response = await axios.post(apiUrl + `/paymentIntegration/postChangePin`,postChangePIN,
           {
@@ -290,12 +260,10 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
   getCheckEmail: async (CheckEmail) => {
-    // console.log("API : ", postChangePIN);
     try {
       let response = await axios.post(apiUrl + `/paymentIntegration/checkEmail`,CheckEmail,
           {
@@ -305,7 +273,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },
@@ -322,7 +289,6 @@ const APIServices = {
       );
       return response.data;
     } catch (err) {
-      // console.error("err : ", err.message);
       throw err;
     }
   },

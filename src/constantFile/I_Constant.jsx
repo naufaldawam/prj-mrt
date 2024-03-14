@@ -21,7 +21,6 @@ const domain = process.env.LOCAL_HOST;
 export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
   const PinInput = PinInputTemplate;
   const location = useLocation();
-  // console.log(value);
   return (
     <PinInput
       length={6}
@@ -34,10 +33,8 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
       inputMode="numeric"
       inputStyle={getStyledPinInput()}
       inputFocusStyle={{}}
-      // onComplete={() => { }}
       autoSelect={true}
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-      // secretDelay={secretDelay}
     />
   );
 };
@@ -46,7 +43,6 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
 export const OtpInputWithStyle = ({ secretDelay, value, onChange }) => {
   const PinInput = PinInputTemplate;
   const location = useLocation();
-  // console.log(value);
   return (
     <PinInput
       length={6}
@@ -75,8 +71,6 @@ export const FontAwesomeIconCheckeCircle = (
 );
 
 export const PhoneInputWithStyle = ({ value, onChange, inputProps, country, disableDropdown }) => {
-  // const [value, setValue] = useState(); //to handle change
-  // console.log("value fom phone input with style at phone input with style constant", value);
   const PhoneInputTemplate = PhoneInput;
   return (
     <PhoneInputTemplate
@@ -132,7 +126,6 @@ export const getChannelID = () => {
   const pathName = location.pathname;
   const path = pathName.split("/");
 
-  // console.log("path[2] : ", path[2]);
   return path[2];
 };
 
@@ -154,15 +147,12 @@ export const ButtonWithStyle = ({ onClick, disabled }) => {
 //========================================================================================== handle button to go to some page  ===============//
 //========================================================================================================= start //
 export const handleButtonGoToPageRegister = (urlvalidation) => {
-  // console.log(domain+urlvalidation);
   window.location.href = domain + urlvalidation; // "/register/bdki";
 };
 export const handleButtonGoToPageCreatePin = (urlvalidation) => {
-  // console.log(domain+urlvalidation);
   window.location.href = domain + urlvalidation; // "/create-pin/bdki";
 };
 export const handleButtonGoToPageLoginInputPin = (urlvalidation) => {
-  // console.log(domain+urlvalidation);
   window.location.href = domain + urlvalidation; // "/login/bdki";
 };
 export const handleButtonGoToPageHome = () => {
@@ -195,33 +185,49 @@ export const DescriptionSuccess = "Top Up JakOne Berhasil !"; //profile imagae
 
 //============== init conditional url for change style =================//
 //========================================================================================================= start //
-import themeStyling from "../components/configuration_css/Config.json";
+import themeStyling from "/Configuration-css.json";
 
 export const getButtonStyle = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  return lastSegment[2] === "bdki"
-    ? themeStyling.bdki.buttonStyle
-    : themeStyling.martipay.buttonStyle;
+  if (themeStyling[lastSegment[2]]!==undefined){
+    return themeStyling[lastSegment[2]].buttonStyle; 
+  }
+
+  return themeStyling.bdki.buttonStyle;
+  // return lastSegment[2] === "bdki"
+  //   ? themeStyling.bdki.buttonStyle
+  //   : themeStyling.martipay.buttonStyle;
 };
 
 export const getButtonStyleConfirmation = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
 
-  return lastSegment[2] === "bdki"
-    ? themeStyling.bdki.buttonStyleConfirmation
-    : themeStyling.martipay.buttonStyleConfirmation;
+  if (themeStyling[lastSegment[2]]!==undefined){
+    return themeStyling[lastSegment[2]].buttonStyleConfirmation; 
+  }
+
+  return themeStyling.bdki.buttonStyleConfirmation;
+
+  // return lastSegment[2] === "bdki"
+  //   ? themeStyling.bdki.buttonStyleConfirmation
+  //   : themeStyling.martipay.buttonStyleConfirmation;
 };
 
 export const getStyledPinInput = () => {
   // this code for customize your button || example : classname={getStyledPinInput()}
   const pathName = location.pathname;
   const lastSegment = pathName.split("/"); // .pop();
+  if (themeStyling[lastSegment[2]]!==undefined){
+    return themeStyling[lastSegment[2]].pinInputStyle; 
+  }
 
-  return lastSegment[2] === "bdki"
-    ? themeStyling.bdki.pinInputStyle
-    : themeStyling.martipay.pinInputStyle;
+  return themeStyling.bdki.pinInputStyle;
+
+  // return lastSegment[2] === "bdki"
+  //   ? themeStyling.bdki.pinInputStyle
+  //   : themeStyling.gojek.pinInputStyle;
 };
 //=============================================================================================== end ===============//
 
@@ -344,10 +350,7 @@ export const getMessageHeaderConfirmationPin = () => {
 
 export const changeLanguageAndRenderButton = ({ country, i18n }) => {
   const handleButtonClick = () => {
-    // console.log("i18n:", i18n);
-    // console.log(`Button clicked for ${country}`);
     i18n.changeLanguage(country);
-    // console.log("Bahasa berhasil diubah ", country);
     localStorage.setItem("language", country);
   };
 
@@ -374,10 +377,17 @@ export const changeLanguageAndRenderButton = ({ country, i18n }) => {
 // ini testing mas ozy
 export const setButtonYellow = () => {
   const pathName = location.pathname;
+  const lastSegment = pathName.split("/");
 
-  return pathName.includes("/home/bdki")
-    ? themButton.bdki.btnYellow
-    : themButton.martipay.btnYellow;
+  if (themeStyling[lastSegment[2]]!==undefined){
+    return themeStyling[lastSegment[2]].btnYellow; 
+  }
+
+  return themeStyling.bdki.btnYellow;
+
+  // return pathName.includes("/home/bdki")
+  //   ? themButton.bdki.btnYellow
+  //   : themButton.martipay.btnYellow;
 };
 
 //===========================================================//
@@ -690,7 +700,7 @@ export const LoaderPageWithLottie = () => {
 export const LoadLogo = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  // console.log("LoadImage : ", lastSegment[2]);
+  
   return lastSegment[2] === "bdki" ? (
     <img className="" width={200} src={logobdki} alt="My Image" />
   ) : (
@@ -701,7 +711,6 @@ export const LoadLogo = () => {
 export const LoadIconShield = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  // console.log("LoadImage : ", lastSegment[2]);
   return lastSegment[2] === "bdki" ? (
     <img className="" width={200} src={logoiconbdki} alt="My Image" />
   ) : (
@@ -712,10 +721,14 @@ export const LoadIconShield = () => {
 export const LoadBgColor = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  // console.log("LoadImage : ", lastSegment[2]);
-  return lastSegment[2] === "bdki"
-    ? themeStyling.bdki.styleloadBgColor
-    : themeStyling.martipay.styleloadBgColor;
+  if (themeStyling[lastSegment[2]]!==undefined){
+    return themeStyling[lastSegment[2]].styleloadBgColor; 
+  }
+
+  return themeStyling.bdki.styleloadBgColor;
+  // return lastSegment[2] === "bdki"
+  //   ? themeStyling.bdki.styleloadBgColor
+  //   : themeStyling.martipay.styleloadBgColor;
 };
 //===========================================================//
 // ============== end message how to top up =============//
@@ -834,5 +847,45 @@ export const Timer = ({ delayResend = "10" }) => {
         {minutes}:{seconds}
       </span>
     </>
+  );
+};
+
+
+export const popMessage = ({ txtTitle, txtBody, btnClose }) => {
+  return (
+    <div>
+      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+              <h3 className="text-3xl font-semibold">{txtTitle}</h3>
+              <button
+                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                onClick={btnClose}
+              >
+                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                  ×
+                </span>
+              </button>
+            </div>
+            <div className="relative p-6 flex-auto">
+              <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
+                {txtBody}
+              </p>
+            </div>
+            <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+              <button
+                className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
+                type="button"
+                onClick={btnClose}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </div>
   );
 };

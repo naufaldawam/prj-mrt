@@ -16,33 +16,15 @@ const ResetPin = () => {
   let { idreg, id, acnum, phone, url } = useParams();
 
   const params = useParams();
-  // const pParams = {
-  //   idRequest: params.idreg, // value ? value : null,
-  //   requestDate: moment().format("YYYY-MM-DD"),
-  //   requestTime: moment().format("hh:mm:ss"),
-  //   channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, //
-  // };
-  // console.log(FunctionDecryptAES(base64_decode(params.phone)));
-  // console.log(phone);
 
   const handlePinChange = (value) => {
-    // console.log(value);
-    // console.log(value.length);
     setPin(value);
     if (value.length === 6) {
-      // DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      //   if (res.resultMessages == "Success") {
-      //     const _getCookie = JSON.parse(getCookie());
-      //   }
-      // });
       id = value;
-      // console.log("id : ", idreg);
-      url = "/confirmation-reset-pin/"+getChannelID()+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id))+"/"+base64_encode(FunctionEncrypt(phone));
-      // console.log("Channel : ", url);
+      url = "/confirmation-reset-pin/" + getChannelID() + "/" + idreg + "/" + base64_encode(FunctionEncrypt(id)) + "/" + base64_encode(FunctionEncrypt(phone));
       window.location.href = url;
     }
   };
-
 
   return (
     <div>
@@ -58,11 +40,11 @@ const ResetPin = () => {
           <div className="items-center justify-center">
             <div className="flex flex-wrap flex-col items-center">
               <div className="flex items-center">
-                {PinInputWithStyle({ secretDelay: 0, value:'', onChange: handlePinChange })}
+                {PinInputWithStyle({ secretDelay: 0, value: '', onChange: handlePinChange })}
               </div>
             </div>
             <div className="flex items-center justify-center my-4">
-                {LoadIconShield()}
+              {LoadIconShield()}
             </div>
           </div>
         </div>

@@ -36,7 +36,7 @@ const ConfirmationPin = () => {
   const _getCookie = JSON.parse(getCookie());
   url = "/success-pin/" + getChannelID() + "/" + params.idreg;
   urlBackToRegist = "/register/" + getChannelID() + "/" + params.idreg;
-  urlExpired = "/expired-pin/" + getChannelID();
+  urlExpired = "/expired-link/" + getChannelID();
 
   const modalclose = () => {
     window.location.reload();
@@ -64,27 +64,20 @@ const ConfirmationPin = () => {
           pin: base64_encode(FunctionEncrypt(value)),
         };
         let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
-        // console.log("Object.assign(_getCookie, jsonPin) : ", pPostRegistrationAccount);
         DataEndPoint.getPostRegistrationAccount(pPostRegistrationAccount)
           .then((res) => {
-            console.log(res);
-            // const getMessage = res.responseMessages;
             if (res.responseCode == "00") {
               window.location.href = url;
             } else if (res.responseCode == "06" || res.resultMessages == "Expired") {
               window.location.href = urlExpired;
             }
             else {
-              // getMessage = res.resultMessages;
               setShowModalEmail(true);
             }
             setIsLoading(false);
           })
           .catch((err) => {
-            console.log(err);
             setIsLoading(false);
-            // alert(err.resultMessages);
-            // window.location.reload();
           });
       } else {
         setShowModal(true);
@@ -98,7 +91,6 @@ const ConfirmationPin = () => {
         const urlExpired = "/expired-link/" + getChannelID();
         const getDateFromBlockPayment = getTimeExpired();
         const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-        console.log("cuks" + getDateFromBlockPayment)
         if (date > getDateFromBlockPayment) {
             window.location.replace(urlExpired);
         }
@@ -148,7 +140,7 @@ const ConfirmationPin = () => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Syarat & Ketentuan</h3>
+                  <h3 className="text-3xl font-semibold">Peringatan!</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={modalclose}
@@ -165,7 +157,7 @@ const ConfirmationPin = () => {
                   </p>
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
                     type="button"
@@ -189,7 +181,7 @@ const ConfirmationPin = () => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Syarat & Ketentuan</h3>
+                  <h3 className="text-3xl font-semibold">Peringatan!</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={modalclose}
@@ -206,7 +198,7 @@ const ConfirmationPin = () => {
                   </p>
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
                     type="button"

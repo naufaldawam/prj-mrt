@@ -1,7 +1,18 @@
+# version: "3.4"
+# services:
+#  project-martipay:
+#    image: itdevbankdki/svc-diwa-webview-fe:dev-1.0.0
+#    container_name: svc-diwa-webview-fe_container
+#    ports:
+#      - 5152:5152
+
 version: "3.4"
 services:
  project-martipay:
-   image: itdevbankdki/svc-diwa-webview-fe:dev-1.0.0
-   container_name: svc-diwa-webview-fe_container
+   image: naufaldawam/testing-env-naufal:1.0.3
+   container_name: testing-env-naufal_container
    ports:
-     - 8006:80
+     - 5152:80
+   restart: unless-stopped
+   volumes:
+     - /dari_mas_ozy:/FE_DIWA_WEBVIEW

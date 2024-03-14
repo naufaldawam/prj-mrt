@@ -25,11 +25,8 @@ const CreatePin = () => {
     requestTime: moment().format("hh:mm:ss"),
     channelId: getChannelID(), // path[2] // "MARTIPAY" // sesData.channelId, // 
   };
-  // console.log(pParams);
 
   const handlePinChange = (value) => {
-    // console.log(value);
-    // console.log(pin.length);
     setPin(value);
     if (pin.length === 5) {
       DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
@@ -38,9 +35,7 @@ const CreatePin = () => {
         }
       });
       id = value;
-      // console.log("id : ", idreg);
       url = "/confirmation-pin/"+pParams.channelId+"/"+idreg+"/"+base64_encode(FunctionEncrypt(id));
-      // console.log("Channel : ", url);
       window.location.href = url;
     }
   };

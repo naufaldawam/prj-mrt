@@ -38,8 +38,6 @@ const ConfirmationResetPin = () => {
       window.location.reload();
     }
   };
-  // console.log(params.phone);
-  // console.log("phone enc : ", FunctionDecryptAES(base64_decode(FunctionDecryptAES(base64_decode(params.phone)))));
   const enkripPIN = (pin) => {
     DataEndPoint.getEnkripAes(pin)
       .then((res) => {
@@ -61,12 +59,8 @@ const ConfirmationResetPin = () => {
           requestDate: moment().format("YYYY-MM-DD"),
           requestTime: moment().format("hh:mm:ss"),
         };
-        // console.log(jsonPin);
-        // let pPostRegistrationAccount = Object.assign(_getCookie, jsonPin);
-        // console.log("Object.assign(_getCookie, jsonPin) : ", jsonPin);
         DataEndPoint.getPostChangePin(jsonPin)
           .then((res) => {
-            console.log(res);
             if (res.responseCode == "00") {
               setMsg(res.resultMessages); // window.location.href = url;
               setBtnCaption(`Continue`)
@@ -78,7 +72,6 @@ const ConfirmationResetPin = () => {
           })
           .catch((err) => {
             setIsLoading(false);
-            // console.log(err);
             alert(err.message);
           });
       } else {

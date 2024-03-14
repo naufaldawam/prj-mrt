@@ -11,6 +11,7 @@ import {
   handleButtonGoToPageCreatePin,
   setCookie,
   FunctionDecryptAES,
+  popMessage,
   getCookie
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
@@ -29,6 +30,9 @@ const Registration = () => {
   const [showModalChekkingEmail, setShowModalChekkingEmail] = useState(false);
   const [showModalChekkingEmailUnableToProcess, setShowModalChekkingEmailUnableToProcess] = useState(false);
   const [handleButtonConfirmationToDisable, setHandleButtonConfirmationToDisable] = useState(false);
+  const [oldEmail, setOldEmail] = useState("");
+  const [msg, setMsg] = useState("");
+  const [popTitle, setPopTitle] = useState("");
 
   const modalclose = () => {
     setShowModalChekkingEmail(false);
@@ -36,7 +40,6 @@ const Registration = () => {
 
   url = "/create-pin/" + getChannelID();
   urlExpired = "/expire-link/" + getChannelID();
-  // console.log(channel);
   channel = getChannelID();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
@@ -45,7 +48,6 @@ const Registration = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
     const getValue = getValueIdReg.split("||");
     const getDate = Date.parse(getValue[1]);
-    // console.log("Bangke :" + getValueIdReg);
     return getDate;
   };
 
@@ -75,6 +77,11 @@ const Registration = () => {
       requestDate: moment().format("YYYY-MM-DD"),
       requestTime: moment().format("hh:mm:ss"),
     });
+    if (oldEmail === e.target.value) {
+      setHandleButtonConfirmationToDisable(true);
+    } else {
+      setHandleButtonConfirmationToDisable(false);
+    }
   };
 
   const params = useParams();
@@ -88,8 +95,6 @@ const Registration = () => {
   const loadDataInquiry = () => {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
       if (res.resultMessages == "Success") {
-        // console.log("ini file res regis: " + res.result);
-        // console.log("cek :" + res.result.dateOfBirth);
         if (
           res.result.username !== null &&
           res.result.username !== "" &&
@@ -119,31 +124,24 @@ const Registration = () => {
             channelId: getChannelID(),
           };
           DataEndPoint.getCheckEmail(mailParams).then((res) => {
-            if (res.responseCode == "00") {
-              console.log("dia nanti muncul email has been regist")
-              setShowModalChekkingEmail(true)
-              setDisableFormInputEmail(false)
-            } if (res.responseCode == "05") {
-              console.log("unable to process show modal")
-              setShowModalChekkingEmailUnableToProcess(true);
-              setHandleButtonConfirmationToDisable(true)
-            }
-            // console.log("ini pasti response dari 44")
-            // if (res.responseCode == "00") {
-            //   console.log("nanti reload")
-            //   // tinggal lanjutin disini untuk triger enable/desable email
+            setOldEmail(res.data.emailAddress);
+            if (res.responseCode === "00") {
+              setMsg("Email is Already Registered");
+              setPopTitle("Information");
 
-            //   res.result.email ? settfemail(false) : settfemail(false);
-            // } else {
-            //   console.log("muncul poup")
-            //   /// dilajutkan rc 44 dan 05
-            // }
+              setShowModalChekkingEmail(true);
+              setDisableFormInputEmail(false);
+              setHandleButtonConfirmationToDisable(true);
+            }
+            if (res.responseCode === "05") {
+              setMsg("UNABLE TO PROCESS");
+              setPopTitle("Information");
+              setShowModalChekkingEmail(true);
+              setHandleButtonConfirmationToDisable(false);
+            }
           });
 
           setFormData(res.result);
-          // console.log("isian email :" + tfemail);
-          // console.log("isian tanggal lahir :" + tfdateOfBirth);
-          // console.log("isian tempat lahir :" + tfplaceOfBirth);
           setDisableFormInputDateOfBirth(true)
           setDisableFormInputEmail(true)
           setDisableFormInputPlaceOfBirth(true)
@@ -157,25 +155,6 @@ const Registration = () => {
           if (res.result.placeOfBirth == "") {
             setDisableFormInputPlaceOfBirth(false)
           }
-          // if (res.result.email == "" && res.result.dateOfBirth == "" && res.result.placeOfBirth == ""){
-          //   setDisableFormInputDateOfBirth(false)
-          //   setDisableFormInputEmail(false)
-          //   setDisableFormInputPlaceOfBirth(false)
-
-          // }
-          // else{
-          //   setDisableFormInputDateOfBirth(true)
-          //   setDisableFormInputEmail(true)
-          //   setDisableFormInputPlaceOfBirth(true)
-          // }
-
-          // if(res.result.email == "" || res.result.dateOfBirth == "" || res.result.placeOfBirth == ""){
-          //   setDisableFormInput(false);
-          //   console.log(false);
-          // }else if(res.result.email == ""){
-          //   setDisableFormInput(true);
-          //   console.log(true);
-          // }
         }
       }
     });
@@ -195,7 +174,6 @@ const Registration = () => {
       const urlExpired = "/expired-link/" + getChannelID();
       const getDateFromBlockPayment = getTimeExpired();
       const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-      console.log("cuks" + getDateFromBlockPayment)
       if (date > getDateFromBlockPayment) {
         window.location.replace(urlExpired);
       }
@@ -322,9 +300,7 @@ const Registration = () => {
               </div>
               <div className="flex items-center justify-between">
                 <button
-                  // onClick={}
                   disabled={handleButtonConfirmationToDisable}
-                  // className="mt-6 block w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                   type="submit"
                   data-ripple-light="true"
                   className={getButtonStyle()}
@@ -335,86 +311,13 @@ const Registration = () => {
             </form>
           </div>
         </div>
-        {showModalChekkingEmail ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-              <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  {/*header*/}
-                  <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">Syarat & Ketentuan</h3>
-                    <button
-                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={modalclose}
-                    >
-                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        ×
-                      </span>
-                    </button>
-                  </div>
-                  {/*body*/}
-                  <div className="relative p-6 flex-auto">
-                    <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                      Email Sudah Dipakai
-                    </p>
-                  </div>
-                  {/*footer*/}
-                  <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                    <button
-                      className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
-                      type="button"
-                      onClick={modalclose}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
-        ) : null}
-        {showModalChekkingEmailUnableToProcess ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-              <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  {/*header*/}
-                  <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">Syarat & Ketentuan</h3>
-                    <button
-                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={modalclose}
-                    >
-                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        ×
-                      </span>
-                    </button>
-                  </div>
-                  {/*body*/}
-                  <div className="relative p-6 flex-auto">
-                    <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                      UNABLE TO PROCESS
-                    </p>
-                  </div>
-                  {/*footer*/}
-                  <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                    <button
-                      className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
-                      type="button"
-                      onClick={modalclose}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
-        ) : null}
+        {showModalChekkingEmail
+          ? popMessage({
+              txtTitle: popTitle,
+              txtBody: msg,
+              btnClose: modalclose,
+            })
+          : null}
       </Card>
     </>
   );

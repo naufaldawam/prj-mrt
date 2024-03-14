@@ -11,13 +11,13 @@ import {
 import App from "./App.jsx";
 import "./index.css";
 
-const savedLanguage = localStorage.getItem('language') || 'us'; //init nilai default awal ubah bahasa
+const savedLanguage = localStorage.getItem('language') || 'en'; //init nilai default awal ubah bahasa
 
 i18next.init({
   interpolation: { escapeValue: false },
   lng: savedLanguage, //potongan kode ini adalah untuk mengambil nilai default yang disimpan kedalam localstorage browser untuk mengisi value dari yang dipilih pada fungsi button ubaha bahasa pada i_constant file
   resources: {
-    us: {
+    en: {
       translation: global_en
     },
     id: {
