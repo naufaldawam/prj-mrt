@@ -4,15 +4,14 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  FunctionDecryptAES,
   LoadLogo,
   LoaderPageWithLottie,
   getButtonStyle,
   getChannelID,
   handleButtonGoToPageCreatePin,
-  setCookie,
-  FunctionDecryptAES,
   popMessage,
-  getCookie
+  setCookie,
 } from "../../constantFile/I_Constant";
 import DataEndPoint from "../../services/APIServices";
 
@@ -25,17 +24,21 @@ const Registration = () => {
   const [tfemail, settfemail] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [disableFormInputEmail, setDisableFormInputEmail] = useState(true);
-  const [disableFormInputDateOfBirth, setDisableFormInputDateOfBirth] = useState(true);
-  const [disableFormInputPlaceOfBirth, setDisableFormInputPlaceOfBirth] = useState(true);
-  const [showModalChekkingEmail, setShowModalChekkingEmail] = useState(false);
-  const [showModalChekkingEmailUnableToProcess, setShowModalChekkingEmailUnableToProcess] = useState(false);
-  const [handleButtonConfirmationToDisable, setHandleButtonConfirmationToDisable] = useState(false);
+  const [disableFormInputDateOfBirth, setDisableFormInputDateOfBirth] =
+    useState(true);
+  const [disableFormInputPlaceOfBirth, setDisableFormInputPlaceOfBirth] =
+    useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [
+    handleButtonConfirmationToDisable,
+    setHandleButtonConfirmationToDisable,
+  ] = useState(false);
   const [oldEmail, setOldEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [popTitle, setPopTitle] = useState("");
 
   const modalclose = () => {
-    setShowModalChekkingEmail(false);
+    setShowModal(false);
   };
 
   url = "/create-pin/" + getChannelID();
@@ -46,13 +49,14 @@ const Registration = () => {
   const maxDate = () => {
     const today = new Date();
     today.setFullYear(today.getFullYear() - 100);
-    return today.toISOString().split('T')[0];
+    return today.toISOString().split("T")[0];
   };
 
   const getTimeExpired = () => {
-    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
+    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg));
     const getValue = getValueIdReg.split("||");
-    const getDate = Date.parse(getValue[1]);
+    const getDate = getValue[1];
+    console.log(getDate.toString(), getValue[1]);
     return getDate;
   };
 
@@ -98,13 +102,18 @@ const Registration = () => {
   };
 
   const loadDataInquiry = () => {
+    console.log("Time : ", FunctionDecryptAES(base64_decode(idreg)));
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      if (res.resultMessages == "Success") {
+      console.log(res.responseCode);
+      
+      setFormData(res.result);
+      if (res.responseCode == "00") {
         if (
           res.result.username !== null &&
           res.result.username !== "" &&
           res.result.username !== ""
         ) {
+          setIsLoading(false);
         } else {
           setIsLoading(false);
           res.result.phoneNumber
@@ -128,37 +137,35 @@ const Registration = () => {
             requestTime: moment().format("hh:mm:ss"),
             channelId: getChannelID(),
           };
-          DataEndPoint.getCheckEmail(mailParams).then((res) => {
-            setOldEmail(res.data.emailAddress);
-            if (res.responseCode === "00") {
-              setMsg("Email sudah digunakan");
-              setPopTitle("Peringatan!");
+            DataEndPoint.getCheckEmail(mailParams).then((res) => {
+              setOldEmail(res.data.emailAddress);
+              if (res.responseCode == "00") {
+                setMsg("Email sudah digunakan");
+                setPopTitle("Peringatan!");
 
-              setShowModalChekkingEmail(true);
-              setDisableFormInputEmail(false);
-              setHandleButtonConfirmationToDisable(true);
-            }
-            if (res.responseCode === "05") {
-              setMsg("TIDAK DAPAT MELANJUTKAN");
-              setPopTitle("Peringatan!");
-              setShowModalChekkingEmail(true);
-              setHandleButtonConfirmationToDisable(false);
-            }
-          });
-
-          setFormData(res.result);
-          setDisableFormInputDateOfBirth(true)
-          setDisableFormInputEmail(true)
-          setDisableFormInputPlaceOfBirth(true)
+                setShowModal(true);
+                setDisableFormInputEmail(false);
+                setHandleButtonConfirmationToDisable(true);
+              }
+              if (res.responseCode == "05") {
+                setMsg("TIDAK DAPAT MELANJUTKAN");
+                setPopTitle("Peringatan!");
+                setShowModal(true);
+                setHandleButtonConfirmationToDisable(false);
+              }
+            });
+          setDisableFormInputDateOfBirth(true);
+          setDisableFormInputEmail(true);
+          setDisableFormInputPlaceOfBirth(true);
 
           if (res.result.email == "") {
             setDisableFormInputEmail(false);
           }
           if (res.result.dateOfBirth == "") {
-            setDisableFormInputDateOfBirth(false)
+            setDisableFormInputDateOfBirth(false);
           }
           if (res.result.placeOfBirth == "") {
-            setDisableFormInputPlaceOfBirth(false)
+            setDisableFormInputPlaceOfBirth(false);
           }
         }
       }
@@ -174,11 +181,12 @@ const Registration = () => {
   useEffect(() => {
     const fetchData = async () => {
       loadDataInquiry();
-      getTimeExpired();
+      console.log("getTimeExpired : ", getTimeExpired());
 
       const urlExpired = "/expired-link/" + getChannelID();
       const getDateFromBlockPayment = getTimeExpired();
-      const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+      const date = moment().format("DD-MM-YYYY HH:mm:SS");
+      console.log("getTimeExpired : ", date);
       if (date > getDateFromBlockPayment) {
         window.location.replace(urlExpired);
       }
@@ -322,12 +330,12 @@ const Registration = () => {
             </form>
           </div>
         </div>
-        {showModalChekkingEmail
+        {showModal
           ? popMessage({
-            txtTitle: popTitle,
-            txtBody: msg,
-            btnClose: modalclose,
-          })
+              txtTitle: popTitle,
+              txtBody: msg,
+              btnClose: modalclose,
+            })
           : null}
       </Card>
     </>

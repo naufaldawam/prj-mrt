@@ -39,7 +39,6 @@ export const PinInputWithStyle = ({ secretDelay, value, onChange }) => {
   );
 };
 
-
 export const OtpInputWithStyle = ({ secretDelay, value, onChange }) => {
   const PinInput = PinInputTemplate;
   const location = useLocation();
@@ -60,7 +59,6 @@ export const OtpInputWithStyle = ({ secretDelay, value, onChange }) => {
       regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       // secretDelay={secretDelay}
       outline="none"
-      
     />
   );
 };
@@ -70,7 +68,13 @@ export const FontAwesomeIconCheckeCircle = (
   <FontAwesomeIcon icon={faCheckCircle} />
 );
 
-export const PhoneInputWithStyle = ({ value, onChange, inputProps, country, disableDropdown }) => {
+export const PhoneInputWithStyle = ({
+  value,
+  onChange,
+  inputProps,
+  country,
+  disableDropdown,
+}) => {
   const PhoneInputTemplate = PhoneInput;
   return (
     <PhoneInputTemplate
@@ -85,16 +89,12 @@ export const PhoneInputWithStyle = ({ value, onChange, inputProps, country, disa
       }}
       value={value}
       onChange={onChange}
-      inputProps={
-        {
-          readOnly: inputProps
-        }
-      }
-      disableCountryCode={
-        {
-          readOnly: country
-        }
-      }
+      inputProps={{
+        readOnly: inputProps,
+      }}
+      disableCountryCode={{
+        readOnly: country,
+      }}
       disableDropdown={true}
     />
   );
@@ -190,8 +190,8 @@ import themeStyling from "/Configuration-css.json";
 export const getButtonStyle = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  if (themeStyling[lastSegment[2]]!==undefined){
-    return themeStyling[lastSegment[2]].buttonStyle; 
+  if (themeStyling[lastSegment[2]] !== undefined) {
+    return themeStyling[lastSegment[2]].buttonStyle;
   }
 
   return themeStyling.bdki.buttonStyle;
@@ -204,8 +204,8 @@ export const getButtonStyleConfirmation = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
 
-  if (themeStyling[lastSegment[2]]!==undefined){
-    return themeStyling[lastSegment[2]].buttonStyleConfirmation; 
+  if (themeStyling[lastSegment[2]] !== undefined) {
+    return themeStyling[lastSegment[2]].buttonStyleConfirmation;
   }
 
   return themeStyling.bdki.buttonStyleConfirmation;
@@ -219,8 +219,8 @@ export const getStyledPinInput = () => {
   // this code for customize your button || example : classname={getStyledPinInput()}
   const pathName = location.pathname;
   const lastSegment = pathName.split("/"); // .pop();
-  if (themeStyling[lastSegment[2]]!==undefined){
-    return themeStyling[lastSegment[2]].pinInputStyle; 
+  if (themeStyling[lastSegment[2]] !== undefined) {
+    return themeStyling[lastSegment[2]].pinInputStyle;
   }
 
   return themeStyling.bdki.pinInputStyle;
@@ -379,8 +379,8 @@ export const setButtonYellow = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
 
-  if (themeStyling[lastSegment[2]]!==undefined){
-    return themeStyling[lastSegment[2]].btnYellow; 
+  if (themeStyling[lastSegment[2]] !== undefined) {
+    return themeStyling[lastSegment[2]].btnYellow;
   }
 
   return themeStyling.bdki.btnYellow;
@@ -700,7 +700,7 @@ export const LoaderPageWithLottie = () => {
 export const LoadLogo = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  
+
   return lastSegment[2] === "bdki" ? (
     <img className="" width={200} src={logobdki} alt="My Image" />
   ) : (
@@ -721,8 +721,8 @@ export const LoadIconShield = () => {
 export const LoadBgColor = () => {
   const pathName = location.pathname;
   const lastSegment = pathName.split("/");
-  if (themeStyling[lastSegment[2]]!==undefined){
-    return themeStyling[lastSegment[2]].styleloadBgColor; 
+  if (themeStyling[lastSegment[2]] !== undefined) {
+    return themeStyling[lastSegment[2]].styleloadBgColor;
   }
 
   return themeStyling.bdki.styleloadBgColor;
@@ -850,38 +850,28 @@ export const Timer = ({ delayResend = "10" }) => {
   );
 };
 
-
 export const popMessage = ({ txtTitle, txtBody, btnClose }) => {
+  const pathName = location.pathname;
+  const lastSegment = pathName.split("/");
+  
   return (
     <div>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-        <div className="relative w-auto my-6 mx-auto max-w-3xl">
-          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-              <h3 className="text-3xl font-semibold">{txtTitle}</h3>
-              <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={btnClose}
-              >
-                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  ×
-                </span>
-              </button>
-            </div>
-            <div className="relative p-6 flex-auto">
-              <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                {txtBody}
-              </p>
-            </div>
-            <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-              <button
-                className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
-                type="button"
-                onClick={btnClose}
-              >
-                Close
-              </button>
-            </div>
+        <div className="relative w-full max-w-2xl max-h-full p-8 text-center bg-white border border-blue rounded-lg shadow sm:p-2 dark:bg-blue-800 dark:border-blue-100">
+          <h5 className="mb-2 text-3xl font-bold text-black dark:text-black">
+            {txtTitle}
+          </h5>
+          <p className="mb-5 text-base text-yellow sm:text-lg dark:text-yellow">
+            {txtBody}.
+          </p>
+          <div className="items-center justify-center space-y-8 sm:flex sm:space-y-0 sm:space-x-4 rtl:space-x-reverse">
+            <button
+              className={themeStyling[lastSegment[2]].buttonModalStyle} // "bg-blue-800 hover:bg-gray-700 text-white font-bold py-2 px-8 rounded-lg"
+              type="button"
+              onClick={btnClose}
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
