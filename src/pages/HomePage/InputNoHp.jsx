@@ -170,7 +170,6 @@ const InputNoHp = () => {
               Experience a new way of transaction with {getChannelID()}
             </p>
 
-            <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row">
               <div className="flex-1 mb-4 sm:mb-4 md:mb-4 lg:mr-2 xl:mr-2">
                 <label htmlFor="phone">
                   <b>Phone Number</b>
@@ -211,6 +210,7 @@ const InputNoHp = () => {
                   </div>
                 </div>
               </div>
+            <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row">
 
               {showOTPInput && (
                 <div className="flex flex-wrap items-center">

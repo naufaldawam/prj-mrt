@@ -34,7 +34,7 @@ const SuccessPayment = () => {
               />
             </div>
             <p className="text-center">
-              <b>Registration Successful !</b>
+              <b>Payment Successful !</b>
             </p>
           </div>
         </div>

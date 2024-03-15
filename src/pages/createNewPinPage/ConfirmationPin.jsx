@@ -33,6 +33,13 @@ const ConfirmationPin = () => {
     return getDate;
   };
 
+  const getTimeExpired = () => {
+    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
+    const getValue = getValueIdReg.split("||");
+    const getDate = Date.parse(getValue[1]);
+    return getDate;
+  };
+
   const _getCookie = JSON.parse(getCookie());
   url = "/success-pin/" + getChannelID() + "/" + params.idreg;
   urlBackToRegist = "/register/" + getChannelID() + "/" + params.idreg;

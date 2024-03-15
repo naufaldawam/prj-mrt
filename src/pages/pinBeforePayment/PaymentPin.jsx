@@ -88,7 +88,7 @@ function loadfirst90() {
   };
 
   const modalclose = () => {
-    window.location.reload();
+    setShowModal(false);
   };
 
   return (

@@ -43,6 +43,11 @@ const Registration = () => {
   channel = getChannelID();
   stannum = Math.floor(Math.random() * 999999) + 100000;
 
+  const maxDate = () => {
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 100);
+    return today.toISOString().split('T')[0];
+  };
 
   const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
@@ -126,16 +131,16 @@ const Registration = () => {
           DataEndPoint.getCheckEmail(mailParams).then((res) => {
             setOldEmail(res.data.emailAddress);
             if (res.responseCode === "00") {
-              setMsg("Email is Already Registered");
-              setPopTitle("Information");
+              setMsg("Email sudah digunakan");
+              setPopTitle("Peringatan!");
 
               setShowModalChekkingEmail(true);
               setDisableFormInputEmail(false);
               setHandleButtonConfirmationToDisable(true);
             }
             if (res.responseCode === "05") {
-              setMsg("UNABLE TO PROCESS");
-              setPopTitle("Information");
+              setMsg("TIDAK DAPAT MELANJUTKAN");
+              setPopTitle("Peringatan!");
               setShowModalChekkingEmail(true);
               setHandleButtonConfirmationToDisable(false);
             }
@@ -216,6 +221,7 @@ const Registration = () => {
                   required
                   readOnly={tfphoneNumber}
                   disabled={true}
+                  pattern="[0-9]*"
                 />
               </div>
               <div className="mb-4">
@@ -236,6 +242,7 @@ const Registration = () => {
                   required
                   readOnly={tffullName}
                   disabled={true}
+                  pattern="[A-Za-z\s&\d]+"
                 />
               </div>
               <div className="mb-4">
@@ -256,6 +263,7 @@ const Registration = () => {
                   required
                   readOnly={tfdateOfBirth}
                   disabled={disableFormInputDateOfBirth}
+                  max={maxDate()}
                 />
               </div>
               <div className="mb-4">
@@ -276,6 +284,8 @@ const Registration = () => {
                   required
                   readOnly={tfplaceOfBirth}
                   disabled={disableFormInputPlaceOfBirth}
+                  pattern="[A-Za-z\s&\d]+"
+                  title="Periksa kembali inputan anda"
                 />
               </div>
               <div className="mb-4">
@@ -296,6 +306,7 @@ const Registration = () => {
                   required
                   readOnly={tfemail}
                   disabled={disableFormInputEmail}
+                  pattern="[^😀-🙏]*"
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -313,10 +324,10 @@ const Registration = () => {
         </div>
         {showModalChekkingEmail
           ? popMessage({
-              txtTitle: popTitle,
-              txtBody: msg,
-              btnClose: modalclose,
-            })
+            txtTitle: popTitle,
+            txtBody: msg,
+            btnClose: modalclose,
+          })
           : null}
       </Card>
     </>
