@@ -190,12 +190,7 @@ const Registration = () => {
   }, []);
 
   return (
-    <> <input
-    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-    id="dateOfBirth"
-    type="date"
- 
-  />
+    <> 
       <Card color="transparent" shadow={false}>
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
           {isLoading ? <LoaderPageWithLottie /> : Registration}
