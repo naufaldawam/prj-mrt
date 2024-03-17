@@ -36,7 +36,8 @@ function PinInputPage() {
   const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(params.id))
     const getValue = getValueIdReg.split("||");
-    const getDate = Date.parse(getValue[1]);
+    var momentDate = moment(getValue[1], 'DD-MM-YYYY HH:mm:ss');
+    const getDate = momentDate.toDate();
     return getDate;
   };
 
@@ -99,17 +100,17 @@ function PinInputPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-        getTimeExpired();
-        const urlExpired = "/expired-link/" + getChannelID();
-        const getDateFromBlockPayment = getTimeExpired();
-        const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
-        if (date > getDateFromBlockPayment) {
-            window.location.replace(urlExpired);
-        }
+      getTimeExpired();
+      const urlExpired = "/expired-link/" + getChannelID();
+      const getDateFromBlockPayment = getTimeExpired();
+      const date = moment().toDate();
+      if (date > getDateFromBlockPayment) {
+        window.location.replace(urlExpired);
+      }
     };
 
     fetchData();
-}, []);
+  }, []);
 
   return (
     <>

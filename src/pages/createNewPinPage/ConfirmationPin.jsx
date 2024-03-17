@@ -36,7 +36,8 @@ const ConfirmationPin = () => {
   const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
     const getValue = getValueIdReg.split("||");
-    const getDate = Date.parse(getValue[1]);
+    var momentDate = moment(getValue[1], 'DD-MM-YYYY HH:mm:ss');
+    const getDate = momentDate.toDate();
     return getDate;
   };
 
@@ -97,7 +98,7 @@ const ConfirmationPin = () => {
         getTimeExpired();
         const urlExpired = "/expired-link/" + getChannelID();
         const getDateFromBlockPayment = getTimeExpired();
-        const date = Date.parse(moment().format("DD-MM-YYYY HH:mm:SS"));
+        const date = moment().toDate();
         if (date > getDateFromBlockPayment) {
             window.location.replace(urlExpired);
         }

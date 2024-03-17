@@ -13,7 +13,7 @@ const ExpiredPage = () => {
           </a>
         </div>
         <hr className="w-64 h-1 bg-gray-200 border-0 rounded dark:bg-gray-700" />
-        <div className="max-w-md mx-auto my-2 bg-white rounded-md overflow-hidden shadow-sm">
+        <div className="max-w-md mx-auto my-2 bg-white rounded-md overflow-hidden">
           <div className="p-4 items-center justify-center">
             <div className="flex items-center justify-center my-4"></div>
             <strong>

@@ -48,15 +48,15 @@ const Registration = () => {
 
   const maxDate = () => {
     const today = new Date();
-    today.setFullYear(today.getFullYear() - 100);
+    today.setFullYear(today.getFullYear() + 10);
     return today.toISOString().split("T")[0];
   };
 
   const getTimeExpired = () => {
-    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg));
+    const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
     const getValue = getValueIdReg.split("||");
-    const getDate = getValue[1];
-    console.log(getDate.toString(), getValue[1]);
+    var momentDate = moment(getValue[1], 'DD-MM-YYYY HH:mm:ss');
+    const getDate = momentDate.toDate();
     return getDate;
   };
 
@@ -102,10 +102,7 @@ const Registration = () => {
   };
 
   const loadDataInquiry = () => {
-    console.log("Time : ", FunctionDecryptAES(base64_decode(idreg)));
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      console.log(res.responseCode);
-      
       setFormData(res.result);
       if (res.responseCode == "00") {
         if (
@@ -137,23 +134,23 @@ const Registration = () => {
             requestTime: moment().format("hh:mm:ss"),
             channelId: getChannelID(),
           };
-            DataEndPoint.getCheckEmail(mailParams).then((res) => {
-              setOldEmail(res.data.emailAddress);
-              if (res.responseCode == "00") {
-                setMsg("Email sudah digunakan");
-                setPopTitle("Peringatan!");
+          DataEndPoint.getCheckEmail(mailParams).then((res) => {
+            setOldEmail(res.data.emailAddress);
+            if (res.responseCode == "00") {
+              setMsg("Email sudah digunakan");
+              setPopTitle("Peringatan!");
 
-                setShowModal(true);
-                setDisableFormInputEmail(false);
-                setHandleButtonConfirmationToDisable(true);
-              }
-              if (res.responseCode == "05") {
-                setMsg("TIDAK DAPAT MELANJUTKAN");
-                setPopTitle("Peringatan!");
-                setShowModal(true);
-                setHandleButtonConfirmationToDisable(false);
-              }
-            });
+              setShowModal(true);
+              setDisableFormInputEmail(false);
+              setHandleButtonConfirmationToDisable(true);
+            }
+            if (res.responseCode == "05") {
+              setMsg("TIDAK DAPAT MELANJUTKAN");
+              setPopTitle("Peringatan!");
+              setShowModal(true);
+              setHandleButtonConfirmationToDisable(false);
+            }
+          });
           setDisableFormInputDateOfBirth(true);
           setDisableFormInputEmail(true);
           setDisableFormInputPlaceOfBirth(true);
@@ -181,12 +178,9 @@ const Registration = () => {
   useEffect(() => {
     const fetchData = async () => {
       loadDataInquiry();
-      console.log("getTimeExpired : ", getTimeExpired());
-
       const urlExpired = "/expired-link/" + getChannelID();
       const getDateFromBlockPayment = getTimeExpired();
-      const date = moment().format("DD-MM-YYYY HH:mm:SS");
-      console.log("getTimeExpired : ", date);
+      const date = moment().toDate();
       if (date > getDateFromBlockPayment) {
         window.location.replace(urlExpired);
       }
@@ -196,7 +190,12 @@ const Registration = () => {
   }, []);
 
   return (
-    <>
+    <> <input
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    id="dateOfBirth"
+    type="date"
+ 
+  />
       <Card color="transparent" shadow={false}>
         <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
           {isLoading ? <LoaderPageWithLottie /> : Registration}
@@ -274,6 +273,14 @@ const Registration = () => {
                   max={maxDate()}
                 />
               </div>
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                  </svg>
+                </div>
+                <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
+              </div>
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -332,10 +339,10 @@ const Registration = () => {
         </div>
         {showModal
           ? popMessage({
-              txtTitle: popTitle,
-              txtBody: msg,
-              btnClose: modalclose,
-            })
+            txtTitle: popTitle,
+            txtBody: msg,
+            btnClose: modalclose,
+          })
           : null}
       </Card>
     </>
