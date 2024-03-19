@@ -50,7 +50,8 @@ function PinInputPage() {
 
   if (pin === '') {
     DataEndPoint.getinquiryDataByIdRequest(pParams).then((res) => {
-      if (res.resultMessages == "Success") {
+      let tempRestMessage = res.resultMessages;
+      if (tempRestMessage.toLowerCase() == "success") {
         setCookie(res.result);
         params.dataResponse = res;
         setPhones(res.result.phoneNumber);

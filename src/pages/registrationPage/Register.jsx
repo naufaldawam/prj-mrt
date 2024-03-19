@@ -1,7 +1,7 @@
 import { Card } from "@material-tailwind/react";
 import { decode as base64_decode } from "base-64";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import {
   FunctionDecryptAES,
@@ -48,9 +48,16 @@ const Registration = () => {
 
   const maxDate = () => {
     const today = new Date();
-    today.setFullYear(today.getFullYear() + 10);
-    return today.toISOString().split("T")[0];
+    const maxYear = today.getFullYear();
+    const minYear = maxYear - 100;
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const maxDates = `${maxYear}-${month}-${day}`;
+    const minDate = `${minYear}-${month}-${day}`;
+    return { maxDates, minDate };
   };
+
+  const { maxDates, minDate } = maxDate();
 
   const getTimeExpired = () => {
     const getValueIdReg = FunctionDecryptAES(base64_decode(idreg))
@@ -111,59 +118,57 @@ const Registration = () => {
           res.result.username !== ""
         ) {
           setIsLoading(false);
-        } else {
-          setIsLoading(false);
-          res.result.phoneNumber
-            ? settfphoneNumber(true)
-            : settfphoneNumber(false);
-          res.result.fullName ? settffullName(true) : settffullName(false);
-          res.result.dateOfBirth
-            ? settfdateOfBirth(true)
-            : settfdateOfBirth(false);
-          res.result.placeOfBirth
-            ? settfplaceOfBirth(true)
-            : settfplaceOfBirth(false);
-          res.result.email ? settfemail(false) : settfemail(false);
+        }
+        setIsLoading(false);
+        res.result.phoneNumber
+          ? settfphoneNumber(true)
+          : settfphoneNumber(false);
+        res.result.fullName ? settffullName(true) : settffullName(false);
+        res.result.dateOfBirth
+          ? settfdateOfBirth(true)
+          : settfdateOfBirth(false);
+        res.result.placeOfBirth
+          ? settfplaceOfBirth(true)
+          : settfplaceOfBirth(false);
+        res.result.email ? settfemail(false) : settfemail(false);
 
-          const mailParams = {
-            checkBalance: false,
-            checkUser: false,
-            emailAddress: res.result.email,
-            phoneNumber: res.result.phoneNumber,
-            requestDate: moment().format("YYYY-MM-DD"),
-            requestTime: moment().format("hh:mm:ss"),
-            channelId: getChannelID(),
-          };
-          DataEndPoint.getCheckEmail(mailParams).then((res) => {
-            setOldEmail(res.data.emailAddress);
-            if (res.responseCode == "00") {
-              setMsg("Email sudah digunakan");
-              setPopTitle("Peringatan!");
+        const mailParams = {
+          checkBalance: false,
+          checkUser: false,
+          emailAddress: res.result.email,
+          phoneNumber: res.result.phoneNumber,
+          requestDate: moment().format("YYYY-MM-DD"),
+          requestTime: moment().format("hh:mm:ss"),
+          channelId: getChannelID(),
+        };
+        DataEndPoint.getCheckEmail(mailParams).then((res) => {
+          setOldEmail(res.data.emailAddress);
+          if (res.responseCode == "00") {
+            setMsg("Email sudah digunakan");
+            setPopTitle("Peringatan!");
 
-              setShowModal(true);
-              setDisableFormInputEmail(false);
-              setHandleButtonConfirmationToDisable(true);
-            }
-            if (res.responseCode == "05") {
-              setMsg("TIDAK DAPAT MELANJUTKAN");
-              setPopTitle("Peringatan!");
-              setShowModal(true);
-              setHandleButtonConfirmationToDisable(false);
-            }
-          });
-          setDisableFormInputDateOfBirth(true);
-          setDisableFormInputEmail(true);
-          setDisableFormInputPlaceOfBirth(true);
-
-          if (res.result.email == "") {
+            setShowModal(true);
             setDisableFormInputEmail(false);
+            setHandleButtonConfirmationToDisable(true);
           }
-          if (res.result.dateOfBirth == "") {
-            setDisableFormInputDateOfBirth(false);
+          if (res.responseCode == "05") {
+            setMsg("TIDAK DAPAT MELANJUTKAN");
+            setPopTitle("Peringatan!");
+            setShowModal(true);
+            setHandleButtonConfirmationToDisable(false);
           }
-          if (res.result.placeOfBirth == "") {
-            setDisableFormInputPlaceOfBirth(false);
-          }
+        });
+        setDisableFormInputDateOfBirth(true);
+        setDisableFormInputEmail(true);
+        setDisableFormInputPlaceOfBirth(true);
+        if (res.result.email == "") {
+          setDisableFormInputEmail(false);
+        }
+        if (res.result.dateOfBirth == "") {
+          setDisableFormInputDateOfBirth(false);
+        }
+        if (res.result.placeOfBirth == "") {
+          setDisableFormInputPlaceOfBirth(false);
         }
       }
     });
@@ -190,9 +195,9 @@ const Registration = () => {
   }, []);
 
   return (
-    <> 
+    <>
       <Card color="transparent" shadow={false}>
-        <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+        <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 ">
           {isLoading ? <LoaderPageWithLottie /> : Registration}
           <div>
             <a href="/">
@@ -252,20 +257,31 @@ const Registration = () => {
                   className="block text-gray-700 text-sm font-bold mb-2"
                   htmlFor="dateOfBirth"
                 >
-                  Birth of date
+                  Birth Of Date
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="dateOfBirth"
-                  type="date"
-                  placeholder="Enter birth date"
+                  type="text"
+                  onFocus={(e) => {
+                    e.currentTarget.type = "date";
+                    e.currentTarget.click();
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.type = "text";
+                  }}
+                  placeholder="DD/MM/YYYY"
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                   required
                   readOnly={tfdateOfBirth}
                   disabled={disableFormInputDateOfBirth}
-                  max={maxDate()}
+                  max={maxDates}
+                  min={minDate}
+                  onTouchStart={(e) => {
+                    e.currentTarget.type = "date";
+                  }}
                 />
               </div>
               <div className="mb-4">

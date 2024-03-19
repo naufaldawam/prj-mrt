@@ -101,7 +101,7 @@ const InputNoHp = () => {
     // contoh menggunakan API services
     DataEndPoint.getRequestOtp(RequestOtpParam)
       .then((res) => {
-        if (res.data.resultMessages == "Success") {
+        if (res.data.responseCode == "00") {
           setIsActive(true);
           setShowOTPInput(true);
         } else if (res.data.resultMessages == "Failed") {
