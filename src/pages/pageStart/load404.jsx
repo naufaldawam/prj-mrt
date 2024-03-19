@@ -5,7 +5,7 @@ const load404 = () => {
   
   return (
     <div>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 ">
         <div>
           <a href="/">
             <h3 className="text-8xl font-bold text-red-600">404</h3>
