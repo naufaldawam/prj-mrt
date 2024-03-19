@@ -185,7 +185,7 @@ export const DescriptionSuccess = "Top Up JakOne Berhasil !"; //profile imagae
 
 //============== init conditional url for change style =================//
 //========================================================================================================= start //
-import themeStyling from "/Configuration-css.json";
+import themeStyling from "../../public/Configuration-css.json";
 
 export const getButtonStyle = () => {
   const pathName = location.pathname;
